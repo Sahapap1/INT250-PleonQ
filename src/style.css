@@ -1,1 +1,12 @@
-@import "tailwindcss"
+@import "tailwindcss";
+@import "tailwindcss/utilities";
+
+@layer utilities {
+  .bg-orange-gradient {
+    background-image: linear-gradient(90deg, #FAA533, #EF7722);
+  }
+}
+
+@theme {
+    --color-primary: #1F2937;
+}
