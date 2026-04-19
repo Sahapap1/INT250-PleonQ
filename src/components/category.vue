@@ -1,12 +1,20 @@
 <template>
-  <div class="relative w-full z-20 flex items-center justify-center py-6">
-    <!-- Pop-up Container -->
-    <div class="relative w-full max-w-[650px] bg-[#FFFFFF] rounded-[28px] shadow-[0_20px_60px_-15px_rgba(239,119,34,0.15)] overflow-hidden flex flex-col border border-[#EBEBEB] transform transition-all">
-      
-      <!-- Header -->
-      <div class="bg-gradient-to-br from-[#FFF8F1] to-white px-8 py-[22px] border-b border-[#EBEBEB] relative overflow-hidden">
-        <h2 class="relative text-2xl font-bold text-[#1F2937] tracking-tight drop-shadow-sm">Job Suggestion</h2>
-      </div>
+  <Teleport to="body">
+    <Transition name="modal-fade">
+      <div v-if="isOpen" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+        <!-- Backdrop click to close -->
+        <div class="absolute inset-0" @click="$emit('close')"></div>
+
+        <!-- Pop-up Container -->
+        <div class="modal-box relative w-full max-w-[650px] bg-[#FFFFFF] rounded-[28px] shadow-[0_20px_60px_-15px_rgba(239,119,34,0.15)] overflow-hidden flex flex-col border border-[#EBEBEB] z-10">
+          
+          <!-- Header -->
+          <div class="bg-gradient-to-br from-[#FFF8F1] to-white px-8 py-[22px] border-b border-[#EBEBEB] relative overflow-hidden flex justify-between items-center">
+          <h2 class="relative text-2xl font-bold text-[#1F2937] tracking-tight drop-shadow-sm">Job Suggestion</h2>
+          <button @click="$emit('close')" class="text-gray-400 hover:text-gray-700 transition relative z-10">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
 
       <!-- Body -->
       <div class="px-8 pt-7 pb-8 flex flex-col relative bg-[#FFFFFF]">
@@ -68,15 +76,25 @@
             <span class="relative">{{ categoryStore.isLoading ? 'SAVING...' : 'SAVE' }}</span>
           </button>
         </div>
+        </div>
       </div>
-
     </div>
-  </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup>
 import { onMounted } from 'vue';
 import { useCategoryStore } from '../stores/categoryStore';
+
+defineProps({
+  isOpen: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const emit = defineEmits(['close']);
 
 const categoryStore = useCategoryStore();
 
@@ -92,7 +110,7 @@ const saveCategories = async () => {
   if (categoryStore.selectedCategories.length === 0) return;
   await categoryStore.saveCategories();
   // Usually this would close the modal or notify success.
-  alert('Categories Saved!');
+  emit('close');
 };
 </script>
 
@@ -112,5 +130,31 @@ const saveCategories = async () => {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+/* Modal Fade & Bounce Animation */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+.modal-fade-enter-active .modal-box {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-fade-leave-active .modal-box {
+  transition: all 0.3s ease-in;
+}
+
+.modal-fade-enter-from .modal-box {
+  transform: scale(0.9) translateY(20px);
+  opacity: 0;
+}
+.modal-fade-leave-to .modal-box {
+  transform: scale(0.95);
+  opacity: 0;
 }
 </style>

@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MainLayout from '@/layouts/MainLayout.vue'
 import Home from '@/views/Home.vue'
 import About from '@/views/TaskManagement.vue'
+import ProfileView from '@/views/ProfileView.vue'
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
         path: 'taskManagement',
         name: 'TaskManagement',
         component: About
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: ProfileView
       }
     ]
   }
