@@ -5,6 +5,7 @@ import MainLayout from '@/layouts/MainLayout.vue'
 import Home from '@/views/Home.vue'
 import TaskManagement from '@/views/TaskManagement.vue'
 import Profile from '@/views/Profile.vue'
+import JobDetail from '@/views/JobDetail.vue'
 
 
 const routes = [
@@ -27,6 +28,11 @@ const routes = [
         name: 'Profile',
         component: Profile
       },
+      {
+        path: 'job/:id',
+        name: 'JobDetail',
+        component: JobDetail
+      }
 
     ]
   }
