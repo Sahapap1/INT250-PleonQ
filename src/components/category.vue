@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full z-20 flex items-center justify-center py-6">
+  <div class="relative w-full z-20 flex items-center justify-center py-6 ">
     <!-- Pop-up Container -->
     <div class="relative w-full max-w-[650px] bg-[#FFFFFF] rounded-[28px] shadow-[0_20px_60px_-15px_rgba(239,119,34,0.15)] overflow-hidden flex flex-col border border-[#EBEBEB] transform transition-all">
       
@@ -94,6 +94,8 @@ const saveCategories = async () => {
   // Usually this would close the modal or notify success.
   alert('Categories Saved!');
 };
+
+const emit = defineEmits(['close'])
 </script>
 
 <style scoped>

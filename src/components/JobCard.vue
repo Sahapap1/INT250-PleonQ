@@ -21,7 +21,7 @@ const toggleLike = (e) => {
 
 <template>
     <div @click="goToDetail"
-        class="h-37 w-full bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#EBEBEB] p-2 pr-4 flex gap-4 relative group hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-gray-200 transition-all duration-300 cursor-pointer">
+        class="h-37 w-100 md:w-full bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#EBEBEB] p-2 pr-4 flex gap-4 relative group hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-gray-200 transition-all duration-300 cursor-pointer">
 
         <!-- Heart -->
         <button @click="toggleLike"
@@ -35,14 +35,15 @@ const toggleLike = (e) => {
 
         <!-- Image -->
         <div
-            class="w-44 h-full rounded-2xl  from-[#FFD1A9] to-[#FFECD2] shrink-0 overflow-hidden flex items-center justify-center">
+            class=" md:w-44 h-full rounded-2xl  from-[#FFD1A9] to-[#FFECD2] shrink-0 overflow-hidden flex items-center justify-center">
             <img src="@/assets/img/card_img.jpg" class="w-full h-full object-cover" />
         </div>
 
         <!-- Content -->
         <div class="flex flex-col py-1.5 px-2 grow">
 
-            <h2 class="text-[17px] font-bold text-primary tracking-tight mb-1">
+            <h2
+                class="text-[17px] font-bold text-primary tracking-tight whitespace-nowrap inline-block hover:animate-marquee">
                 {{ data.title }}
             </h2>
 
@@ -63,7 +64,7 @@ const toggleLike = (e) => {
                 </span>
 
                 <!--  positions -->
-                <span class="text-[10px] text-gray-500 ml-auto mr-25 lg:mr-8">
+                <span class="text-[10px] text-gray-500 ml-auto mr-12 md:mr-60 lg:mr-8">
                     {{ data.positions }} คน
                 </span>
 
