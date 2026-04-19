@@ -12,7 +12,7 @@ const activeTab = ref('home')
 
             <button @click="activeTab = 'home'"
                 class="flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full" :class="activeTab === 'home'
-                    ? 'bg-orange-500 text-white shadow-md'
+                    ? 'bg-orange-gradient text-white shadow-md'
                     : 'text-gray-700 hover:bg-white/30'">
                 <i class="fa-regular fa-house"></i>
                 <span class="text-sm font-medium">Home</span>
@@ -20,7 +20,7 @@ const activeTab = ref('home')
 
             <button @click="activeTab = 'task'"
                 class="flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full" :class="activeTab === 'task'
-                    ? 'bg-orange-500 text-white shadow-md'
+                    ? 'bg-orange-gradient text-white shadow-md'
                     : 'text-gray-700 hover:bg-white/30'">
                 <i class="fa-solid fa-list"></i>
                 <span class="text-sm font-medium">Task Management</span>

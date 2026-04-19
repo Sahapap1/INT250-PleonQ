@@ -19,11 +19,7 @@ import Sidebar from '@/components/Sidebar.vue'
       <Sidebar/>
       <main class="flex flex-col gap-16 px-4 pt-12 pb-24">
         
-        <!-- <TaskManageStu /> -->
-        <!-- <Category /> -->
-
-        <!-- router-view สำหรับแสดงหน้าต่างๆ (เช่น Home) -->
-        <!-- <router-view /> -->
+        <router-view />
       </main>
     </div>
   </div>

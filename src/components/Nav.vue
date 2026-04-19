@@ -12,7 +12,7 @@ const showSidebar = ref(true)
 
 const handleClick = () => {
   if (!isProfile.value) {
-    // 👉 กำลังจะไป profile
+    
     previousRoute.value = route.fullPath
 
     isProfile.value = true
@@ -20,11 +20,16 @@ const handleClick = () => {
 
     router.push('/profile')
   } else {
-    // 👉 กลับหน้าก่อนหน้า
+   
     isProfile.value = false
     showSidebar.value = true
 
-    router.push(previousRoute.value || '/')
+    
+    if (!previousRoute.value || previousRoute.value === '/profile') {
+      router.push('/')
+    } else {
+      router.push(previousRoute.value)
+    }
   }
 }
 </script>
