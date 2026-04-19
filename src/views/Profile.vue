@@ -1,6 +1,5 @@
 <template>
   <div class="relative w-full max-w-[850px] mx-auto z-10 transition-all">
-    
     <!-- Orbs behind UI -->
     <div class="absolute -top-[5%] -left-[10%] w-80 h-80 bg-[#EF7722] rounded-full mix-blend-multiply filter blur-[100px] opacity-15 animate-pulse pointer-events-none z-0"></div>
     <div class="absolute -bottom-[5%] -right-[10%] w-80 h-80 bg-[#FAA533] rounded-full mix-blend-multiply filter blur-[100px] opacity-15 animate-[pulse_4s_ease-in-out_infinite] pointer-events-none z-0"></div>

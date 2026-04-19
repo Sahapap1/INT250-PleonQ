@@ -1,25 +1,32 @@
 <script setup>
-    import Nav from '@/components/Nav.vue'
-    import mobileBg from '@/assets/img/mobile/bg.png'
-    import Profile from '@/components/Profile.vue'
-    import TaskManageStu from '@/components/taskmanagestu.vue'
-    import Category from '@/components/category.vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+
+import Nav from '@/components/Nav.vue'
+import mobileBg from '@/assets/img/mobile/bg.png'
+import desktopBg from '@/assets/img/desktop/bg.png'
+import Sidebar from '@/components/Sidebar.vue'
+
+
 </script>
 
 <template>
-  <div :style="{ backgroundImage: `url(${mobileBg})` }"
-  class="min-h-screen bg-cover bg-bottom flex flex-col">
+  <div class="min-h-screen flex flex-col bg-cover bg-bottom md:bg-center
+        items-center
+         bg-[url('@/assets/img/mobile/bg.png')]
+         md:bg-[url('@/assets/img/desktop/bg.png')]">
     <Nav />
+    <div class="flex flex-1 w-full justify-center max-w-7xl relative"> 
+      <Sidebar/>
+      <main class="flex flex-col gap-16 px-4 pt-12 pb-24">
+        
+        <!-- <TaskManageStu /> -->
+        <!-- <Category /> -->
 
-    <main class="flex flex-col gap-16 px-4 pt-12 pb-24">
-      <Profile />
-      <TaskManageStu />
-      <Category />
-      
-      <!-- router-view สำหรับแสดงหน้าต่างๆ (เช่น Home) -->
-      <router-view />
-    </main>
+        <!-- router-view สำหรับแสดงหน้าต่างๆ (เช่น Home) -->
+        <!-- <router-view /> -->
+      </main>
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped></style>

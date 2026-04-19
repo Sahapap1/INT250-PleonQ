@@ -10,3 +10,19 @@
 @theme {
     --color-primary: #1F2937;
 }
+
+
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* IE, Edge เก่า */
+* {
+  -ms-overflow-style: none;
+}
