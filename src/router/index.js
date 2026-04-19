@@ -3,7 +3,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 // pages
 import MainLayout from '@/layouts/MainLayout.vue'
 import Home from '@/views/Home.vue'
-import About from '@/views/TaskManagement.vue'
+import TaskManagement from '@/views/TaskManagement.vue'
+import Profile from '@/views/Profile.vue'
+import JobDetail from '@/views/JobDetail.vue'
+
 
 const routes = [
   {
@@ -18,8 +21,19 @@ const routes = [
       {
         path: 'taskManagement',
         name: 'TaskManagement',
-        component: About
+        component: TaskManagement
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: Profile
+      },
+      {
+        path: 'job/:id',
+        name: 'JobDetail',
+        component: JobDetail
       }
+
     ]
   }
 ]

@@ -1,78 +1,144 @@
-<template>
-  <div >
-    <!-- class="min-h-screen bg-gradient-to-b from-orange-100 to-orange-300 p-4" -->
-    <!-- 🔹 Header
-    <div class="flex justify-between items-center mb-4">
-      <div class="flex items-center gap-2">
-        <div class="text-orange-500 text-2xl font-bold">Q</div>
-        <div class="text-sm font-medium">PleonQ</div>
-      </div>
-
-      <div class="flex gap-2">
-        <div class="w-10 h-10 bg-orange-200 rounded-full flex items-center justify-center">🔔</div>
-        <div class="w-10 h-10 bg-orange-300 rounded-full flex items-center justify-center">👤</div>
-      </div>
-    </div> -->
-
-    <!-- 🔹 Tabs -->
-    <div class="flex bg-gray-200 rounded-full p-1 mb-4">
-      <button class="flex-1 bg-orange-500 text-white rounded-full py-2 flex items-center justify-center gap-2">
-        🏠 Home
-      </button>
-      <button class="flex-1 text-gray-600 flex items-center justify-center gap-2">
-        📋 Task Management
-      </button>
-    </div>
-
-    <!-- 🔹 Search -->
-    <div class="bg-white rounded-2xl p-3 shadow mb-4 flex items-center">
-      <input
-        type="text"
-        placeholder="Search..."
-        class="flex-1 outline-none px-2"
-      />
-      🔍
-    </div>
-
-    <!-- 🔹 Card List -->
-    <div class="space-y-4">
-      <div
-        v-for="i in 4"
-        :key="i"
-        class="bg-white rounded-2xl shadow flex overflow-hidden"
-      >
-        <!-- Image -->
-        <div class="w-24 bg-orange-200 flex items-center justify-center">
-          🎒
-        </div>
-
-        <!-- Content -->
-        <div class="flex-1 p-3">
-          <div class="flex justify-between items-start">
-            <h2 class="font-semibold">Project Title</h2>
-            <span class="text-orange-400">🧭</span>
-          </div>
-
-          <p class="text-xs text-gray-500 mt-1">
-            This is a brief description of the project. Lorem Ipsum is simply dummy text.
-          </p>
-
-          <div class="flex justify-between items-center mt-3">
-            <span class="text-xs bg-blue-500 text-white px-2 py-1 rounded-full">
-              UI/UX
-            </span>
-
-            <button class="bg-orange-400 text-white text-xs px-3 py-1 rounded-full">
-              View
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</template>
-
 <script setup>
-// mock data (ถ้าจะใช้จริงค่อยเปลี่ยน)
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+
+import { useJobStore } from '../stores/jobStore'
+
+import JobCard from '@/components/JobCard.vue'
+import UpcommingJobCard from '@/components/UpcommingJobCard.vue'
+
+
+const screenWidth = ref(window.innerWidth)
+
+const handleResize = () => {
+  screenWidth.value = window.innerWidth
+}
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
+})
+
+const itemsPerPage = computed(() => {
+  if (screenWidth.value >= 1536) return 6   // 2xl
+  if (screenWidth.value >= 1440) return 5   // xl custom
+  return 4
+})
+
+
+const jobStore = useJobStore()
+
+const currentPage = ref(1)
+
+const totalPages = computed(() => {
+  return Math.ceil(jobStore.jobs.length / itemsPerPage.value)
+})
+
+const paginatedJobs = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value
+  const end = start + itemsPerPage.value
+  return jobStore.jobs.slice(start, end)
+})
+
+watch(itemsPerPage, () => {
+  if (currentPage.value > totalPages.value) {
+    currentPage.value = totalPages.value || 1
+  }
+})
+
+const nextPage = () => {
+    if (currentPage.value < totalPages.value) {
+        currentPage.value++
+    }
+}
+
+const prevPage = () => {
+    if (currentPage.value > 1) {
+        currentPage.value--
+    }
+}
+
+
+
+
 </script>
+
+<template>
+    <div class="px-1 md:px-4 xl:px-6 2xl:px-0 md:max-w-350 md:mx-auto md:w-full">
+        <!-- 🔍 Search -->
+        <div class="flex items-center gap-3 w-full max-w-2xl mx-auto">
+            <div
+                class="flex items-center bg-[#F9FAFB] rounded-full px-5 py-2.5 shadow-sm border border-[#F3F4F6] transition-all focus-within:bg-white focus-within:border-gray-200 focus-within:shadow-md flex-1">
+                <input type="text" placeholder="Search..."
+                    class="flex-1 bg-transparent outline-none text-[13px] font-medium text-gray-700 placeholder-gray-400" />
+                <svg class="w-4 h-4 text-gray-400 ml-2 cursor-pointer hover:text-gray-600 transition-colors" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <button class="bg-orange-gradient text-white px-6 py-2.5 rounded-full">
+                Suggest
+            </button>
+
+
+        </div>
+
+        <!-- 📦 Main Layout -->
+        <div class="flex flex-col flex-1 h-full pt-5">
+
+            <div class="flex flex-col lg:flex-row gap-6 lg:gap-3 flex-1">
+
+                <!-- 🧾 Left Content -->
+                <div class="flex-1 flex flex-col min-h-[73vh]">
+
+                    <!-- 🧾 List -->
+                    <div class="flex flex-col gap-2">
+                        <JobCard v-for="job in paginatedJobs" :key="job.id" :data="job" />
+                    </div>
+
+                    <!-- 📄 Pagination -->
+                    <div class="lg:mt-auto mt-4 flex justify-center items-center gap-3 pb-1 lg:pt-2">
+                        <button @click="prevPage" :disabled="currentPage === 1"
+                            class="px-3 py-1 text-sm bg-gray-200 rounded disabled:opacity-50">
+                            Prev
+                        </button>
+
+                        <span class="text-sm font-medium">
+                            Page {{ currentPage }} / {{ totalPages }}
+                        </span>
+
+                        <button @click="nextPage" :disabled="currentPage === totalPages"
+                            class="px-3 py-1 text-sm bg-gray-200 rounded disabled:opacity-50">
+                            Next
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- 📅 Right Sidebar -->
+                <div
+                    class="w-full lg:w-[320px] bg-[#FFF8F1] rounded-3xl p-5 flex flex-col gap-6 border border-[#EBEBEB]/60 overflow-y-auto mb-13">
+
+                    <!-- Events -->
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-[15px] font-bold text-[#1F2937]">
+                            My Upcoming Events
+                        </h3>
+
+                        <div class="flex flex-col gap-2.5">
+                            <UpcommingJobCard />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

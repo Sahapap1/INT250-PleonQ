@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "title": "รับสมัครสต๊าฟงาน Tech Talk",
+    "description": "ช่วยดูแลลงทะเบียนผู้เข้าร่วมงาน และประสานงานภายในงาน",
+    "category": "Staff",
+    "date": "2026-03-20",
+    "location": "อาคารวิทยาศาสตร์ ห้อง 301",
+    "positions": 5,
+    "reward": "ชั่วโมงกิจกรรม + อาหารกลางวัน",
+    "liked": true
+  },
+  {
+    "id": 2,
+    "title": "หาทีมงาน Workshop Vue.js",
+    "description": "ช่วยเตรียมอุปกรณ์ ดูแลผู้เข้าร่วม และ assist วิทยากร",
+    "category": "Workshop Staff",
+    "date": "2026-03-21",
+    "location": "Lab คอมพิวเตอร์ 2",
+    "positions": 3,
+    "reward": "ใบประกาศ + snack",
+    "liked": false
+  },
+  {
+    "id": 3,
+    "title": "รับสมัครสต๊าฟ Hackathon",
+    "description": "ช่วยดูแลทีมแข่งขัน ประสานงาน และ support ตลอด 24 ชั่วโมง",
+    "category": "Event Staff",
+    "date": "2026-03-22",
+    "location": "อาคารนวัตกรรม",
+    "positions": 10,
+    "reward": "certificate + เสื้อกิจกรรม",
+    "liked": false
+  },
+  {
+    "id": 4,
+    "title": "หาคนช่วยงาน Open Mic",
+    "description": "ดูแลเวที ระบบเสียง และจัดคิวผู้แสดง",
+    "category": "Activity",
+    "date": "2026-03-23",
+    "location": "ลานกิจกรรมกลาง",
+    "positions": 4,
+    "reward": "อาหาร + ประสบการณ์",
+    "liked": false
+  },
+  {
+    "id": 5,
+    "title": "รับสมัครทีมงานแนะแนวอาชีพ",
+    "description": "ช่วยต้อนรับบริษัท และดูแลผู้เข้าร่วมงาน",
+    "category": "Staff",
+    "date": "2026-03-24",
+    "location": "หอประชุมใหญ่",
+    "positions": 6,
+    "reward": "certificate + networking",
+    "liked": true
+  },
+  {
+    "id": 5,
+    "title": "รับสมัครทีมงานแนะแนวอาชีพ",
+    "description": "ช่วยต้อนรับบริษัท และดูแลผู้เข้าร่วมงาน",
+    "category": "Staff",
+    "date": "2026-03-24",
+    "location": "หอประชุมใหญ่",
+    "positions": 6,
+    "reward": "certificate + networking",
+    "liked": true
+  },
+  {
+    "id": 5,
+    "title": "รับสมัครทีมงานแนะแนวอาชีพ",
+    "description": "ช่วยต้อนรับบริษัท และดูแลผู้เข้าร่วมงาน",
+    "category": "Staff",
+    "date": "2026-03-24",
+    "location": "หอประชุมใหญ่",
+    "positions": 6,
+    "reward": "certificate + networking",
+    "liked": true
+  },
+  {
+    "id": 5,
+    "title": "รับสมัครทีมงานแนะแนวอาชีพ",
+    "description": "ช่วยต้อนรับบริษัท และดูแลผู้เข้าร่วมงาน",
+    "category": "Staff",
+    "date": "2026-03-24",
+    "location": "หอประชุมใหญ่",
+    "positions": 6,
+    "reward": "certificate + networking",
+    "liked": true
+  },
+  {
+    "id": 5,
+    "title": "รับสมัครทีมงานแนะแนวอาชีพ",
+    "description": "ช่วยต้อนรับบริษัท และดูแลผู้เข้าร่วมงาน",
+    "category": "Staff",
+    "date": "2026-03-24",
+    "location": "หอประชุมใหญ่",
+    "positions": 6,
+    "reward": "certificate + networking",
+    "liked": true
+  }
+]
