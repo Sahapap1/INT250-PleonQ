@@ -18,6 +18,19 @@ const activeTab = ref('home')
                 <span class="text-sm font-medium">Home</span>
             </button>
 
+            <button v-if="isAdmin" @click="activeTab = 'create'"
+                class="flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer group" 
+                :class="activeTab === 'create'
+                    ? 'bg-orange-gradient text-white shadow-md shadow-orange-100'
+                    : 'text-gray-700 hover:bg-white/50 hover:text-[#F27F21]'">
+                
+                <div class="w-5 h-5 border-2 rounded-full flex items-center justify-center transition-colors"
+                    :class="activeTab === 'create' ? 'border-white' : 'border-gray-400 group-hover:border-[#F27F21]'">
+                    <i class="fa-solid fa-plus text-[10px]"></i>
+                </div>
+                <span class="text-[14px] font-bold">Create New Job</span>
+            </button>
+
             <button @click="activeTab = 'task'"
                 class="flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer" :class="activeTab === 'task'
                     ? 'bg-orange-gradient text-white shadow-md'
