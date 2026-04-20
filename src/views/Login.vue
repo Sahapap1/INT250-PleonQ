@@ -6,7 +6,7 @@ import { useAuthStore } from '@/stores/authStore'
 import users from '@/data/users.json'
 
 const auth = useAuthStore()
-
+const errorMessage = ref('')
 
 
 const router = useRouter()
@@ -15,14 +15,37 @@ const username = ref('')
 const password = ref('')
 
 const handleLogin = () => {
+
+    errorMessage.value = ''
+
+    //  empty field
+    if (!username.value || !password.value) {
+        errorMessage.value = 'Please fill in username and password'
+
+        username.value = ''
+        password.value = ''
+        return
+    }
+
+    //  wrong login
     const user = users.find(
         u => u.username === username.value && u.password === password.value
     )
 
-    if (user) {
-        auth.login(user)
-        router.push('/')
+    if (!user) {
+        errorMessage.value = 'Invalid username or password'
+
+        // reset form
+        setTimeout(() => {
+            username.value = ''
+            password.value = ''
+        }, 300)
+        return
     }
+
+    //  success
+    auth.login(user)
+    router.push('/')
 }
 </script>
 
@@ -64,7 +87,8 @@ const handleLogin = () => {
                     <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 mt-1 shadow-inner">
                         <i class="fa-solid fa-user text-gray-400 mr-2"></i>
                         <input v-model="username" type="text" placeholder="Username" @keyup.enter="handleLogin"
-                            class="bg-transparent outline-none w-full text-sm" />
+                            class="bg-transparent outline-none w-full text-sm"
+                            :class="errorMessage ? 'border border-red-400' : ''" />
                     </div>
                 </div>
 
@@ -74,10 +98,13 @@ const handleLogin = () => {
                     <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 mt-1 shadow-inner">
                         <i class="fa-solid fa-lock text-gray-400 mr-2"></i>
                         <input v-model="password" type="password" placeholder="Password" @keyup.enter="handleLogin"
-                            class="bg-transparent outline-none w-full text-sm" />
+                            class="bg-transparent outline-none w-full text-sm"
+                            :class="errorMessage ? 'border border-red-400' : ''" />
                     </div>
                 </div>
-
+                <p v-if="errorMessage" class="text-red-500 text-sm text-center mt-2">
+                    {{ errorMessage }}
+                </p>
                 <!-- Button -->
                 <button @click="handleLogin"
                     class="mt-4 bg-orange-gradient text-white py-2.5 rounded-full font-semibold hover:opacity-90 transition flex items-center justify-center gap-2">
