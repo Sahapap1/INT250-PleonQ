@@ -8,6 +8,7 @@ import Home from '@/views/Home.vue'
 import TaskManagement from '@/views/TaskManagement.vue'
 import Profile from '@/views/Profile.vue'
 import JobDetail from '@/views/JobDetail.vue'
+import AdminDashboard from '@/views/AdminDashboard.vue'
 import Login from '@/views/Login.vue'
 
 
@@ -30,6 +31,11 @@ const routes = [
         path: 'taskManagement',
         name: 'TaskManagement',
         component: TaskManagement
+      },
+      {
+        path: 'admin',
+        name: 'AdminDashboard',
+        component: AdminDashboard
       },
       {
         path: 'profile',
