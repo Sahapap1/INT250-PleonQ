@@ -5,9 +5,11 @@ import { useJobStore } from '../stores/jobStore'
 
 import JobCard from '@/components/JobCard.vue'
 import UpcommingJobCard from '@/components/UpcommingJobCard.vue'
+import CategoryPopup from '@/components/category.vue'
 
 
 const screenWidth = ref(window.innerWidth)
+const showCategory = ref(false)
 
 const handleResize = () => {
   screenWidth.value = window.innerWidth
@@ -79,7 +81,7 @@ const prevPage = () => {
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
-            <button class="bg-orange-gradient text-white px-6 py-2.5 rounded-full">
+            <button @click="showCategory = true" class="bg-orange-gradient text-white px-6 py-2.5 rounded-full hover:shadow-lg transition-shadow cursor-pointer">
                 Suggest
             </button>
 
@@ -141,4 +143,44 @@ const prevPage = () => {
 
     </div>
 
+    <!-- Category Popup Overlay -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div v-if="showCategory" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <!-- Backdrop -->
+          <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" @click="showCategory = false"></div>
+          <!-- Popup Component -->
+          <CategoryPopup class="relative z-10 w-full max-w-[650px] popup-content" @close="showCategory = false" />
+        </div>
+      </Transition>
+    </Teleport>
+
 </template>
+
+<style scoped>
+/* Fade effect for backdrop and container */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Pop/Bounce effect for the modal box itself */
+.fade-enter-active .popup-content {
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fade-leave-active .popup-content {
+  transition: opacity 0.3s ease, transform 0.3s ease-in;
+}
+
+.fade-enter-from .popup-content,
+.fade-leave-to .popup-content {
+  opacity: 0;
+  transform: scale(0.95) translateY(10px);
+}
+</style>

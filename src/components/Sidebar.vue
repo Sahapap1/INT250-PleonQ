@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const activeTab = ref('home')
 
 
@@ -10,7 +12,7 @@ const activeTab = ref('home')
     <aside class="hidden lg:block pt-2 px-4 max-w-47.5">
         <div class="flex flex-col gap-3 w-full mt-10">
 
-            <button @click="activeTab = 'home'"
+            <button @click="activeTab = 'home'; router.push('/')"
                 class="flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer" :class="activeTab === 'home'
                     ? 'bg-orange-gradient text-white shadow-md'
                     : 'text-gray-700 hover:bg-white/30'">
@@ -31,7 +33,7 @@ const activeTab = ref('home')
                 <span class="text-[14px] font-bold">Create New Job</span>
             </button>
 
-            <button @click="activeTab = 'task'"
+            <button @click="activeTab = 'task'; router.push('/taskManagement')"
                 class="flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer" :class="activeTab === 'task'
                     ? 'bg-orange-gradient text-white shadow-md'
                     : 'text-gray-700 hover:bg-white/30'">

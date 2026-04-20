@@ -94,7 +94,7 @@ const handleNotification = () => {
     <div v-if="showSidebar" class="bg-gray-200 p-1 rounded-full inline-flex gap-1 md:hidden">
 
       <!-- Home -->
-      <button @click="activeTab = 'home'"
+      <button @click="activeTab = 'home'; router.push('/')"
         class="flex items-center gap-2 px-12 py-2 rounded-full transition-all duration-300" :class="activeTab === 'home'
           ? 'bg-orange-gradient text-white shadow-md scale-105'
           : 'text-gray-700 hover:bg-gray-300'">
@@ -104,7 +104,7 @@ const handleNotification = () => {
       </button>
 
       <!-- Task -->
-      <button @click="activeTab = 'task'"
+      <button @click="activeTab = 'task'; router.push('/taskManagement')"
         class="flex items-center gap-2 px-8 py-2 rounded-full transition-all duration-300" :class="activeTab === 'task'
           ? 'bg-orange-gradient text-white shadow-md scale-105'
           : 'text-primary hover:bg-gray-300'">

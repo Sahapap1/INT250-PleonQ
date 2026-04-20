@@ -1,19 +1,19 @@
 <template>
-  <div class="relative w-full z-20 flex items-center justify-center py-6 ">
+  <div class="relative w-full z-20 flex items-center justify-center py-4 sm:py-6 px-4 md:px-0">
     <!-- Pop-up Container -->
-    <div class="relative w-full max-w-[650px] bg-[#FFFFFF] rounded-[28px] shadow-[0_20px_60px_-15px_rgba(239,119,34,0.15)] overflow-hidden flex flex-col border border-[#EBEBEB] transform transition-all">
+    <div class="relative w-full max-w-[650px] bg-[#FFFFFF] rounded-[24px] sm:rounded-[28px] shadow-[0_20px_60px_-15px_rgba(239,119,34,0.15)] overflow-hidden flex flex-col border border-[#EBEBEB] transform transition-all">
       
       <!-- Header -->
-      <div class="bg-gradient-to-br from-[#FFF8F1] to-white px-8 py-[22px] border-b border-[#EBEBEB] relative overflow-hidden">
-        <h2 class="relative text-2xl font-bold text-[#1F2937] tracking-tight drop-shadow-sm">Job Suggestion</h2>
+      <div class="bg-gradient-to-br from-[#FFF8F1] to-white px-5 sm:px-8 py-4 sm:py-[22px] border-b border-[#EBEBEB] relative overflow-hidden">
+        <h2 class="relative text-xl sm:text-2xl font-bold text-[#1F2937] tracking-tight drop-shadow-sm">Job Suggestion</h2>
       </div>
 
       <!-- Body -->
-      <div class="px-8 pt-7 pb-8 flex flex-col relative bg-[#FFFFFF]">
-        <h3 class="text-[18px] text-[#6B7280] mb-8 font-medium">What type of jobs are you interested in?</h3>
+      <div class="px-5 sm:px-8 pt-6 sm:pt-7 pb-6 sm:pb-8 flex flex-col relative bg-[#FFFFFF]">
+        <h3 class="text-[15px] sm:text-[18px] text-[#6B7280] mb-6 sm:mb-8 font-medium">What type of jobs are you interested in?</h3>
 
         <!-- Categories Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 sm:gap-y-5">
           <div 
             v-for="(category, index) in categoryStore.allCategories" 
             :key="category" 
@@ -57,10 +57,19 @@
         </div>
 
         <!-- Action Area -->
-        <div class="mt-12 flex justify-end">
+        <div class="mt-8 sm:mt-12 flex flex-col-reverse sm:flex-row justify-end gap-3 sm:gap-4">
+          <!-- Cancel Button -->
+          <button 
+            @click="$emit('close')"
+            class="relative w-full sm:w-auto bg-white text-[#6B7280] hover:text-[#1F2937] font-bold text-[15px] py-[10px] px-8 rounded-full transition-all duration-300 active:scale-95 border border-[#EBEBEB] hover:border-[#D1D5DB] hover:bg-gray-50"
+          >
+            CANCEL
+          </button>
+
+          <!-- Save Button -->
           <button 
             @click="saveCategories"
-            class="relative bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-[#FFFFFF] font-bold text-[15px] py-[10px] px-10 rounded-full shadow-[0_8px_20px_rgba(239,119,34,0.3)] transition-all duration-300 active:scale-95 group overflow-hidden tracking-wider border border-[#EF7722]/40"
+            class="relative w-full sm:w-auto bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-[#FFFFFF] font-bold text-[15px] py-[10px] px-10 rounded-full shadow-[0_8px_20px_rgba(239,119,34,0.3)] transition-all duration-300 active:scale-95 group overflow-hidden tracking-wider border border-[#EF7722]/40"
             :class="categoryStore.selectedCategories.length > 0 && !categoryStore.isLoading ? 'hover:shadow-[0_12px_25px_rgba(239,119,34,0.4)] cursor-pointer' : 'opacity-70 grayscale-[30%] cursor-not-allowed'"
           >
             <!-- Button shine effect -->
@@ -92,7 +101,7 @@ const saveCategories = async () => {
   if (categoryStore.selectedCategories.length === 0) return;
   await categoryStore.saveCategories();
   // Usually this would close the modal or notify success.
-  alert('Categories Saved!');
+  emit('close');
 };
 
 const emit = defineEmits(['close'])
