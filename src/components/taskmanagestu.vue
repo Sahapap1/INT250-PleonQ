@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full max-w-[850px] mx-auto z-10 transition-all">
+  <div class="relative w-full max-w-[850px] mx-auto z-10 transition-all px-2 sm:px-4 md:px-0">
     
     <!-- Modal Teleport -->
     <Teleport to="body">
@@ -77,15 +77,15 @@
     <div class="absolute -top-[5%] -left-[10%] w-80 h-80 bg-[#EF7722] rounded-full mix-blend-multiply filter blur-[100px] opacity-15 animate-pulse pointer-events-none z-0"></div>
     <div class="absolute -bottom-[5%] -right-[10%] w-80 h-80 bg-[#FAA533] rounded-full mix-blend-multiply filter blur-[100px] opacity-15 animate-[pulse_4s_ease-in-out_infinite] pointer-events-none z-0"></div>
 
-    <div class="relative bg-[#FFF8F1]/90 backdrop-blur-xl rounded-[36px] shadow-[0_10px_50px_rgba(0,0,0,0.05)] border border-[#EBEBEB] p-5 md:p-8 flex flex-col gap-6 md:gap-8 z-10 group/wrapper">
+    <div class="relative bg-[#FFF8F1]/90 backdrop-blur-xl rounded-[24px] md:rounded-[36px] shadow-[0_10px_50px_rgba(0,0,0,0.05)] border border-[#EBEBEB] p-4 sm:p-6 md:p-8 flex flex-col gap-6 md:gap-8 z-10 group/wrapper">
       
       <!-- 1. Task Management List Card -->
-      <div class="relative overflow-hidden bg-[#FFFFFF] rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-7 md:p-8 flex flex-col gap-6 group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.08)] hover:bg-white/95 border border-[#EBEBEB] z-10 min-h-[400px]">
+      <div class="relative overflow-hidden bg-[#FFFFFF] rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-5 sm:p-7 md:p-8 flex flex-col gap-6 group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.08)] hover:bg-white/95 border border-[#EBEBEB] z-10 min-h-[400px]">
         
         <div class="flex justify-between items-center z-10 flex-wrap gap-4">
-          <h2 class="text-[19px] font-extrabold text-[#1F2937] tracking-tight flex items-center gap-3">
+          <h2 class="text-[17px] sm:text-[19px] font-extrabold text-[#1F2937] tracking-tight flex items-center gap-2 sm:gap-3">
             Task Management
-            <span class="px-2.5 py-1 rounded-md bg-[#FFF8F1] text-[#EF7722] text-[10px] uppercase font-bold tracking-widest border border-[#FAA533]/50 shadow-sm">Student</span>
+            <span class="px-2 py-1 sm:px-2.5 rounded-md bg-[#FFF8F1] text-[#EF7722] text-[9px] sm:text-[10px] uppercase font-bold tracking-widest border border-[#FAA533]/50 shadow-sm">Student</span>
           </h2>
           <button @click="openModal('create')" class="px-4 py-2 rounded-xl bg-[#1F2937] text-white text-[12px] font-bold flex items-center gap-2 hover:bg-[#EF7722] hover:shadow-md hover:shadow-[#EF7722]/20 transition-all active:scale-95">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -113,7 +113,7 @@
 
         <div class="flex flex-col gap-2 mt-2 z-10 w-full max-w-2xl min-h-[260px] relative">
            
-           <div class="grid grid-cols-12 gap-4 px-3 pb-2 border-b border-dashed border-[#EBEBEB]">
+           <div class="hidden sm:grid sm:grid-cols-12 gap-4 px-3 pb-2 border-b border-dashed border-[#EBEBEB]">
              <div class="col-span-8 text-[11px] font-bold text-[#6B7280] uppercase tracking-widest flex items-center gap-2">Title</div>
              <div class="col-span-4 text-[11px] font-bold text-[#6B7280] uppercase tracking-widest pl-2">Status</div>
            </div>
@@ -159,52 +159,54 @@
            <!-- Task List -->
            <transition-group v-else name="list" tag="div" class="flex flex-col gap-2 pt-2">
              <div 
-               v-for="task in filteredTasks" 
-               :key="task.id"
-               class="grid grid-cols-12 gap-4 items-center bg-transparent hover:bg-gray-50/80 p-3 rounded-2xl transition-all duration-300 border border-transparent hover:border-gray-100 hover:shadow-sm group/item relative overflow-hidden"
-             >
-                <!-- Highlight line on hover -->
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-gradient-to-b from-[#EF7722] to-[#FAA533] rounded-r-full group-hover/item:h-2/3 transition-all duration-300"></div>
+                v-for="task in filteredTasks" 
+                :key="task.id"
+                class="flex flex-col sm:grid sm:grid-cols-12 gap-3 sm:gap-4 sm:items-center bg-transparent hover:bg-gray-50/80 p-3 sm:p-2 rounded-2xl transition-all duration-300 border border-transparent hover:border-gray-100 hover:shadow-sm group/item relative overflow-hidden"
+              >
+                 <!-- Highlight line on hover -->
+                 <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-gradient-to-b from-[#EF7722] to-[#FAA533] rounded-r-full group-hover/item:h-2/3 transition-all duration-300"></div>
 
-                <div class="col-span-8 flex items-center gap-3 sm:gap-4 pl-2">
-                   <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-[12px] flex items-center justify-center shrink-0 shadow-inner border border-[#EBEBEB] group-hover/item:scale-105 group-hover/item:border-[#FAA533]/50 transition-all duration-300"
-                        :class="[
-                          task.status === 'Completed' ? 'bg-[#EF7722] text-[#FFFFFF]' : 
-                          (task.status === 'Pending' ? 'bg-[#FFF8F1] text-[#6B7280]' : 
-                          'bg-gradient-to-br from-[#EF7722] to-[#FAA533] text-[#FFFFFF]')
-                        ]">
-                     <svg v-if="task.status === 'Completed'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                     <svg v-else-if="task.status === 'Pending'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                     <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                   </div>
-                   
-                   <div class="flex flex-col gap-0.5 justify-center overflow-hidden">
-                      <span class="text-[13px] sm:text-[14px] font-bold text-[#1F2937] tracking-tight group-hover/item:text-[#EF7722] transition-colors truncate">{{ task.title }}</span>
-                      <span class="text-[11px] sm:text-[12px] font-medium text-[#6B7280] truncate">
-                        {{ task.status === 'Completed' ? 'Completed: ' : 'Due: ' }}<span class="font-semibold text-gray-500">{{ formatDate(task.date) }}</span>
-                      </span>
-                   </div>
-                </div>
-                
-                <div class="col-span-4 flex items-center justify-between sm:pl-2">
-                   <div class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold tracking-widest shadow-sm flex items-center gap-1.5 shrink-0" 
-                        :class="statusStyles[task.status]">
-                     <span class="w-1.5 h-1.5 rounded-full animate-pulse blur-[0.5px]" 
-                           :class="task.status === 'Completed' ? 'bg-[#EF7722]' : (task.status === 'Pending' ? 'bg-[#6B7280]' : 'bg-[#EF7722]')"></span>
-                     {{ task.status }}
-                   </div>
+                 <!-- Title Column -->
+                 <div class="sm:col-span-8 flex items-center gap-3 sm:gap-4 pl-1 sm:pl-2">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-[12px] flex items-center justify-center shrink-0 shadow-inner border border-[#EBEBEB] group-hover/item:scale-105 group-hover/item:border-[#FAA533]/50 transition-all duration-300"
+                         :class="[
+                           task.status === 'Completed' ? 'bg-[#EF7722] text-[#FFFFFF]' : 
+                           (task.status === 'Pending' ? 'bg-[#FFF8F1] text-[#6B7280]' : 
+                           'bg-gradient-to-br from-[#EF7722] to-[#FAA533] text-[#FFFFFF]')
+                         ]">
+                      <svg v-if="task.status === 'Completed'" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                      <svg v-else-if="task.status === 'Pending'" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                      <svg v-else class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    
+                    <div class="flex flex-col gap-0.5 justify-center overflow-hidden w-full">
+                       <span class="text-[13px] sm:text-[14px] font-bold text-[#1F2937] tracking-tight group-hover/item:text-[#EF7722] transition-colors truncate w-full pr-2">{{ task.title }}</span>
+                       <span class="text-[11px] sm:text-[12px] font-medium text-[#6B7280] truncate">
+                         {{ task.status === 'Completed' ? 'Completed: ' : 'Due: ' }}<span class="font-semibold text-gray-500">{{ formatDate(task.date) }}</span>
+                       </span>
+                    </div>
+                 </div>
+                 
+                 <!-- Status and Actions Column -->
+                 <div class="sm:col-span-4 flex items-center justify-between sm:pl-2 pl-[52px]">
+                    <div class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold tracking-widest shadow-sm flex items-center gap-1.5 shrink-0" 
+                         :class="statusStyles[task.status]">
+                      <span class="w-1.5 h-1.5 rounded-full animate-pulse blur-[0.5px]" 
+                            :class="task.status === 'Completed' ? 'bg-[#EF7722]' : (task.status === 'Pending' ? 'bg-[#6B7280]' : 'bg-[#EF7722]')"></span>
+                      {{ task.status }}
+                    </div>
 
-                   <!-- Actions -->
-                   <div class="flex gap-1 md:gap-2 opacity-100 md:opacity-0 group-hover/item:opacity-100 transition-opacity ml-2 shrink-0">
-                      <button @click="openModal('edit', task)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-500 hover:text-[#2563EB] hover:border-blue-200 transition-colors" title="Edit Task">
-                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                      </button>
-                      <button @click="deleteTask(task.id)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-500 hover:text-red-500 hover:border-red-200 transition-colors" title="Delete Task">
-                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                      </button>
-                   </div>
-                </div>
-             </div>
+                    <!-- Actions -->
+                    <div class="flex gap-1.5 md:gap-2 opacity-100 md:opacity-0 group-hover/item:opacity-100 transition-opacity shrink-0">
+                       <button @click="openModal('edit', task)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-500 hover:text-[#2563EB] hover:border-blue-200 transition-colors" title="Edit Task">
+                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                       </button>
+                       <button @click="deleteTask(task.id)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-500 hover:text-red-500 hover:border-red-200 transition-colors" title="Delete Task">
+                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                       </button>
+                    </div>
+                 </div>
+              </div>
            </transition-group>
         </div>
       </div>
