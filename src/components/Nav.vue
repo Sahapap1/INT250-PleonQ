@@ -12,7 +12,7 @@ const showSidebar = ref(true)
 
 const handleClick = () => {
   if (!isProfile.value) {
-    
+
     previousRoute.value = route.fullPath
 
     isProfile.value = true
@@ -20,12 +20,39 @@ const handleClick = () => {
 
     router.push('/profile')
   } else {
-   
+
     isProfile.value = false
     showSidebar.value = true
 
-    
+
     if (!previousRoute.value || previousRoute.value === '/profile') {
+      router.push('/')
+    } else {
+      router.push(previousRoute.value)
+    }
+  }
+}
+
+const isNotification = ref(false);
+
+const handleNotification = () => {
+  if (!isNotification.value) {
+
+    // จำ route ก่อนเข้า notification
+    previousRoute.value = route.fullPath
+
+    isNotification.value = true
+    showSidebar.value = false
+
+    router.push('/notification')
+
+  } else {
+
+    isNotification.value = false
+    showSidebar.value = true
+
+    // กลับไปหน้าเดิม
+    if (!previousRoute.value || previousRoute.value === '/notification') {
       router.push('/')
     } else {
       router.push(previousRoute.value)
@@ -41,8 +68,19 @@ const handleClick = () => {
         <img class="w-12 md:w-16" src="@/assets/logo.png" alt="">
       </div>
       <div class="flex justify-between gap-4 md:gap-6">
-        <button class="bg-orange-gradient rounded-full size-10 cursor-pointer"><i class="fa-regular fa-bell"
-            style="color: rgb(255, 255, 255);"></i></button>
+        <button @click="handleNotification"
+          class="bg-orange-gradient rounded-full size-10 flex items-center justify-center cursor-pointer transition-all duration-300 relative">
+          <!-- <span class="absolute top-0 right-0 bg-red-500 text-white text-[10px] rounded-full px-1">
+            3
+          </span> -->
+          <i :class="[
+            'text-white text-lg transition-all duration-300',
+            isNotification
+              ? 'fa-solid fa-bell scale-110'
+              : 'fa-regular fa-bell scale-100'
+          ]"></i>
+          
+        </button>
         <button @click="handleClick"
           class="bg-orange-gradient rounded-full size-10 flex items-center justify-center cursor-pointer transition-all duration-300"><i
             :class="[
