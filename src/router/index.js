@@ -10,6 +10,7 @@ import Profile from '@/views/Profile.vue'
 import JobDetail from '@/views/JobDetail.vue'
 import AdminDashboard from '@/views/AdminDashboard.vue'
 import Login from '@/views/Login.vue'
+import Notification from '@/views/Notifications.vue'
 
 
 const routes = [
@@ -41,6 +42,11 @@ const routes = [
         path: 'profile',
         name: 'Profile',
         component: Profile
+      },
+      {
+        path: 'notification',
+        name: 'Notification',
+        component: Notification
       },
       {
         path: 'job/:id',
