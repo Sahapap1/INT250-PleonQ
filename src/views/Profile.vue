@@ -32,9 +32,9 @@
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
             Edit
           </button>
-          <button class="relative bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-[#FFFFFF] font-bold text-[13px] py-1.5 px-7 rounded-full shadow-[0_8px_15px_rgba(239,119,34,0.3)] hover:shadow-[0_12px_20px_rgba(239,119,34,0.4)] border border-[#EF7722]/50 transition-all duration-300 active:scale-95 group/btn overflow-hidden cursor-pointer">
-            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]"></span>
-            <span class="relative tracking-wider">Save</span>
+          <button @click="handleLogout" class="relative bg-white hover:bg-red-50 text-red-500 font-bold text-[13px] py-1.5 px-6 rounded-full shadow-sm hover:shadow-md border border-red-100 hover:border-red-300 transition-all duration-300 active:scale-95 flex items-center gap-1.5 cursor-pointer group">
+            <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+            <span class="relative tracking-wider">Logout</span>
           </button>
         </div>
       </div>
@@ -230,8 +230,12 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useProfileStore } from '../stores/profileStore';
+import { useAuthStore } from '../stores/authStore';
+import { useRouter } from 'vue-router';
 
 const profileStore = useProfileStore();
+const authStore = useAuthStore();
+const router = useRouter();
 
 const isEditProfileOpen = ref(false);
 const isQrModalOpen = ref(false);
@@ -292,6 +296,11 @@ const saveProfile = async () => {
     await profileStore.updateProfile(editFormData.value);
   }
   isEditProfileOpen.value = false;
+};
+
+const handleLogout = () => {
+  authStore.logout();
+  router.push('/login');
 };
 </script>
 

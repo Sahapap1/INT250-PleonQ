@@ -1,32 +1,23 @@
 [
-  { 
-    "id": 1, 
-    "title": "UX/UI Design for Dashboard", 
-    "date": "2026-10-24", 
-    "status": "In Progress" 
+  {
+    "id": 1,
+    "jobId": 1,
+    "title": "รับสมัครสต๊าฟงาน Tech Talk",
+    "date": "2026-03-20",
+    "status": "In Progress"
   },
-  { 
-    "id": 2, 
-    "title": "Frontend Development (Vue.js)", 
-    "date": "2026-10-28", 
-    "status": "Pending" 
+  {
+    "id": 2,
+    "jobId": 3,
+    "title": "รับสมัครสต๊าฟ Hackathon",
+    "date": "2026-03-22",
+    "status": "Pending"
   },
-  { 
-    "id": 3, 
-    "title": "API Integration Testing", 
-    "date": "2026-10-15", 
-    "status": "Completed" 
-  },
-  { 
-    "id": 4, 
-    "title": "Database Optimization", 
-    "date": "2026-11-10", 
-    "status": "Pending" 
-  },
-    { 
-    "id": 5, 
-    "title": "ควยงาน", 
-    "date": "2026-21-10", 
-    "status": "Pending" 
+  {
+    "id": 3,
+    "jobId": 4,
+    "title": "หาคนช่วยงาน Open Mic",
+    "date": "2026-03-23",
+    "status": "Completed"
   }
 ]

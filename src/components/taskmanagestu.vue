@@ -87,10 +87,6 @@
             Task Management
             <span class="px-2 py-1 sm:px-2.5 rounded-md bg-[#FFF8F1] text-[#EF7722] text-[9px] sm:text-[10px] uppercase font-bold tracking-widest border border-[#FAA533]/50 shadow-sm">Student</span>
           </h2>
-          <button @click="openModal('create')" class="px-4 py-2 rounded-xl bg-[#1F2937] text-white text-[12px] font-bold flex items-center gap-2 hover:bg-[#EF7722] hover:shadow-md hover:shadow-[#EF7722]/20 transition-all active:scale-95">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-            Add Task
-          </button>
         </div>
 
         <div class="flex gap-6 md:gap-8 border-b border-[#EBEBEB] mt-1 relative z-10 overflow-x-auto whitespace-nowrap no-scrollbar pt-1">
@@ -149,10 +145,10 @@
              </div>
              <div class="text-center">
                <span class="text-[14px] font-bold text-[#1F2937] block mb-1">No tasks found</span>
-               <span class="text-[12px] font-medium text-[#6B7280] block max-w-[200px] leading-relaxed">There are no {{ activeTab === 'All Task' ? '' : activeTab.toLowerCase() }} tasks here. Time to take a break or add a new one!</span>
+               <span class="text-[12px] font-medium text-[#6B7280] block max-w-[200px] leading-relaxed">There are no {{ activeTab === 'All Task' ? '' : activeTab.toLowerCase() }} tasks here. Find jobs to apply for on the Home page!</span>
              </div>
-             <button v-if="activeTab === 'All Task'" @click="openModal('create')" class="mt-2 text-[#EF7722] text-[12px] font-bold hover:underline">
-               + Create your first task
+             <button v-if="activeTab === 'All Task'" @click="$router.push('/')" class="mt-2 text-[#EF7722] text-[12px] font-bold hover:underline">
+               Explore Jobs
              </button>
            </div>
 
@@ -164,23 +160,28 @@
                 class="flex flex-col sm:grid sm:grid-cols-12 gap-3 sm:gap-4 sm:items-center bg-transparent hover:bg-gray-50/80 p-3 sm:p-2 rounded-2xl transition-all duration-300 border border-transparent hover:border-gray-100 hover:shadow-sm group/item relative overflow-hidden"
               >
                  <!-- Highlight line on hover -->
-                 <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-gradient-to-b from-[#EF7722] to-[#FAA533] rounded-r-full group-hover/item:h-2/3 transition-all duration-300"></div>
+                 <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 rounded-r-full group-hover/item:h-2/3 transition-all duration-300"
+                      :class="task.status === 'Completed' ? 'bg-green-500' : (task.status === 'Pending' ? 'bg-orange-400' : (task.status === 'End' ? 'bg-red-500' : 'bg-blue-500'))"></div>
 
                  <!-- Title Column -->
                  <div class="sm:col-span-8 flex items-center gap-3 sm:gap-4 pl-1 sm:pl-2">
-                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-[12px] flex items-center justify-center shrink-0 shadow-inner border border-[#EBEBEB] group-hover/item:scale-105 group-hover/item:border-[#FAA533]/50 transition-all duration-300"
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-[12px] flex items-center justify-center shrink-0 shadow-inner border border-[#EBEBEB] group-hover/item:scale-105 transition-all duration-300"
                          :class="[
-                           task.status === 'Completed' ? 'bg-[#EF7722] text-[#FFFFFF]' : 
-                           (task.status === 'Pending' ? 'bg-[#FFF8F1] text-[#6B7280]' : 
-                           'bg-gradient-to-br from-[#EF7722] to-[#FAA533] text-[#FFFFFF]')
+                           task.status === 'Completed' ? 'bg-green-500 text-white group-hover/item:border-green-300' : 
+                           (task.status === 'Pending' ? 'bg-orange-400 text-white group-hover/item:border-orange-300' : 
+                           (task.status === 'End' ? 'bg-red-500 text-white group-hover/item:border-red-300' : 'bg-blue-500 text-white group-hover/item:border-blue-300'))
                          ]">
                       <svg v-if="task.status === 'Completed'" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                       <svg v-else-if="task.status === 'Pending'" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                      <svg v-else-if="task.status === 'End'" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                       <svg v-else class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     
                     <div class="flex flex-col gap-0.5 justify-center overflow-hidden w-full">
-                       <span class="text-[13px] sm:text-[14px] font-bold text-[#1F2937] tracking-tight group-hover/item:text-[#EF7722] transition-colors truncate w-full pr-2">{{ task.title }}</span>
+                       <span class="text-[13px] sm:text-[14px] font-bold text-[#1F2937] tracking-tight transition-colors truncate w-full pr-2"
+                             :class="task.status === 'Completed' ? 'group-hover/item:text-green-600' : 
+                                    (task.status === 'Pending' ? 'group-hover/item:text-orange-500' : 
+                                    (task.status === 'End' ? 'group-hover/item:text-red-600' : 'group-hover/item:text-blue-600'))">{{ task.title }}</span>
                        <span class="text-[11px] sm:text-[12px] font-medium text-[#6B7280] truncate">
                          {{ task.status === 'Completed' ? 'Completed: ' : 'Due: ' }}<span class="font-semibold text-gray-500">{{ formatDate(task.date) }}</span>
                        </span>
@@ -190,19 +191,20 @@
                  <!-- Status and Actions Column -->
                  <div class="sm:col-span-4 flex items-center justify-between sm:pl-2 pl-[52px]">
                     <div class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold tracking-widest shadow-sm flex items-center gap-1.5 shrink-0" 
-                         :class="statusStyles[task.status]">
+                         :class="statusStyles[task.status] || 'bg-gray-50 text-gray-500 border border-gray-200'">
                       <span class="w-1.5 h-1.5 rounded-full animate-pulse blur-[0.5px]" 
-                            :class="task.status === 'Completed' ? 'bg-[#EF7722]' : (task.status === 'Pending' ? 'bg-[#6B7280]' : 'bg-[#EF7722]')"></span>
+                            :class="task.status === 'Completed' ? 'bg-green-500' : (task.status === 'Pending' ? 'bg-orange-500' : (task.status === 'End' ? 'bg-red-500' : 'bg-blue-500'))"></span>
                       {{ task.status }}
                     </div>
 
                     <!-- Actions -->
                     <div class="flex gap-1.5 md:gap-2 opacity-100 md:opacity-0 group-hover/item:opacity-100 transition-opacity shrink-0">
-                       <button @click="openModal('edit', task)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-500 hover:text-[#2563EB] hover:border-blue-200 transition-colors" title="Edit Task">
-                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                       <button v-if="task.status === 'Pending'" @click="deleteTask(task.id)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-all active:scale-95" title="Cancel Application">
+                         <svg class="w-4 h-4 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                        </button>
-                       <button @click="deleteTask(task.id)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-500 hover:text-red-500 hover:border-red-200 transition-colors" title="Delete Task">
-                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                       <!-- Mark as Complete for In Progress Tasks -->
+                       <button v-if="task.status === 'In Progress'" @click="markAsCompleted(task.id)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-400 hover:text-white hover:border-green-400 hover:bg-green-500 transition-all active:scale-95" title="Mark as Completed">
+                         <svg class="w-4 h-4 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                        </button>
                     </div>
                  </div>
@@ -236,9 +238,16 @@
             </span>
             
             <div v-if="recentActiveTask" class="relative flex items-center justify-center shrink-0">
-               <span class="absolute inset-0 bg-[#EF7722] blur-md opacity-20 group-hover:opacity-40 rounded-full transition-opacity duration-300"></span>
-               <span class="relative px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-[#FFF8F1] border border-[#FAA533] text-[#EF7722] text-[11px] sm:text-[13px] font-bold tracking-wide flex items-center gap-2">
-                 <span class="w-1.5 h-1.5 rounded-full bg-[#EF7722] animate-pulse"></span>
+               <span class="absolute inset-0 blur-md opacity-20 group-hover:opacity-40 rounded-full transition-opacity duration-300"
+                     :class="recentActiveTask.status === 'Completed' ? 'bg-green-500' : (recentActiveTask.status === 'Pending' ? 'bg-orange-500' : (recentActiveTask.status === 'End' ? 'bg-red-500' : 'bg-blue-500'))"></span>
+               <span class="relative px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border text-[11px] sm:text-[13px] font-bold tracking-wide flex items-center gap-2"
+                     :class="recentActiveTask.status === 'Completed' ? 'bg-green-50 border-green-200 text-green-600' :
+                            (recentActiveTask.status === 'Pending' ? 'bg-orange-50 border-orange-200 text-orange-500' :
+                            (recentActiveTask.status === 'End' ? 'bg-red-50 border-red-200 text-red-600' : 'bg-blue-50 border-blue-200 text-blue-600'))">
+                 <span class="w-1.5 h-1.5 rounded-full animate-pulse"
+                       :class="recentActiveTask.status === 'Completed' ? 'bg-green-500' :
+                              (recentActiveTask.status === 'Pending' ? 'bg-orange-500' :
+                              (recentActiveTask.status === 'End' ? 'bg-red-500' : 'bg-blue-500'))"></span>
                  {{ recentActiveTask.status }}
                </span>
             </div>
@@ -363,15 +372,24 @@ const submitForm = async () => {
 };
 
 const deleteTask = async (taskId) => {
-  if (!confirm('Are you sure you want to delete this task?')) return;
+  if (!confirm('Are you sure you want to cancel this application?')) return;
   await taskStore.deleteTask(taskId);
 };
 
-// Map status to strict brand styles
+const markAsCompleted = async (taskId) => {
+  if (!confirm('Confirm marking this application as Completed?')) return;
+  const t = taskStore.tasks.find(x => x.id === taskId);
+  if (t) {
+    await taskStore.updateTask({ ...t, status: 'Completed' });
+  }
+};
+
+// Map status to semantic brand styles
 const statusStyles = {
-  'In Progress': 'bg-[#FAA533]/15 text-[#EF7722] border border-[#FAA533]/40',
-  'Pending': 'bg-[#FFF8F1] text-[#6B7280] border border-[#EBEBEB]',
-  'Completed': 'bg-[#EF7722]/10 text-[#EF7722] border border-[#EF7722]/30'
+  'In Progress': 'bg-blue-50 text-blue-600 border border-blue-200',
+  'Pending': 'bg-orange-50 text-orange-600 border border-orange-300',
+  'Completed': 'bg-green-50 text-green-600 border border-green-300',
+  'End': 'bg-red-50 text-red-600 border border-red-300'
 };
 </script>
 

@@ -21,7 +21,11 @@ const handleLogin = () => {
 
     if (user) {
         auth.login(user)
-        router.push('/')
+        if (user.role === 'admin') {
+            router.push('/admin')
+        } else {
+            router.push('/')
+        }
     }
 }
 </script>

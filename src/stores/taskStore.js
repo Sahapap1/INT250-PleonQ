@@ -18,7 +18,7 @@ export const useTaskStore = defineStore('taskStore', {
   actions: {
     // Internal helper to save to local storage tracking
     saveToLocalStorage() {
-      localStorage.setItem('taskAppData', JSON.stringify(this.tasks));
+      localStorage.setItem('taskAppData_v2', JSON.stringify(this.tasks));
     },
 
     async fetchTasks() {
@@ -30,7 +30,7 @@ export const useTaskStore = defineStore('taskStore', {
         await new Promise(resolve => setTimeout(resolve, 800)); // Simulate API loading
         
         // Persistent Memory Check
-        const localData = localStorage.getItem('taskAppData');
+        const localData = localStorage.getItem('taskAppData_v2');
         if (localData) {
           this.tasks = JSON.parse(localData);
         } else {

@@ -34,14 +34,21 @@ const jobStore = useJobStore()
 
 const currentPage = ref(1)
 
+const sortedJobs = computed(() => {
+  return [...jobStore.jobs].sort((a, b) => {
+    if (a.liked === b.liked) return 0
+    return a.liked ? -1 : 1
+  })
+})
+
 const totalPages = computed(() => {
-  return Math.ceil(jobStore.jobs.length / itemsPerPage.value)
+  return Math.ceil(sortedJobs.value.length / itemsPerPage.value)
 })
 
 const paginatedJobs = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage.value
   const end = start + itemsPerPage.value
-  return jobStore.jobs.slice(start, end)
+  return sortedJobs.value.slice(start, end)
 })
 
 watch(itemsPerPage, () => {
@@ -102,20 +109,34 @@ const prevPage = () => {
                     </div>
 
                     <!-- 📄 Pagination -->
-                    <div class="lg:mt-auto mt-4 flex justify-center items-center gap-3 pb-1 lg:pt-2">
-                        <button @click="prevPage" :disabled="currentPage === 1"
-                            class="px-3 py-1 text-sm bg-gray-200 rounded disabled:opacity-50">
-                            Prev
-                        </button>
-
-                        <span class="text-sm font-medium">
-                            Page {{ currentPage }} / {{ totalPages }}
-                        </span>
-
-                        <button @click="nextPage" :disabled="currentPage === totalPages"
-                            class="px-3 py-1 text-sm bg-gray-200 rounded disabled:opacity-50">
-                            Next
-                        </button>
+                    <!-- Pagination -->
+                    <div class="mt-4 bg-white/80 backdrop-blur-sm px-4 py-3 rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-[#EBEBEB] flex justify-between items-center transition-all">
+                      <button
+                        @click="prevPage"
+                        :disabled="currentPage === 1"
+                        class="flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-[13px] transition-all duration-300"
+                        :class="currentPage === 1 ? 'bg-gray-50 text-gray-400 cursor-not-allowed' : 'bg-[#FFF8F1] text-[#EF7722] hover:bg-[#EF7722] hover:text-white hover:shadow-md cursor-pointer active:scale-95 border border-[#EF7722]/20 hover:border-transparent'"
+                      >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                        Prev
+                      </button>
+            
+                      <div class="hidden sm:flex items-center gap-1.5 px-4">
+                         <span class="text-[13px] font-bold text-gray-400">Page</span>
+                         <span class="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-[13px] font-black text-[#1F2937]">{{ currentPage }}</span>
+                         <span class="text-[13px] font-bold text-gray-400">of</span>
+                         <span class="text-[13px] font-black text-gray-500">{{ totalPages }}</span>
+                      </div>
+            
+                      <button
+                        @click="nextPage"
+                        :disabled="currentPage === totalPages"
+                        class="flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-[13px] transition-all duration-300"
+                        :class="currentPage === totalPages ? 'bg-gray-50 text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white hover:shadow-[0_8px_15px_rgba(239,119,34,0.3)] hover:-translate-y-0.5 cursor-pointer active:scale-95 border border-transparent'"
+                      >
+                        Next
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                      </button>
                     </div>
 
                 </div>

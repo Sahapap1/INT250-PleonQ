@@ -9,8 +9,8 @@ import TaskManagement from '@/views/TaskManagement.vue'
 import Profile from '@/views/Profile.vue'
 import JobDetail from '@/views/JobDetail.vue'
 import AdminDashboard from '@/views/AdminDashboard.vue'
+import CreateJob from '@/views/CreateJob.vue'
 import Login from '@/views/Login.vue'
-import Notification from '@/views/Notifications.vue'
 
 
 const routes = [
@@ -44,10 +44,11 @@ const routes = [
         component: Profile
       },
       {
-        path: 'notification',
-        name: 'Notification',
-        component: Notification
+        path: 'admin/create-job',
+        name: 'CreateJob',
+        component: CreateJob
       },
+
       {
         path: 'job/:id',
         name: 'JobDetail',
