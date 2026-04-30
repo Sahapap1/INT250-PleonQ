@@ -32,15 +32,13 @@ const handleLogin = () => {
         u => u.username === username.value && u.password === password.value
     )
 
-    if (!user) {
-        errorMessage.value = 'Invalid username or password'
-
-        // reset form
-        setTimeout(() => {
-            username.value = ''
-            password.value = ''
-        }, 300)
-        return
+    if (user) {
+        auth.login(user)
+        if (user.role === 'admin') {
+            router.push('/admin')
+        } else {
+            router.push('/')
+        }
     }
 
     //  success

@@ -10,10 +10,7 @@ import Sidebar from '@/components/Sidebar.vue'
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-cover bg-bottom md:bg-center
-        items-center
-         bg-[url('@/assets/img/mobile/bg.png')]
-         md:bg-[url('@/assets/img/desktop/bg.png')]">
+  <div class="min-h-screen flex flex-col bg-cover bg-center items-center bg-[url('@/assets/img/desktop/abstract-waves.svg')]">
     <Nav />
     <div class="flex min-h-screen w-full max-w-7xl mx-auto gap-8 lg:gap-0">
       <Sidebar />

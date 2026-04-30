@@ -8,7 +8,7 @@ export const useCategoryStore = defineStore('categoryStore', {
     isLoading: false,
     error: null,
   }),
-  
+
   actions: {
     saveToLocalStorage() {
       localStorage.setItem('selectedCategories', JSON.stringify(this.selectedCategories));
@@ -17,13 +17,13 @@ export const useCategoryStore = defineStore('categoryStore', {
     async fetchCategories() {
       this.isLoading = true;
       this.error = null;
-      
+
       try {
         await new Promise(resolve => setTimeout(resolve, 800)); // Simulate fetch
-        
+
         // Static available options
         this.allCategories = JSON.parse(JSON.stringify(availableCategories));
-        
+
         // Load selected from LocalStorage
         const localData = localStorage.getItem('selectedCategories');
         if (localData) {
@@ -41,7 +41,7 @@ export const useCategoryStore = defineStore('categoryStore', {
 
     async toggleCategory(category) {
       if (this.isLoading) return; // Prevent spamming while saving
-      
+
       const index = this.selectedCategories.indexOf(category);
       if (index === -1) {
         this.selectedCategories.push(category);
@@ -50,7 +50,7 @@ export const useCategoryStore = defineStore('categoryStore', {
       }
       this.saveToLocalStorage();
     },
-    
+
     // Simulate an explicit save button click
     async saveCategories() {
       this.isLoading = true;
