@@ -25,7 +25,7 @@ const toggleLike = (e) => {
 
 <template>
     <div @click="goToDetail"
-        class="h-37 w-100 md:w-full bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border p-2 pr-4 flex gap-4 relative group hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#FAA533]/40 transition-all duration-300 cursor-pointer"
+        class="h-37 w-100 md:w-full md:max-w-3xl max-w-sm bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border p-2 pr-4 flex gap-4 relative group hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#FAA533]/40 transition-all duration-300 cursor-pointer"
         :class="data.liked ? 'border-[#FAA533]/70 ring-[1.5px] ring-[#FAA533]/20 shadow-[0_4px_15px_rgba(239,119,34,0.08)] bg-[#FFF8F1]/20' : 'border-[#EBEBEB]'">
 
         <!-- Heart -->
@@ -45,10 +45,10 @@ const toggleLike = (e) => {
         </div>
 
         <!-- Content -->
-        <div class="flex flex-col py-1.5 px-2 grow">
+        <div class="flex flex-col py-1.5 px-2 grow w-full overflow-hidden">
 
             <h2
-                class="text-[17px] font-bold text-primary tracking-tight whitespace-nowrap inline-block hover:animate-marquee">
+                class="text-[17px] font-bold text-primary tracking-tight whitespace-nowrap inline-block hover:animate-marquee md:overflow-hidden max-w-md">
                 {{ data.title }}
             </h2>
 
