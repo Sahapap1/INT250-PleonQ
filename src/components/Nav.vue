@@ -56,7 +56,7 @@ onBeforeUnmount(() => document.removeEventListener('click', closeDropdowns))
   <div class="flex flex-col items-center gap-4 w-full">
     <div class="w-full max-w-7xl h-20 py-4 px-4 flex justify-between items-center">
       <div>
-        <img class="w-12 md:w-16" src="@/assets/logo.png" alt="">
+        <button class="cursor-pointer" @click="isAdmin?router.push('/admin'):router.push('/')"><img class="w-12 md:w-16" src="@/assets/logo.png" alt=""></button>
       </div>
       <div class="flex justify-between gap-4 md:gap-6">
         <div class="relative z-50" id="nav-bell-container">
