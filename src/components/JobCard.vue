@@ -3,7 +3,11 @@ import { useRouter } from 'vue-router'
 import { useJobStore } from '../stores/jobStore'
 
 const props = defineProps({
-    data: Object
+    data: Object,
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const router = useRouter()
@@ -21,7 +25,8 @@ const toggleLike = (e) => {
 
 <template>
     <div @click="goToDetail"
-        class="h-37 w-100 md:w-full bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#EBEBEB] p-2 pr-4 flex gap-4 relative group hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-gray-200 transition-all duration-300 cursor-pointer">
+        class="h-37 w-100 md:w-full bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border p-2 pr-4 flex gap-4 relative group hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#FAA533]/40 transition-all duration-300 cursor-pointer"
+        :class="data.liked ? 'border-[#FAA533]/70 ring-[1.5px] ring-[#FAA533]/20 shadow-[0_4px_15px_rgba(239,119,34,0.08)] bg-[#FFF8F1]/20' : 'border-[#EBEBEB]'">
 
         <!-- Heart -->
         <button @click="toggleLike"
@@ -70,7 +75,7 @@ const toggleLike = (e) => {
 
                 <button
                     class="bg-orange-gradient hover:bg-[#FAA533] text-white text-[11px] font-bold px-4 py-1 rounded-full">
-                    View
+                    {{ isAdmin ? 'Edit' : 'View' }}
                 </button>
 
             </div>

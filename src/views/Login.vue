@@ -15,37 +15,46 @@ const username = ref('')
 const password = ref('')
 
 const handleLogin = () => {
-
+    
     errorMessage.value = ''
 
     //  empty field
     if (!username.value || !password.value) {
         errorMessage.value = 'Please fill in username and password'
-
-        username.value = ''
-        password.value = ''
         return
     }
-
+    
     //  wrong login
     const user = users.find(
         u => u.username === username.value && u.password === password.value
     )
-
+    
+    
     if (!user) {
-        errorMessage.value = 'Invalid username or password'
-
-        // reset form
-        setTimeout(() => {
-            username.value = ''
-            password.value = ''
-        }, 300)
+        errorMessage.value = 'Incorrect username or password'
         return
     }
 
-    //  success
-    auth.login(user)
-    router.push('/')
+    // เช็ค password
+    if (user.password !== password.value) {
+        errorMessage.value = 'Incorrect username or password'
+        return
+    }
+
+    if (user) {
+        const fakeToken = 'abc123' // ปกติได้จาก backend
+        sessionStorage.setItem('token', fakeToken)
+        sessionStorage.setItem('user', JSON.stringify(user))
+
+        auth.login(user)
+
+        if (user.role === 'admin') {
+            router.push('/admin')
+        } else {
+            router.push('/')
+        }
+    }
+
 }
 </script>
 
@@ -56,7 +65,7 @@ const handleLogin = () => {
         <div class="hidden md:flex md:w-3/4 h-screen relative overflow-hidden">
             <img src="../assets/img/login-bg.png" class="w-full h-full object-cover" />
         </div>
-        <!-- 🔐 Right (Form) -->
+        <!-- Right (Form) -->
         <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-6 py-10 bg-white">
 
             <!-- Logo -->
