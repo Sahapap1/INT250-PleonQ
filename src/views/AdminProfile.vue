@@ -102,11 +102,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2M16 4h2a2 2 0 012 2v2M16 20h2a2 2 0 002-2v-2" />
             <circle cx="12" cy="12" r="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" />
           </svg>
-          
-          <!-- Animated Scan Line -->
-          <div class="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#EF7722] to-transparent opacity-0 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_rgba(239,119,34,0.8)] animate-[scan_2s_ease-in-out_infinite]"></div>
         </div>
-        
         <div class="flex flex-col mt-3 gap-1.5 text-center md:text-left flex-grow z-10">
           <h3 class="text-[#1F2937] text-[16px] font-extrabold tracking-tight">Scan Activity QR</h3>
           <p class="text-[13px] text-[#6B7280] font-medium leading-relaxed max-w-[280px]">Tap to open the scanner and check in for the activity.</p>
