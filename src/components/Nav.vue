@@ -4,10 +4,12 @@ import { useRouter, useRoute } from 'vue-router'
 import NotificationDropdown from './NotificationDropdown.vue'
 import NotificationModal from './NotificationModal.vue'
 import { useAuthStore } from '@/stores/authStore'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 const router = useRouter()
 const route = useRoute()
 const auth = useAuthStore()
+const notificationStore = useNotificationStore()
 const isAdmin = computed(() => auth.user?.role === 'admin')
 
 const activeTab = ref('home')
@@ -48,7 +50,13 @@ const closeDropdowns = (e) => {
   }
 }
 
-onMounted(() => document.addEventListener('click', closeDropdowns))
+onMounted(() => {
+  document.addEventListener('click', closeDropdowns)
+  // Fetch notifications for current user
+  if (auth.user?.id) {
+    notificationStore.fetchNotifications(auth.user.id)
+  }
+})
 onBeforeUnmount(() => document.removeEventListener('click', closeDropdowns))
 </script>
 
@@ -62,8 +70,8 @@ onBeforeUnmount(() => document.removeEventListener('click', closeDropdowns))
         <div class="relative z-50" id="nav-bell-container">
           <button @click="showNotifDropdown = !showNotifDropdown"
             class="bg-orange-gradient rounded-full size-10 flex items-center justify-center cursor-pointer transition-all duration-300 relative shadow-sm hover:scale-105 active:scale-95 group">
-            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold rounded-full w-[18px] h-[18px] flex items-center justify-center border-2 border-white shadow-sm z-10 animate-bounce">
-              2
+            <span v-if="notificationStore.unreadCount > 0" class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold rounded-full w-[18px] h-[18px] flex items-center justify-center border-2 border-white shadow-sm z-10 animate-bounce">
+              {{ notificationStore.unreadCount }}
             </span>
             <i class="text-white text-lg transition-all duration-300" :class="showNotifDropdown ? 'fa-solid fa-bell' : 'fa-regular fa-bell group-hover:fa-solid'"></i>
           </button>

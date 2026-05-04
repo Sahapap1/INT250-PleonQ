@@ -4,6 +4,7 @@ import tasksData from '../data/tasks.json';
 export const useTaskStore = defineStore('taskStore', {
   state: () => ({
     tasks: [],
+    currentUserId: null,
     isLoading: false,
     error: null,
   }),
@@ -16,12 +17,19 @@ export const useTaskStore = defineStore('taskStore', {
   },
 
   actions: {
-    // Internal helper to save to local storage tracking
-    saveToLocalStorage() {
-      localStorage.setItem('taskAppData_v2', JSON.stringify(this.tasks));
+    getStorageKey() {
+      return `pleonq_tasks_${this.currentUserId}`;
     },
 
-    async fetchTasks() {
+    // Internal helper to save to local storage per user
+    saveToLocalStorage() {
+      if (this.currentUserId) {
+        localStorage.setItem(this.getStorageKey(), JSON.stringify(this.tasks));
+      }
+    },
+
+    async fetchTasks(userId) {
+      if (userId) this.currentUserId = userId;
       this.isLoading = true;
       this.error = null;
       this.tasks = [];
@@ -29,13 +37,16 @@ export const useTaskStore = defineStore('taskStore', {
       try {
         await new Promise(resolve => setTimeout(resolve, 800)); // Simulate API loading
         
-        // Persistent Memory Check
-        const localData = localStorage.getItem('taskAppData_v2');
+        // Persistent Memory Check per user
+        const localData = localStorage.getItem(this.getStorageKey());
         if (localData) {
           this.tasks = JSON.parse(localData);
         } else {
-          // Deep copy from JSON file as initial sync
-          this.tasks = JSON.parse(JSON.stringify(tasksData));
+          // Load initial data for this user from JSON
+          const userTasks = tasksData[String(this.currentUserId)];
+          this.tasks = userTasks
+            ? JSON.parse(JSON.stringify(userTasks))
+            : [];
           this.saveToLocalStorage();
         }
       } catch (err) {

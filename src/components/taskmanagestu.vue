@@ -263,15 +263,17 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useTaskStore } from '../stores/taskStore';
+import { useAuthStore } from '../stores/authStore';
 
 const taskStore = useTaskStore();
+const authStore = useAuthStore();
 
 // Tabs State
 const activeTab = ref('All Task');
 const tabs = ['All Task', 'Pending', 'In Progress', 'Completed'];
 
 onMounted(() => {
-  taskStore.fetchTasks();
+  taskStore.fetchTasks(authStore.user?.id);
 });
 
 // Computed states interacting with Pinia Store

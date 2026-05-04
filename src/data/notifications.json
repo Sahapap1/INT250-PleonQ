@@ -1,0 +1,165 @@
+{
+  "1": [
+    {
+      "id": 1,
+      "type": "jobs",
+      "jobId": 1,
+      "unread": true,
+      "subject": "สมัครเป็น Staff โครงการ SeedScape 4 สำเร็จ!",
+      "poster": "PleonQ System",
+      "time": "12:02",
+      "date": "Today",
+      "icon": "fa-briefcase",
+      "body": "คุณได้สมัครงาน \"🌱 เปิดรับสมัคร Staff โครงการ SeedScape 4‼️\" เรียบร้อยแล้ว สถานะการสมัครของคุณคือ Pending รอแอดมินตรวจสอบ"
+    },
+    {
+      "id": 2,
+      "type": "notifications",
+      "jobId": null,
+      "unread": true,
+      "subject": "Login detected on new device",
+      "poster": "System",
+      "time": "10:45",
+      "date": "Today",
+      "icon": "fa-shield-halved",
+      "body": "ท่านได้เข้าใช้งานระบบ PleonQ จากอุปกรณ์ใหม่เมื่อวันที่ 4 พฤษภาคม 2569 เวลา 10:45 น. หากท่านไม่ได้เป็นผู้ดำเนินการดังกล่าว กรุณาติดต่อแอดมินทันที"
+    },
+    {
+      "id": 3,
+      "type": "jobs",
+      "jobId": 6,
+      "unread": false,
+      "subject": "สมัครเป็น Staff KMUTT CUP สำเร็จ!",
+      "poster": "PleonQ System",
+      "time": "09:30",
+      "date": "Yesterday",
+      "icon": "fa-briefcase",
+      "body": "คุณได้สมัครงาน \"📢 KMUTT CUP เปิดรับสมัครทีมงาน (Staff)\" เรียบร้อยแล้ว สถานะการสมัครของคุณคือ In Progress"
+    },
+    {
+      "id": 4,
+      "type": "events",
+      "jobId": 5,
+      "unread": false,
+      "subject": "กิจกรรม เพราะดนตรีนั้นคือชีวิต กำลังจะเริ่มเร็วๆ นี้",
+      "poster": "PleonQ Events",
+      "time": "15:00",
+      "date": "Yesterday",
+      "icon": "fa-calendar-days",
+      "body": "กิจกรรม \"🔊เพราะดนตรีนั้นคือชีวิต\" จะจัดขึ้นในวันที่ 24 มิถุนายน 2569 ณ ห้องประชุม 1 อาคารพระจอมเกล้าราชานุรณ์ อย่าลืมมาเข้าร่วม!"
+    },
+    {
+      "id": 5,
+      "type": "notifications",
+      "jobId": null,
+      "unread": false,
+      "subject": "Your password was changed successfully",
+      "poster": "System",
+      "time": "11:20",
+      "date": "3 May",
+      "icon": "fa-key",
+      "body": "รหัสผ่านของคุณถูกเปลี่ยนเรียบร้อยแล้วเมื่อวันที่ 3 พฤษภาคม 2569 หากคุณไม่ได้ดำเนินการ กรุณาติดต่อแอดมิน"
+    }
+  ],
+  "2": [
+    {
+      "id": 1,
+      "type": "jobs",
+      "jobId": 3,
+      "unread": true,
+      "subject": "สมัครเป็น Staff Tue Admission 18th สำเร็จ!",
+      "poster": "PleonQ System",
+      "time": "14:30",
+      "date": "Today",
+      "icon": "fa-briefcase",
+      "body": "คุณได้สมัครงาน \"ประตูสู่ดินแดนในฝัน Tue Admission 18th\" เรียบร้อยแล้ว สถานะการสมัครของคุณคือ Pending"
+    },
+    {
+      "id": 2,
+      "type": "jobs",
+      "jobId": 4,
+      "unread": true,
+      "subject": "สมัครเป็น Staff TUEPUNRAK 19th สำเร็จ!",
+      "poster": "PleonQ System",
+      "time": "11:15",
+      "date": "Today",
+      "icon": "fa-briefcase",
+      "body": "คุณได้สมัครงาน \"เปิดรับสมัคร Staff & Tutor โครงการ TUEPUNRAK 19th\" เรียบร้อยแล้ว สถานะการสมัครของคุณคือ Pending"
+    },
+    {
+      "id": 3,
+      "type": "events",
+      "jobId": 2,
+      "unread": false,
+      "subject": "กิจกรรม IT 3K กำลังจะเริ่ม!",
+      "poster": "PleonQ Events",
+      "time": "09:00",
+      "date": "Yesterday",
+      "icon": "fa-calendar-days",
+      "body": "กิจกรรม \"✨IT 3K กลับมาแล้ววว 👀\" จะจัดขึ้นในวันที่ 17 มิถุนายน 2569 อย่าลืมมาเข้าร่วม!"
+    },
+    {
+      "id": 4,
+      "type": "notifications",
+      "jobId": null,
+      "unread": false,
+      "subject": "ยินดีต้อนรับสู่ PleonQ!",
+      "poster": "System",
+      "time": "08:00",
+      "date": "2 May",
+      "icon": "fa-hand-wave",
+      "body": "ยินดีต้อนรับเข้าสู่ระบบ PleonQ คุณสามารถค้นหาและสมัครงานกิจกรรมต่างๆ ของมหาวิทยาลัยได้ที่หน้า Home"
+    }
+  ],
+  "3": [
+    {
+      "id": 1,
+      "type": "jobs",
+      "jobId": 7,
+      "unread": true,
+      "subject": "สมัครเป็น Staff SAMOSIT NEXT GEN สำเร็จ!",
+      "poster": "PleonQ System",
+      "time": "16:20",
+      "date": "Today",
+      "icon": "fa-briefcase",
+      "body": "คุณได้สมัครงาน \"SAMOSIT NEXT GEN IS BACK! 🔥🔥🔥\" เรียบร้อยแล้ว สถานะการสมัครของคุณคือ Pending"
+    },
+    {
+      "id": 2,
+      "type": "jobs",
+      "jobId": 8,
+      "unread": false,
+      "subject": "สมัครเป็น Staff KMUTT Engineering Open House สำเร็จ!",
+      "poster": "PleonQ System",
+      "time": "10:00",
+      "date": "Yesterday",
+      "icon": "fa-briefcase",
+      "body": "คุณได้สมัครงาน \"รับสมัครสตาฟสำหรับงาน KMUTT Engineering Open House 2026\" เรียบร้อยแล้ว สถานะการสมัครของคุณคือ In Progress"
+    },
+    {
+      "id": 3,
+      "type": "notifications",
+      "jobId": null,
+      "unread": true,
+      "subject": "อัปเดตโปรไฟล์ของคุณ",
+      "poster": "System",
+      "time": "09:00",
+      "date": "Today",
+      "icon": "fa-user-pen",
+      "body": "กรุณาอัปเดตข้อมูลโปรไฟล์ของคุณให้ครบถ้วน เพื่อเพิ่มโอกาสในการได้รับการคัดเลือกเป็น Staff"
+    },
+    {
+      "id": 4,
+      "type": "events",
+      "jobId": 9,
+      "unread": false,
+      "subject": "งาน Open House กำลังจะมา!",
+      "poster": "PleonQ Events",
+      "time": "14:00",
+      "date": "3 May",
+      "icon": "fa-calendar-days",
+      "body": "งาน KMUTT Engineering Open House 2026 จะจัดขึ้นในวันที่ 22 กันยายน 2569 เตรียมตัวให้พร้อม!"
+    }
+  ],
+  "5": []
+}
