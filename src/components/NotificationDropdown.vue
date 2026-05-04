@@ -48,7 +48,7 @@ const goToFullPage = () => {
 </script>
 
 <template>
-  <div class="absolute top-[60px] right-0 sm:-right-2 w-[340px] sm:w-[380px] bg-white rounded-[24px] shadow-[0_20px_70px_-15px_rgba(0,0,0,0.2)] border border-gray-100 overflow-hidden flex flex-col z-50 transform origin-top-right transition-all">
+  <div class="fixed sm:absolute top-[70px] sm:top-[60px] left-2 right-2 sm:left-auto sm:right-0 sm:w-[380px] bg-white rounded-[24px] shadow-[0_20px_70px_-15px_rgba(0,0,0,0.2)] border border-gray-100 overflow-hidden flex flex-col z-50 transform origin-top-right transition-all">
     
     <!-- Header -->
     <div class="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-br from-[#FFF8F1] to-white">

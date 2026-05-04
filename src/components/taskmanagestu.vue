@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full max-w-[850px] mx-auto z-10 transition-all px-2 sm:px-4 md:px-0">
+  <div class="relative w-full mx-auto z-10 transition-all px-2 sm:px-4 md:px-0 overflow-hidden">
     
     <!-- Modal Teleport -->
     <Teleport to="body">
@@ -77,10 +77,10 @@
     <div class="absolute -top-[5%] -left-[10%] w-80 h-80 bg-[#EF7722] rounded-full mix-blend-multiply filter blur-[100px] opacity-15 animate-pulse pointer-events-none z-0"></div>
     <div class="absolute -bottom-[5%] -right-[10%] w-80 h-80 bg-[#FAA533] rounded-full mix-blend-multiply filter blur-[100px] opacity-15 animate-[pulse_4s_ease-in-out_infinite] pointer-events-none z-0"></div>
 
-    <div class="relative bg-[#FFF8F1]/90 backdrop-blur-xl rounded-[24px] md:rounded-[36px] shadow-[0_10px_50px_rgba(0,0,0,0.05)] border border-[#EBEBEB] p-4 sm:p-6 md:p-8 flex flex-col gap-6 md:gap-8 z-10 group/wrapper">
+    <div class="relative bg-[#FFF8F1]/90 backdrop-blur-xl rounded-[24px] md:rounded-[36px] shadow-[0_10px_50px_rgba(0,0,0,0.05)] border border-[#EBEBEB] p-2 sm:p-4 md:p-8 flex flex-col gap-4 md:gap-8 z-10 group/wrapper min-w-0">
       
       <!-- 1. Task Management List Card -->
-      <div class="relative overflow-hidden bg-[#FFFFFF] rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-5 sm:p-7 md:p-8 flex flex-col gap-6 group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.08)] hover:bg-white/95 border border-[#EBEBEB] z-10 min-h-[400px]">
+      <div class="relative overflow-hidden bg-[#FFFFFF] rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-3 sm:p-5 md:p-8 flex flex-col gap-4 sm:gap-6 group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.08)] hover:bg-white/95 border border-[#EBEBEB] z-10 min-h-[400px] min-w-0">
         
         <div class="flex justify-between items-center z-10 flex-wrap gap-4">
           <h2 class="text-[17px] sm:text-[19px] font-extrabold text-[#1F2937] tracking-tight flex items-center gap-2 sm:gap-3">
@@ -89,7 +89,7 @@
           </h2>
         </div>
 
-        <div class="flex gap-6 md:gap-8 border-b border-[#EBEBEB] mt-1 relative z-10 overflow-x-auto whitespace-nowrap no-scrollbar pt-1">
+        <div class="flex gap-3 sm:gap-6 md:gap-8 border-b border-[#EBEBEB] mt-1 relative z-10 overflow-x-auto whitespace-nowrap no-scrollbar pt-1">
            <button 
              v-for="tab in tabs" 
              :key="tab"
@@ -107,7 +107,7 @@
            </button>
         </div>
 
-        <div class="flex flex-col gap-2 mt-2 z-10 w-full max-w-2xl min-h-[260px] relative">
+        <div class="flex flex-col gap-2 mt-2 z-10 w-full min-h-[260px] relative">
            
            <div class="hidden sm:grid sm:grid-cols-12 gap-4 px-3 pb-2 border-b border-dashed border-[#EBEBEB]">
              <div class="col-span-8 text-[11px] font-bold text-[#6B7280] uppercase tracking-widest flex items-center gap-2">Title</div>
@@ -214,7 +214,7 @@
       </div>
 
       <!-- 2. Job Status Overview Card -->
-      <div v-if="taskStore.tasks.length > 0 && !taskStore.isLoading" class="relative overflow-hidden bg-[#FFFFFF] rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.12)] border border-[#EBEBEB] hover:border-[#FAA533]/50 z-10">
+      <div v-if="taskStore.tasks.length > 0 && !taskStore.isLoading" class="relative overflow-hidden bg-[#FFFFFF] rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-3 sm:p-6 md:p-8 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 items-center md:items-start group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.12)] border border-[#EBEBEB] hover:border-[#FAA533]/50 z-10">
         
         <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-[#FFF8F1] rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
 
@@ -232,7 +232,7 @@
         <div class="flex flex-col w-full mt-2 text-center md:text-left z-10">
           <h3 class="text-[17px] font-extrabold text-[#1F2937] mb-6 tracking-tight">Job Status Overview</h3>
           
-          <div class="flex items-center justify-center md:justify-start gap-3.5 p-4 bg-[#FFF8F1] rounded-2xl border border-[#EBEBEB] shadow-inner group-hover:bg-[#FFFFFF] transition-colors duration-300 w-fit sm:w-auto mx-auto sm:mx-0">
+          <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3.5 p-3 sm:p-4 bg-[#FFF8F1] rounded-2xl border border-[#EBEBEB] shadow-inner group-hover:bg-[#FFFFFF] transition-colors duration-300 w-full sm:w-auto mx-auto sm:mx-0">
             <span class="text-[14px] font-bold text-[#1F2937] truncate max-w-[160px] sm:max-w-[220px]" :title="recentActiveTask?.title">
               {{ recentActiveTask?.title || 'No active tasks' }} :
             </span>
