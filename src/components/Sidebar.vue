@@ -12,7 +12,7 @@ const activeTab = ref('home')
 </script>
 
 <template>
-    <aside class="hidden lg:block pt-2 px-4 max-w-47.5">
+    <aside class="hidden xl:block pt-2 px-4 max-w-47.5">
         <div class="flex flex-col gap-3 w-full mt-10">
 
             <button @click="activeTab = 'home'; router.push(isAdmin ? '/admin' : '/')"

@@ -82,26 +82,26 @@ onBeforeUnmount(() => document.removeEventListener('click', closeDropdowns))
       </div>
     </div>
 
-    <div v-if="showSidebar" class="bg-gray-200 p-1 rounded-full inline-flex gap-1 md:hidden">
+    <div v-if="showSidebar" class="bg-gray-200 p-1 rounded-full flex w-fit mx-auto gap-1 xl:hidden">
 
       <!-- Home -->
       <button @click="activeTab = 'home'; router.push(isAdmin ? '/admin' : '/')"
-        class="flex items-center gap-2 px-12 py-2 rounded-full transition-all duration-300" :class="activeTab === 'home'
+        class="flex items-center gap-1.5 sm:gap-2 px-6 sm:px-12 py-2 rounded-full transition-all duration-300" :class="activeTab === 'home'
           ? 'bg-orange-gradient text-white shadow-md scale-105'
           : 'text-gray-700 hover:bg-gray-300'">
         <i class="fa-regular fa-house transition-all duration-300"
           :style="activeTab === 'home' ? 'color: #ffffff;' : 'color: #1F2937'"></i> <span
-          class="text-sm font-medium whitespace-nowrap">{{ isAdmin ? 'Dashboard' : 'Home' }}</span>
+          class="text-xs sm:text-sm font-medium whitespace-nowrap">{{ isAdmin ? 'Dashboard' : 'Home' }}</span>
       </button>
 
       <!-- Task -->
       <button v-if="!isAdmin" @click="activeTab = 'task'; router.push('/taskManagement')"
-        class="flex items-center gap-2 px-8 py-2 rounded-full transition-all duration-300" :class="activeTab === 'task'
+        class="flex items-center gap-1.5 sm:gap-2 px-4 sm:px-8 py-2 rounded-full transition-all duration-300" :class="activeTab === 'task'
           ? 'bg-orange-gradient text-white shadow-md scale-105'
           : 'text-primary hover:bg-gray-300'">
         <i class="fa-solid fa-list-check transition-all duration-300"
           :style="activeTab === 'home' ? 'color: #1F2937;' : 'color: #ffffff'"></i> <span
-          class="text-sm font-medium whitespace-nowrap">Task Management</span>
+          class="text-xs sm:text-sm font-medium whitespace-nowrap">Task Management</span>
       </button>
 
     </div>

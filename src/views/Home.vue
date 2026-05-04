@@ -77,9 +77,9 @@ const prevPage = () => {
 <template>
     <div class="px-1 md:px-4 xl:px-6 2xl:px-0 md:max-w-350 md:mx-auto md:w-full">
         <!-- 🔍 Search -->
-        <div class="flex items-center gap-3 w-full max-w-2xl mx-auto">
+        <div class="flex items-center gap-2 sm:gap-3 w-full max-w-2xl mx-auto">
             <div
-                class="flex items-center bg-[#F9FAFB] rounded-full px-5 py-2.5 shadow-sm border border-[#F3F4F6] transition-all focus-within:bg-white focus-within:border-gray-200 focus-within:shadow-md flex-1">
+                class="flex items-center bg-[#F9FAFB] rounded-full px-3 sm:px-5 py-2.5 shadow-sm border border-[#F3F4F6] transition-all focus-within:bg-white focus-within:border-gray-200 focus-within:shadow-md flex-1 min-w-0">
                 <input type="text" placeholder="Search..."
                     class="flex-1 bg-transparent outline-none text-[13px] font-medium text-gray-700 placeholder-gray-400" />
                 <svg class="w-4 h-4 text-gray-400 ml-2 cursor-pointer hover:text-gray-600 transition-colors" fill="none"
@@ -88,7 +88,7 @@ const prevPage = () => {
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
-            <button @click="showCategory = true" class="bg-orange-gradient text-white px-6 py-2.5 rounded-full hover:shadow-lg transition-shadow cursor-pointer">
+            <button @click="showCategory = true" class="bg-orange-gradient text-white px-4 sm:px-6 py-2.5 rounded-full hover:shadow-lg transition-shadow cursor-pointer text-sm shrink-0">
                 Suggest
             </button>
 

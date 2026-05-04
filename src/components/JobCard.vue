@@ -25,7 +25,7 @@ const toggleLike = (e) => {
 
 <template>
     <div @click="goToDetail"
-        class="h-37 w-100 md:w-full md:max-w-3xl max-w-sm bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border p-2 pr-4 flex gap-4 relative group hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#FAA533]/40 transition-all duration-300 cursor-pointer"
+        class="h-37 w-full md:max-w-3xl bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border p-2 pr-3 sm:pr-4 flex gap-2 sm:gap-4 relative group hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#FAA533]/40 transition-all duration-300 cursor-pointer overflow-hidden"
         :class="data.liked ? 'border-[#FAA533]/70 ring-[1.5px] ring-[#FAA533]/20 shadow-[0_4px_15px_rgba(239,119,34,0.08)] bg-[#FFF8F1]/20' : 'border-[#EBEBEB]'">
 
         <!-- Heart -->
@@ -40,15 +40,15 @@ const toggleLike = (e) => {
 
         <!-- Image -->
         <div
-            class=" md:w-44 h-full rounded-2xl  from-[#FFD1A9] to-[#FFECD2] shrink-0 overflow-hidden flex items-center justify-center">
+            class="w-24 sm:w-32 md:w-44 h-full rounded-2xl from-[#FFD1A9] to-[#FFECD2] shrink-0 overflow-hidden flex items-center justify-center">
             <img src="@/assets/img/card_img.jpg" class="w-full h-full object-cover" />
         </div>
 
         <!-- Content -->
-        <div class="flex flex-col py-1.5 px-2 grow w-full overflow-hidden">
+        <div class="flex flex-col py-1.5 px-1 sm:px-2 grow min-w-0 overflow-hidden">
 
             <h2
-                class="text-[17px] font-bold text-primary tracking-tight whitespace-nowrap inline-block hover:animate-marquee md:overflow-hidden max-w-md">
+                class="text-sm sm:text-[17px] font-bold text-primary tracking-tight truncate">
                 {{ data.title }}
             </h2>
 
@@ -69,7 +69,7 @@ const toggleLike = (e) => {
                 </span>
 
                 <!--  positions -->
-                <span class="text-[10px] text-gray-500 ml-auto mr-12 md:mr-60 lg:mr-8">
+                <span class="text-[10px] text-gray-500 ml-auto mr-2 sm:mr-4">
                     {{ data.positions }} คน
                 </span>
 
