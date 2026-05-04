@@ -1,18 +1,11 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 const router = useRouter()
 const emit = defineEmits(['close', 'openFullModal'])
-
-// Mock Data
-const notifications = ref([
-  { id: 1, type: 'jobs', unread: true, subject: 'Application for Frontend Developer', poster: 'Bualuang mBanking', time: '12:02', date: 'Today', icon: 'fa-briefcase' },
-  { id: 2, type: 'notifications', unread: true, subject: 'Login detected on new device', poster: 'System', time: '10:45', date: 'Today', icon: 'fa-shield-halved' },
-  { id: 3, type: 'jobs', unread: false, subject: 'Part-Time Graphic Designer Needed', poster: 'Creative Studio Co.', time: '09:30', date: 'Yesterday', icon: 'fa-palette' },
-  { id: 4, type: 'events', unread: false, subject: 'Upcoming Tech Meetup in Bangkok', poster: 'IT Faculty', time: '15:00', date: 'Yesterday', icon: 'fa-calendar-days' },
-  { id: 5, type: 'notifications', unread: false, subject: 'Your password was changed successfully', poster: 'System', time: '11:20', date: '15 Feb', icon: 'fa-key' }
-])
+const notificationStore = useNotificationStore()
 
 const activeTab = ref('all')
 const showUnreadOnly = ref(false)
@@ -24,7 +17,7 @@ const tabs = [
 ]
 
 const filteredNotifications = computed(() => {
-  let list = notifications.value
+  let list = notificationStore.notifications
   if (showUnreadOnly.value) {
     list = list.filter(n => n.unread)
   }
@@ -34,11 +27,10 @@ const filteredNotifications = computed(() => {
   return list
 })
 
-const unreadCount = computed(() => notifications.value.filter(n => n.unread).length)
+const unreadCount = computed(() => notificationStore.unreadCount)
 
 const markAsRead = (id) => {
-  const notif = notifications.value.find(n => n.id === id)
-  if (notif) notif.unread = false
+  notificationStore.markAsRead(id)
 }
 
 const goToFullPage = () => {

@@ -5,6 +5,7 @@ import Nav from '@/components/Nav.vue'
 import mobileBg from '@/assets/img/mobile/bg.png'
 import desktopBg from '@/assets/img/desktop/bg.png'
 import Sidebar from '@/components/Sidebar.vue'
+import ToastNotification from '@/components/ToastNotification.vue'
 
 
 </script>
@@ -20,6 +21,7 @@ import Sidebar from '@/components/Sidebar.vue'
         <router-view class="flex-1 flex flex-col min-w-0" />
       </div>
     </div>
+    <ToastNotification />
   </div>
 </template>
 

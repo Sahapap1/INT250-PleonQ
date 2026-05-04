@@ -121,10 +121,10 @@ const prevPage = () => {
                         Prev
                       </button>
             
-                      <div class="hidden sm:flex items-center gap-1.5 px-4">
-                         <span class="text-[13px] font-bold text-gray-400">Page</span>
+                      <div class="flex items-center gap-1.5 px-2 sm:px-4">
+                         <span class="hidden sm:inline text-[13px] font-bold text-gray-400">Page</span>
                          <span class="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-[13px] font-black text-[#1F2937]">{{ currentPage }}</span>
-                         <span class="text-[13px] font-bold text-gray-400">of</span>
+                         <span class="text-[13px] font-bold text-gray-400">/</span>
                          <span class="text-[13px] font-black text-gray-500">{{ totalPages }}</span>
                       </div>
             

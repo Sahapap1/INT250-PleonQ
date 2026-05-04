@@ -4,12 +4,14 @@ import { useRoute, useRouter } from 'vue-router'
 import { useJobStore } from '@/stores/jobStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useTaskStore } from '@/stores/taskStore'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 const route = useRoute()
 const router = useRouter()
 const jobStore = useJobStore()
 const authStore = useAuthStore()
 const taskStore = useTaskStore()
+const notificationStore = useNotificationStore()
 
 const isAdmin = computed(() => authStore.user?.role === 'admin')
 
@@ -19,6 +21,7 @@ const job = computed(() =>
 
 const isSuccessModalOpen = ref(false)
 const isAlreadyAppliedModalOpen = ref(false)
+const isApplying = ref(false)
 
 const isAlreadyApplied = computed(() => {
     return taskStore.tasks.some(t => t.jobId === job.value?.id)
@@ -43,7 +46,7 @@ const initializeForm = () => {
 onMounted(() => {
     initializeForm()
     if (taskStore.tasks.length === 0 && !taskStore.isLoading) {
-        taskStore.fetchTasks()
+        taskStore.fetchTasks(authStore.user?.id)
     }
 })
 
@@ -60,7 +63,7 @@ const saveChanges = () => {
 }
 
 const applyForJob = async () => {
-    if (!job.value) return;
+    if (!job.value || isApplying.value) return;
     
     // Check duplication
     if (isAlreadyApplied.value) {
@@ -68,12 +71,26 @@ const applyForJob = async () => {
         return;
     }
     
+    isApplying.value = true;
+    
     await taskStore.addTask({
         jobId: job.value.id,
         title: job.value.title,
         date: job.value.date,
         status: 'Pending'
     });
+    
+    // Push live notification
+    notificationStore.addNotification({
+        type: 'jobs',
+        jobId: job.value.id,
+        subject: `สมัคร "${job.value.title.substring(0, 40)}" สำเร็จ!`,
+        poster: 'PleonQ System',
+        icon: 'fa-briefcase',
+        body: `คุณได้สมัครงาน "${job.value.title}" เรียบร้อยแล้ว สถานะการสมัครของคุณคือ Pending รอแอดมินตรวจสอบ`
+    });
+    
+    isApplying.value = false;
     isSuccessModalOpen.value = true;
 }
 
@@ -183,9 +200,9 @@ const toggleLike = () => {
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         ท่านได้ลงทะเบียนแล้ว
                     </button>
-                    <button v-else @click="applyForJob"
-                        class="bg-orange-gradient hover:shadow-lg transition-shadow text-white px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2">
-                        Apply
+                    <button v-else @click="applyForJob" :disabled="isApplying"
+                        class="bg-orange-gradient hover:shadow-lg transition-shadow text-white px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                        {{ isApplying ? 'กำลังสมัคร...' : 'Apply' }}
                     </button>
                 </div>
             </div>

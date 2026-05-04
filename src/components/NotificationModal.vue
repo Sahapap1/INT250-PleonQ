@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 const props = defineProps({
   isOpen: Boolean
@@ -8,63 +9,16 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 
-// Static data 
-const notifications = ref([
-  {
-    id: 1, date: '17 ก.พ', time: '12:02', ts: 5, unread: true,
-    subject: 'Application for Frontend Developer Position',
-    poster: 'Bualuang mBanking', posted: '17 / 2 / 69',
-    body: 'My name is Wachitanan Supho, and I would like to apply for the Frontend Developer position at your company.\n\nI am currently a student in the field of Information Technology, and I have experience working with technologies such as HTML, CSS, JavaScript, Vue.js, and TailwindCSS.\n\nSincerely,\nWachitanan Supho\nEmail: wachitanan@example.com\nPhone: 08X-XXX-XXXX'
-  },
-  {
-    id: 2, date: '17 ก.พ', time: '12:02', ts: 4, unread: false,
-    subject: 'บริการแจ้งเตือน เข้าใช้งานในระบบโมบายแบงก์กิ้งธนาคารกรุงเทพ / Sign-on to Bangkok Bank Mobile Banking Notification',
-    poster: 'Bangkok Bank', posted: '17 / 2 / 69',
-    body: 'ท่านได้เข้าใช้งานระบบ Mobile Banking ของธนาคารกรุงเทพเมื่อวันที่ 17 กุมภาพันธ์ 2569 เวลา 12:02 น.\nหากท่านไม่ได้เป็นผู้ดำเนินการดังกล่าว กรุณาติดต่อธนาคารทันที'
-  },
-  {
-    id: 3, date: '16 ก.พ', time: '12:02', ts: 3, unread: false,
-    subject: 'Part-Time Graphic Designer Needed',
-    poster: 'Creative Studio Co.', posted: '17 / 2 / 69',
-    body: 'We are looking for a part-time Graphic Designer to join our creative team. The ideal candidate should have experience in Adobe Illustrator, Photoshop, and Figma. This is a remote-friendly position with flexible hours.'
-  },
-  {
-    id: 4, date: '15 ก.พ', time: '12:02', ts: 2, unread: false,
-    subject: 'Looking for a Frontend Developer to Help Build and Improve Our Company Website …',
-    poster: 'Tech Solutions Ltd.', posted: '17 / 2 / 69',
-    body: 'We are seeking a skilled Frontend Developer to help us redesign and improve our company website. The role involves working with React, TailwindCSS, and collaborating with our design team to create a modern, responsive site.'
-  },
-  {
-    id: 5, date: '14 ก.พ', time: '12:02', ts: 1, unread: false,
-    subject: 'Looking for Student Assistant',
-    poster: 'Faculty of IT', posted: '17 / 2 / 69',
-    body: 'The Faculty of Information Technology is looking for student assistants to help with administrative tasks, lab supervision, and student support activities.'
-  },
-  {
-    id: 6, date: '13 ก.พ', time: '12:02', ts: 1, unread: false,
-    subject: 'Looking for Student Assistant 2',
-    poster: 'Faculty of IT', posted: '17 / 2 / 69',
-    body: 'My name is [Your Name], and I am writing to express my strong interest in applying for a position within your organization. I recently came across your company and was impressed by its commitment to innovation, professionalism, and continuous growth. With a strong academic background in Information Technology and a passion for developing practical and efficient solutions, I am eager to contribute my skills and enthusiasm to your team.\n\n I am currently a student majoring in Information Technology, where I have developed a solid foundation in programming, problem-solving, and system design. Throughout my academic journey, I have worked on various projects that have strengthened my abilities in teamwork, critical thinking, and adaptability. I am particularly interested in roles that allow me to apply my knowledge while continuing to learn and grow in a real-world environment.\n\n In addition to my technical skills, I pride myself on being a responsible, detail-oriented, and motivated individual. I am capable of managing tasks effectively, working under pressure, and communicating clearly with team members. I am always open to learning new technologies and improving myself to meet the demands of the industry.\n\n I would greatly appreciate the opportunity to discuss how my background, skills, and enthusiasm align with your company’s needs. Please find my resume attached for your consideration. I am available for an interview at your convenience and look forward to the possibility of contributing to your team.\n\n Thank you very much for your time and consideration.\n\n Yours sincerely,[Your Name]\n[Your Phone Number]\n[Your Email Address]'
-  },
-  {
-    id: 7, date: '13 ก.พ', time: '12:02', ts: 1, unread: false,
-    subject: 'Looking for Student Assistant 3',
-    poster: 'Faculty of IT', posted: '17 / 2 / 69',
-    body: 'The Faculty of Information Technology is looking for student assistants to help with administrative tasks, lab supervision, and student support activities.'
-  },
-  {
-    id: 8, date: '13 ก.พ', time: '12:02', ts: 1, unread: false,
-    subject: 'Looking for Student Assistant 4',
-    poster: 'Faculty of IT', posted: '17 / 2 / 69',
-    body: 'The Faculty of Information Technology is looking for student assistants to help with administrative tasks, lab supervision, and student support activities.'
-  },
-  {
-    id: 9, date: '13 ก.พ', time: '12:02', ts: 1, unread: false,
-    subject: 'Looking for Student Assistant 5',
-    poster: 'Faculty of IT', posted: '17 / 2 / 69',
-    body: 'The Faculty of Information Technology is looking for student assistants to help with administrative tasks, lab supervision, and student support activities.'
-  },
-])
+const notificationStore = useNotificationStore()
+
+// Bridge store data to local computed with extra fields for sorting/detail
+const notifications = computed(() =>
+  notificationStore.notifications.map((n, idx) => ({
+    ...n,
+    ts: notificationStore.notifications.length - idx,
+    posted: n.date + ' ' + n.time
+  }))
+)
 
 // State
 const activeTab        = ref('notifications')
@@ -144,8 +98,7 @@ function refresh() {
 }
 
 function openDetail(id) {
-  const notif = notifications.value.find(n => n.id === id)
-  if (notif) notif.unread = false
+  notificationStore.markAsRead(id)
   showDetailId.value = id
   isBodyExpanded.value = false
 }
