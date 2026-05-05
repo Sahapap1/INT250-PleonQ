@@ -32,10 +32,7 @@
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
             Edit
           </button>
-          <button @click="handleLogout" class="relative bg-white hover:bg-red-50 text-red-500 font-bold text-[13px] py-1.5 px-6 rounded-full shadow-sm hover:shadow-md border border-red-100 hover:border-red-300 transition-all duration-300 active:scale-95 flex items-center gap-1.5 cursor-pointer group">
-            <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
-            <span class="relative tracking-wider">Logout</span>
-          </button>
+
         </div>
       </div>
 
@@ -69,10 +66,23 @@
         </div>
 
         <div class="flex flex-col w-full mt-1.5 text-center md:text-left z-10">
-          <h3 class="text-[#1F2937] text-[16px] font-extrabold mb-6 tracking-tight flex items-center gap-2 justify-center md:justify-start">
-            Summary Activity Hours
-            <span class="w-1.5 h-1.5 rounded-full bg-[#EF7722] shadow-[0_0_5px_rgba(239,119,34,0.8)] animate-pulse"></span>
-          </h3>
+          <div class="flex flex-col sm:flex-row justify-between items-center sm:items-start mb-6 gap-3">
+            <h3 class="text-[#1F2937] text-[16px] font-extrabold tracking-tight flex items-center gap-2 justify-center md:justify-start">
+              Summary Activity Hours
+              <span class="w-1.5 h-1.5 rounded-full bg-[#EF7722] shadow-[0_0_5px_rgba(239,119,34,0.8)] animate-pulse"></span>
+            </h3>
+            
+            <div class="relative group/select">
+                <select v-model="selectedYear" class="bg-[#FFF8F1] border border-[#EBEBEB] text-[#1F2937] text-[12px] font-bold rounded-full pl-4 pr-8 py-1.5 outline-none cursor-pointer group-hover/select:border-[#FAA533] transition-colors hover:bg-white shadow-sm appearance-none min-w-[110px]">
+                  <option value="All Years">All Years</option>
+                  <option value="Year 1">Year 1</option>
+                  <option value="Year 2">Year 2</option>
+                  <option value="Year 3">Year 3</option>
+                  <option value="Year 4">Year 4</option>
+                </select>
+                <svg class="w-3.5 h-3.5 text-[#6B7280] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none group-hover/select:text-[#EF7722] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+          </div>
           <div class="flex flex-wrap justify-center md:justify-start gap-y-6 gap-x-8 md:gap-x-12">
             <div class="flex flex-col gap-1 group/stat min-w-[100px]">
               <span class="text-[11px] font-bold text-[#6B7280] uppercase tracking-widest group-hover/stat:text-[#EF7722] transition-colors">Today</span>
@@ -130,11 +140,11 @@
           <p class="text-[13px] text-[#6B7280] font-medium leading-relaxed max-w-[280px]">Scan the QR code to check in for the activity.</p>
         </div>
 
-        <div class="md:absolute md:bottom-8 md:right-8 mt-4 md:mt-0 z-10">
+        <div class="md:absolute md:top-1/2 md:-translate-y-1/2 md:right-8 mt-4 md:mt-0 z-10">
           <button @click="isQrModalOpen = true" class="relative overflow-hidden bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-[#FFFFFF] font-bold text-[13px] py-2 px-6 rounded-full shadow-[0_8px_15px_rgba(239,119,34,0.3)] hover:shadow-[0_12px_20px_rgba(239,119,34,0.4)] transition-all duration-300 transform group-hover:scale-105 active:scale-95 group/btn border border-[#EF7722]/40 cursor-pointer">
             <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#FFFFFF]/30 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]"></span>
             <span class="relative tracking-wider flex items-center gap-2">
-              Generated
+              Expand QR
               <span class="relative flex h-2 w-2">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFFFFF] opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-[#FFFFFF]"></span>
@@ -146,8 +156,9 @@
     </div>
     
     <!-- Edit Profile Modal -->
-    <div v-if="isEditProfileOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-[#1F2937]/60 backdrop-blur-md transition-opacity" @click="isEditProfileOpen = false"></div>
+    <Teleport to="body">
+      <div v-if="isEditProfileOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-[#1F2937]/60 backdrop-blur-md transition-opacity" @click="isEditProfileOpen = false"></div>
       
       <div class="relative w-full max-w-md bg-[#FFFFFF] rounded-[36px] shadow-[0_20px_70px_rgba(0,0,0,0.15)] border border-[#EBEBEB] p-8 flex flex-col gap-6 animate-[scaleIn_0.3s_cubic-bezier(0.16,1,0.3,1)]">
         
@@ -193,11 +204,13 @@
           <button @click="saveProfile" class="bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-[#FFFFFF] px-8 py-2.5 rounded-full text-sm font-bold shadow-[0_8px_15px_rgba(239,119,34,0.3)] hover:shadow-lg hover:shadow-[#EF7722]/40 transition-all active:scale-95 border border-[#EF7722]/40 tracking-wide">Save</button>
         </div>
       </div>
-    </div>
+      </div>
+    </Teleport>
     
     <!-- Enlarge QR Modal -->
-    <div v-if="isQrModalOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-[#1F2937]/80 backdrop-blur-md transition-opacity" @click="isQrModalOpen = false"></div>
+    <Teleport to="body">
+      <div v-if="isQrModalOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-[#1F2937]/80 backdrop-blur-md transition-opacity" @click="isQrModalOpen = false"></div>
       <div class="relative w-full max-w-sm bg-[#FFFFFF] rounded-[40px] shadow-[0_30px_100px_rgba(0,0,0,0.3)] border border-[#EBEBEB] p-8 flex flex-col items-center gap-6 animate-[scaleIn_0.4s_cubic-bezier(0.34,1.56,0.64,1)] overflow-hidden">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#FAA533]/20 rounded-full mix-blend-multiply filter blur-[60px] animate-pulse pointer-events-none z-0"></div>
         <div class="relative z-10 w-full flex justify-between items-center mb-2">
@@ -223,7 +236,8 @@
           Close Window
         </button>
       </div>
-    </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -240,6 +254,7 @@ const router = useRouter();
 const isEditProfileOpen = ref(false);
 const isQrModalOpen = ref(false);
 const fileInput = ref(null);
+const selectedYear = ref('All Years');
 
 // Form clone for editing safely without two-way binding the store instantly
 const editFormData = ref(null);

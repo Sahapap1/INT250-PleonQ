@@ -84,10 +84,10 @@ const applyForJob = async () => {
     notificationStore.addNotification({
         type: 'jobs',
         jobId: job.value.id,
-        subject: `สมัคร "${job.value.title.substring(0, 40)}" สำเร็จ!`,
+        subject: `Registration for "${job.value.title.substring(0, 40)}" Successful!`,
         poster: 'PleonQ System',
         icon: 'fa-briefcase',
-        body: `คุณได้สมัครงาน "${job.value.title}" เรียบร้อยแล้ว สถานะการสมัครของคุณคือ Pending รอแอดมินตรวจสอบ`
+        body: `You have successfully registered for "${job.value.title}". Your application status is Pending, awaiting admin review.`
     });
     
     isApplying.value = false;
@@ -115,7 +115,7 @@ const toggleLike = () => {
         <div class="flex justify-between items-center p-4">
 
             <button @click="goBack"
-                class="bg-orange-gradient text-white px-4 py-2 rounded-full text-sm flex items-center gap-2">
+                class="bg-orange-gradient text-white px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer transition-transform hover:-translate-x-1 active:scale-95 shadow-sm hover:shadow-md">
                 ← Go back
             </button>
 
@@ -140,57 +140,70 @@ const toggleLike = () => {
         <!--  Content -->
         <div class="px-4 mt-4 flex flex-col h-full">
 
-            <!--  Content -->
-            <div v-if="isAdmin" class="flex flex-col gap-3">
+            <!-- Title -->
+            <div v-if="isAdmin" class="mb-3">
                 <input v-model="editForm.title" type="text" class="text-xl font-bold text-gray-800 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-orange-400" placeholder="Job Title" />
-                <textarea v-model="editForm.description" class="text-gray-500 text-sm leading-relaxed bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 w-full h-24 focus:outline-none focus:border-orange-400 resize-none" placeholder="Job Description"></textarea>
             </div>
-            <div v-else>
-                <h1 class="text-xl font-bold text-gray-800 mb-2">
-                    {{ job?.title }}
-                </h1>
+            <h1 v-else class="text-[20px] sm:text-[24px] font-extrabold text-[#1F2937] mb-3 tracking-tight leading-snug">
+                {{ job?.title }}
+            </h1>
 
-                <p class="text-gray-500 text-sm leading-relaxed mb-4">
-                    {{ job?.description }}
-                </p>
-            </div>
-
-                <!--  Info -->
-                <div class="flex flex-col gap-3 mt-4 text-sm text-gray-600">
-
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-location-dot text-orange-400 w-4 text-center"></i>
-                        <input v-if="isAdmin" v-model="editForm.location" type="text" class="bg-gray-50 border border-gray-200 rounded-md px-2 py-1 w-full focus:outline-none focus:border-orange-400" placeholder="Location" />
-                        <span v-else>{{ job?.location }}</span>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-calendar-days text-orange-400 w-4 text-center"></i>
-                        <input v-if="isAdmin" v-model="editForm.date" type="text" class="bg-gray-50 border border-gray-200 rounded-md px-2 py-1 w-full focus:outline-none focus:border-orange-400" placeholder="Date" />
-                        <span v-else>{{ job?.date }}</span>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-users text-orange-400 w-4 text-center"></i>
-                        <div v-if="isAdmin" class="flex items-center gap-2 w-full">
-                           <input v-model="editForm.positions" type="number" class="bg-gray-50 border border-gray-200 rounded-md px-2 py-1 w-20 focus:outline-none focus:border-orange-400" placeholder="Positions" />
-                           <span>คน</span>
-                        </div>
-                        <span v-else>{{ job?.positions }} คน</span>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-gift text-orange-400 w-4 text-center"></i>
-                        <input v-if="isAdmin" v-model="editForm.reward" type="text" class="bg-gray-50 border border-gray-200 rounded-md px-2 py-1 w-full focus:outline-none focus:border-orange-400" placeholder="Reward" />
-                        <span v-else>{{ job?.reward }}</span>
-                    </div>
-
+            <!-- Info Labels -->
+            <div class="flex flex-wrap gap-2 mb-5">
+                <!-- Location -->
+                <div class="flex items-center gap-1.5 bg-[#FFF8F1] text-[#EF7722] px-3 py-1.5 rounded-xl text-[12px] font-bold border border-[#FAA533]/30 shadow-sm transition-all hover:shadow-md">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <input v-if="isAdmin" v-model="editForm.location" type="text" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722]" placeholder="Location" />
+                    <span v-else>{{ job?.location }}</span>
                 </div>
+
+                <!-- Date -->
+                <div class="flex items-center gap-1.5 bg-[#FFF8F1] text-[#EF7722] px-3 py-1.5 rounded-xl text-[12px] font-bold border border-[#FAA533]/30 shadow-sm transition-all hover:shadow-md">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <input v-if="isAdmin" v-model="editForm.date" type="date" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722] cursor-pointer" placeholder="Date" />
+                    <span v-else>{{ job?.date }}</span>
+                </div>
+
+                <!-- Positions -->
+                <div class="flex items-center gap-1.5 bg-[#FFF8F1] text-[#EF7722] px-3 py-1.5 rounded-xl text-[12px] font-bold border border-[#FAA533]/30 shadow-sm transition-all hover:shadow-md">
+                    <i class="fa-solid fa-users"></i>
+                    <div v-if="isAdmin" class="flex items-center gap-1">
+                       <input v-model="editForm.positions" type="number" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-16 focus:outline-none text-[#EF7722]" placeholder="Positions" />
+                       <span>คน</span>
+                    </div>
+                    <span v-else>{{ job?.positions }} คน</span>
+                </div>
+
+                <!-- Reward -->
+                <div class="flex items-center gap-1.5 bg-[#FFF8F1] text-[#EF7722] px-3 py-1.5 rounded-xl text-[12px] font-bold border border-[#FAA533]/30 shadow-sm transition-all hover:shadow-md">
+                    <i class="fa-solid fa-clock"></i>
+                    <select v-if="isAdmin" v-model="editForm.reward" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722] cursor-pointer appearance-none">
+                        <option value="ชั่วโมงกิจกรรม">ชั่วโมงกิจกรรม</option>
+                    </select>
+                    <span v-else>{{ job?.reward }}</span>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div v-if="isAdmin" class="flex flex-col gap-2 mb-4">
+                <label class="text-[14px] font-extrabold text-[#EF7722] uppercase tracking-widest flex items-center gap-2 px-1">
+                   <i class="fa-solid fa-circle-info"></i> About This Job
+                </label>
+                <textarea v-model="editForm.description" class="w-full bg-[#F9FAFB] border border-gray-200 rounded-[28px] px-5 py-4 text-[14px] font-medium text-gray-600 leading-relaxed focus:outline-none focus:border-orange-400 focus:bg-white focus:shadow-sm transition-all shadow-inner resize-none h-32" placeholder="Job Description"></textarea>
+            </div>
+            <div v-else class="flex flex-col gap-2 mb-4">
+                <label class="text-[14px] font-extrabold text-[#EF7722] uppercase tracking-widest flex items-center gap-2 px-1">
+                   <i class="fa-solid fa-circle-info"></i> About This Job
+                </label>
+                <div class="w-full bg-[#F9FAFB] border border-gray-200 rounded-[28px] px-5 py-4 text-[13px] sm:text-[14px] leading-relaxed font-medium text-[#4B5563] shadow-inner min-h-[8rem] whitespace-pre-wrap">
+                    {{ job?.description }}
+                </div>
+            </div>
 
             <!-- Action Button -->
             <div class="mt-auto pt-6 pb-4 justify-end flex">
                 <button v-if="isAdmin" @click="saveChanges"
-                    class="bg-green-500 hover:bg-green-600 transition-colors text-white px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 shadow-md">
+                    class="bg-orange-gradient hover:shadow-lg transition-shadow text-white px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 hover:-translate-y-0.5 active:scale-95">
                     <i class="fa-solid fa-check"></i>
                     Save Changes
                 </button>
@@ -198,11 +211,11 @@ const toggleLike = () => {
                     <button v-if="isAlreadyApplied" @click="isAlreadyAppliedModalOpen = true"
                         class="bg-gray-200 text-gray-400 px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 shadow-inner cursor-not-allowed border border-gray-300">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        ท่านได้ลงทะเบียนแล้ว
+                        Already Registered
                     </button>
                     <button v-else @click="applyForJob" :disabled="isApplying"
                         class="bg-orange-gradient hover:shadow-lg transition-shadow text-white px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                        {{ isApplying ? 'กำลังสมัคร...' : 'Apply' }}
+                        {{ isApplying ? 'Registering...' : 'Register' }}
                     </button>
                 </div>
             </div>
@@ -219,12 +232,12 @@ const toggleLike = () => {
                 <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center text-green-500 mb-2 shadow-inner border border-green-100">
                   <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                 </div>
-                <h3 class="text-[20px] font-extrabold text-[#1F2937] tracking-tight">ลงทะเบียนสำเร็จ!</h3>
+                <h3 class="text-[20px] font-extrabold text-[#1F2937] tracking-tight">Registration Successful!</h3>
                 <p class="text-[14px] text-[#6B7280] font-medium leading-relaxed">
-                  คุณได้สมัครงานนี้เรียบร้อยแล้ว แอดมินจะทำการตรวจสอบข้อมูลของคุณเร็วๆ นี้
+                  You have successfully registered for this event. Admin will review your information shortly.
                 </p>
                 <button @click="proceedToTasks" class="mt-4 w-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg hover:shadow-[#EF7722]/30 transition-all active:scale-95 text-[15px]">
-                  ตกลง (OK)
+                  OK
                 </button>
               </div>
             </div>
@@ -241,12 +254,12 @@ const toggleLike = () => {
                 <div class="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 mb-2 shadow-inner border border-orange-100">
                   <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 </div>
-                <h3 class="text-[20px] font-extrabold text-[#1F2937] tracking-tight">ลงทะเบียนซ้ำ</h3>
+                <h3 class="text-[20px] font-extrabold text-[#1F2937] tracking-tight">Already Registered</h3>
                 <p class="text-[14px] text-[#6B7280] font-medium leading-relaxed">
-                  คุณได้ลงทะเบียนสำหรับงานนี้ไปเรียบร้อยแล้ว ไม่สามารถสมัครซ้ำได้ครับ
+                  You have already registered for this event. You cannot register again.
                 </p>
                 <button @click="isAlreadyAppliedModalOpen = false" class="mt-4 w-full bg-[#FFF8F1] border border-gray-200 text-[#1F2937] hover:text-[#EF7722] hover:bg-[#FFFFFF] hover:border-[#FAA533] px-8 py-3 rounded-xl font-bold transition-all active:scale-95 text-[15px]">
-                  รับทราบ
+                  Close
                 </button>
               </div>
             </div>

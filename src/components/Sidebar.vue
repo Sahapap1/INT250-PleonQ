@@ -12,15 +12,15 @@ const activeTab = ref('home')
 </script>
 
 <template>
-    <aside class="hidden xl:block pt-2 px-4 max-w-47.5">
+    <aside class="hidden xl:block pt-2 px-4 w-60 shrink-0">
         <div class="flex flex-col gap-3 w-full mt-10">
 
             <button @click="activeTab = 'home'; router.push(isAdmin ? '/admin' : '/')"
                 class="flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer" :class="activeTab === 'home'
                     ? 'bg-orange-gradient text-white shadow-md'
                     : 'text-gray-700 hover:bg-white/30'">
-                <i class="fa-regular fa-house"></i>
-                <span class="text-sm font-medium">{{ isAdmin ? 'Dashboard' : 'Home' }}</span>
+                <i :class="isAdmin ? 'fa-solid fa-briefcase' : 'fa-regular fa-house'"></i>
+                <span class="text-sm font-medium">{{ isAdmin ? 'Manage Jobs' : 'Home' }}</span>
             </button>
 
             <button v-if="isAdmin" @click="activeTab = 'create'; router.push('/admin/create-job')"
@@ -37,11 +37,11 @@ const activeTab = ref('home')
             </button>
 
             <button v-if="!isAdmin" @click="activeTab = 'task'; router.push('/taskManagement')"
-                class="flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer" :class="activeTab === 'task'
+                class="flex items-center flex-nowrap gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer" :class="activeTab === 'task'
                     ? 'bg-orange-gradient text-white shadow-md'
                     : 'text-gray-700 hover:bg-white/30'">
-                <i class="fa-solid fa-list"></i>
-                <span class="text-sm font-medium">Task Management</span>
+                <i class="fa-solid fa-list shrink-0"></i>
+                <span class="text-sm font-medium whitespace-nowrap">Task Management</span>
             </button>
 
         </div>
