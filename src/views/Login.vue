@@ -15,7 +15,7 @@ const username = ref('')
 const password = ref('')
 
 const handleLogin = () => {
-    
+
     errorMessage.value = ''
 
     //  empty field
@@ -23,13 +23,13 @@ const handleLogin = () => {
         errorMessage.value = 'Please fill in username and password'
         return
     }
-    
+
     //  wrong login
     const user = users.find(
-        u => u.username === username.value && u.password === password.value
+        u => u.username === username.value
     )
-    
-    
+
+
     if (!user) {
         errorMessage.value = 'Incorrect username or password'
         return
@@ -38,22 +38,22 @@ const handleLogin = () => {
     // เช็ค password
     if (user.password !== password.value) {
         errorMessage.value = 'Incorrect username or password'
+
         return
     }
 
-    if (user) {
-        const fakeToken = 'abc123' // ปกติได้จาก backend
-        sessionStorage.setItem('token', fakeToken)
-        sessionStorage.setItem('user', JSON.stringify(user))
+    const fakeToken = 'abc123' // ปกติได้จาก backend
+    sessionStorage.setItem('token', fakeToken)
+    sessionStorage.setItem('user', JSON.stringify(user))
 
-        auth.login(user)
+    auth.login(user)
 
-        if (user.role === 'admin') {
-            router.push('/admin')
-        } else {
-            router.push('/')
-        }
+    if (user.role === 'admin') {
+        router.push('/admin')
+    } else {
+        router.push('/')
     }
+
 
 }
 </script>
