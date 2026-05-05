@@ -3,8 +3,9 @@
         class="bg-white rounded-[14px] p-2 pl-3 flex items-center gap-3 border border-gray-100 hover:shadow-sm hover:-translate-y-0.5 transition-all cursor-pointer">
 
         <div
-            class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FFD1A9] to-[#FFECD2] flex items-center justify-center shrink-0">
-            <div class="w-3.5 h-2.5 bg-[#EF7722] rounded-sm"></div>
+            class="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-[#FFD1A9] to-[#FFECD2] flex items-center justify-center shrink-0 border border-[#EBEBEB]">
+            <img v-if="task?.image" :src="getImageUrl(task?.image)" class="w-full h-full object-cover" />
+            <div v-else class="w-3.5 h-2.5 bg-[#EF7722] rounded-sm"></div>
         </div>
 
         <div class="min-w-0 flex-1">
@@ -20,10 +21,15 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
     task: {
         type: Object,
         required: true
     }
 })
+
+const getImageUrl = (imageName) => {
+    if (!imageName) return '';
+    return new URL(`../assets/img-jobs/${imageName}`, import.meta.url).href;
+}
 </script>
