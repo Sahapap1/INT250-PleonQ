@@ -25,7 +25,7 @@ const toggleLike = (e) => {
 
 <template>
     <div @click="goToDetail"
-        class="h-37 w-full md:max-w-3xl bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border p-2 pr-3 sm:pr-4 flex gap-2 sm:gap-4 relative group hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#FAA533]/40 transition-all duration-300 cursor-pointer overflow-hidden"
+        class="h-37 w-full md:max-w-3xl bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border p-2 pr-3 sm:pr-4 flex gap-2 sm:gap-4 relative group hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#FAA533]/40 transition-all duration-300 cursor-pointer overflow-hidden animate-fade-in-up"
         :class="data.liked ? 'border-[#FAA533]/70 ring-[1.5px] ring-[#FAA533]/20 shadow-[0_4px_15px_rgba(239,119,34,0.08)] bg-[#FFF8F1]/20' : 'border-[#EBEBEB]'">
 
         <!-- Heart -->
@@ -63,10 +63,20 @@ const toggleLike = (e) => {
 
             <div class="flex items-center justify-between mt-auto">
 
-                <!--  category -->
-                <span class="bg-[#3B82F6] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                    {{ data.category }}
-                </span>
+                <!--  roles / category -->
+                <div class="flex items-center gap-1 overflow-hidden flex-wrap max-w-[60%]">
+                    <template v-if="data.roles && data.roles.length > 0">
+                        <span v-for="role in data.roles.slice(0, 3)" :key="role.name" class="bg-orange-50 text-[#EF7722] border border-[#FAA533]/30 text-[9px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
+                            {{ role.name }}
+                        </span>
+                        <span v-if="data.roles.length > 3" class="bg-gray-100 text-gray-500 text-[9px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap border border-gray-200">
+                            +{{ data.roles.length - 3 }}
+                        </span>
+                    </template>
+                    <span v-else-if="data.category" class="bg-[#3B82F6] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                        {{ data.category }}
+                    </span>
+                </div>
 
                 <!--  positions -->
                 <span class="text-[10px] text-gray-500 ml-auto mr-2 sm:mr-4">
