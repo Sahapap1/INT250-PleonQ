@@ -106,35 +106,39 @@ const goBack = () => {
 const toggleLike = () => {
     jobStore.toggleLike(job.value.id)
 }
+
+const getImageUrl = (imageName) => {
+    if (!imageName) return new URL('../assets/img/card_img.jpg', import.meta.url).href;
+    return new URL(`../assets/img-jobs/${imageName}`, import.meta.url).href;
+}
 </script>
 
 <template>
-    <div class="min-h-screen pb-2">
+    <div class="min-h-screen pb-2 max-w-5xl mx-auto w-full">
 
         <!--  Header -->
         <div class="flex justify-between items-center p-4">
 
             <button @click="goBack"
-                class="bg-orange-gradient text-white px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer transition-transform hover:-translate-x-1 active:scale-95 shadow-sm hover:shadow-md">
+                class="bg-orange-gradient text-white px-5 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 cursor-pointer transition-transform hover:-translate-x-1 active:scale-95 shadow-sm hover:shadow-md">
                 ← Go back
             </button>
 
-            <button @click="toggleLike"
-                class="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-orange-400">
-                <svg class="w-5 h-5" :fill="job?.liked ? 'currentColor' : 'none'" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-            </button>
-
+            <div class="flex items-center gap-3">
+                <button @click="toggleLike"
+                    class="w-10 h-10 rounded-full bg-white border border-[#FAA533]/50 shadow-sm flex items-center justify-center text-[#EF7722] hover:bg-[#FFF8F1] active:scale-95 transition-all">
+                    <svg class="w-5 h-5" :fill="job?.liked ? 'currentColor' : 'none'" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <!--  Image -->
-        <div class="px-4">
-            <div class="rounded-2xl overflow-hidden">
-                <img src="@/assets/img/card_img.jpg" class="w-full h-48 object-cover" />
-            </div>
+        <div class="px-4 mt-6 mb-8 flex justify-center">
+            <img :src="getImageUrl(job?.image)" class="max-w-[85%] max-h-[380px] md:max-h-[460px] rounded-[28px] shadow-sm object-contain" />
         </div>
 
         <!--  Content -->
@@ -149,23 +153,23 @@ const toggleLike = () => {
             </h1>
 
             <!-- Info Labels -->
-            <div class="flex flex-wrap gap-2 mb-5">
+            <div class="flex flex-wrap gap-3 mb-6">
                 <!-- Location -->
-                <div class="flex items-center gap-1.5 bg-[#FFF8F1] text-[#EF7722] px-3 py-1.5 rounded-xl text-[12px] font-bold border border-[#FAA533]/30 shadow-sm transition-all hover:shadow-md">
+                <div class="flex items-center gap-2 bg-white text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 shadow-sm transition-all hover:shadow-md">
                     <i class="fa-solid fa-location-dot"></i>
                     <input v-if="isAdmin" v-model="editForm.location" type="text" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722]" placeholder="Location" />
                     <span v-else>{{ job?.location }}</span>
                 </div>
 
                 <!-- Date -->
-                <div class="flex items-center gap-1.5 bg-[#FFF8F1] text-[#EF7722] px-3 py-1.5 rounded-xl text-[12px] font-bold border border-[#FAA533]/30 shadow-sm transition-all hover:shadow-md">
+                <div class="flex items-center gap-2 bg-white text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 shadow-sm transition-all hover:shadow-md">
                     <i class="fa-solid fa-calendar-days"></i>
                     <input v-if="isAdmin" v-model="editForm.date" type="date" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722] cursor-pointer" placeholder="Date" />
                     <span v-else>{{ job?.date }}</span>
                 </div>
 
                 <!-- Positions -->
-                <div class="flex items-center gap-1.5 bg-[#FFF8F1] text-[#EF7722] px-3 py-1.5 rounded-xl text-[12px] font-bold border border-[#FAA533]/30 shadow-sm transition-all hover:shadow-md">
+                <div class="flex items-center gap-2 bg-white text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 shadow-sm transition-all hover:shadow-md">
                     <i class="fa-solid fa-users"></i>
                     <div v-if="isAdmin" class="flex items-center gap-1">
                        <input v-model="editForm.positions" type="number" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-16 focus:outline-none text-[#EF7722]" placeholder="Positions" />
@@ -175,7 +179,7 @@ const toggleLike = () => {
                 </div>
 
                 <!-- Reward -->
-                <div class="flex items-center gap-1.5 bg-[#FFF8F1] text-[#EF7722] px-3 py-1.5 rounded-xl text-[12px] font-bold border border-[#FAA533]/30 shadow-sm transition-all hover:shadow-md">
+                <div class="flex items-center gap-2 bg-white text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 shadow-sm transition-all hover:shadow-md">
                     <i class="fa-solid fa-clock"></i>
                     <select v-if="isAdmin" v-model="editForm.reward" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722] cursor-pointer appearance-none">
                         <option value="ชั่วโมงกิจกรรม">ชั่วโมงกิจกรรม</option>
@@ -187,16 +191,22 @@ const toggleLike = () => {
             <!-- Description -->
             <div v-if="isAdmin" class="flex flex-col gap-2 mb-4">
                 <label class="text-[14px] font-extrabold text-[#EF7722] uppercase tracking-widest flex items-center gap-2 px-1">
-                   <i class="fa-solid fa-circle-info"></i> About This Job
+                   <i class="fa-solid fa-circle-info"></i> รายละเอียดงาน (About This Job)
                 </label>
                 <textarea v-model="editForm.description" class="w-full bg-[#F9FAFB] border border-gray-200 rounded-[28px] px-5 py-4 text-[14px] font-medium text-gray-600 leading-relaxed focus:outline-none focus:border-orange-400 focus:bg-white focus:shadow-sm transition-all shadow-inner resize-none h-32" placeholder="Job Description"></textarea>
             </div>
             <div v-else class="flex flex-col gap-2 mb-4">
                 <label class="text-[14px] font-extrabold text-[#EF7722] uppercase tracking-widest flex items-center gap-2 px-1">
-                   <i class="fa-solid fa-circle-info"></i> About This Job
+                   <i class="fa-solid fa-circle-info"></i> รายละเอียดงาน (About This Job)
                 </label>
                 <div class="w-full bg-[#F9FAFB] border border-gray-200 rounded-[28px] px-5 py-4 text-[13px] sm:text-[14px] leading-relaxed font-medium text-[#4B5563] shadow-inner min-h-[8rem] whitespace-pre-wrap">
                     {{ job?.description }}
+                    
+                    <template v-if="job?.description_en">
+                        <br><br>
+                        <span class="font-bold text-[#EF7722]">English Description:</span><br>
+                        {{ job?.description_en }}
+                    </template>
                 </div>
             </div>
 

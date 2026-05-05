@@ -21,6 +21,11 @@ const toggleLike = (e) => {
     e.stopPropagation() // กันไม่ให้ click card
     jobStore.toggleLike(props.data.id)
 }
+
+const getImageUrl = (imageName) => {
+    if (!imageName) return new URL('../assets/img/card_img.jpg', import.meta.url).href;
+    return new URL(`../assets/img-jobs/${imageName}`, import.meta.url).href;
+}
 </script>
 
 <template>
@@ -41,7 +46,7 @@ const toggleLike = (e) => {
         <!-- Image -->
         <div
             class="w-24 sm:w-32 md:w-44 h-full rounded-2xl from-[#FFD1A9] to-[#FFECD2] shrink-0 overflow-hidden flex items-center justify-center">
-            <img src="@/assets/img/card_img.jpg" class="w-full h-full object-cover" />
+            <img :src="getImageUrl(data.image)" class="w-full h-full object-cover" />
         </div>
 
         <!-- Content -->
