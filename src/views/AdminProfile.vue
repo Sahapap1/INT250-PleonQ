@@ -90,38 +90,6 @@
           </div>
         </div>
       </div>
-
-      <!-- 3. Camera Scanner Card (อัปเดตใหม่) -->
-      <div class="relative overflow-hidden bg-[#FFFFFF] rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.08)] border border-[#EBEBEB] z-10">
-        
-        <!-- Scanner Icon Block -->
-        <div @click="openScanner" class="w-24 h-24 bg-[#FFF8F1] rounded-[28px] shrink-0 flex items-center justify-center text-[#1F2937]/40 shadow-[inset_0_2px_10px_rgba(0,0,0,0.03)] border border-[#EBEBEB]/60 relative group-hover:border-[#FAA533]/40 transition-all duration-500 z-10 overflow-hidden cursor-pointer hover:scale-105 group/qr">
-          
-          <!-- Scan Icon -->
-          <svg class="w-10 h-10 text-[#EF7722] opacity-80 group-hover/qr:opacity-100 group-hover/qr:scale-110 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2M16 4h2a2 2 0 012 2v2M16 20h2a2 2 0 002-2v-2" />
-            <circle cx="12" cy="12" r="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" />
-          </svg>
-          
-          <!-- Animated Scan Line -->
-          <div class="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#EF7722] to-transparent opacity-0 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_rgba(239,119,34,0.8)] animate-[scan_2s_ease-in-out_infinite]"></div>
-        </div>
-        
-        <div class="flex flex-col mt-3 gap-1.5 text-center md:text-left flex-grow z-10">
-          <h3 class="text-[#1F2937] text-[16px] font-extrabold tracking-tight">Scan Activity QR</h3>
-          <p class="text-[13px] text-[#6B7280] font-medium leading-relaxed max-w-[280px]">Tap to open the scanner and check in for the activity.</p>
-        </div>
-
-        <div class="md:absolute md:bottom-8 md:right-8 mt-4 md:mt-0 z-10">
-          <button @click="openScanner" class="relative overflow-hidden bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-[#FFFFFF] font-bold text-[13px] py-2 px-6 rounded-full shadow-[0_8px_15px_rgba(239,119,34,0.3)] hover:shadow-[0_12px_20px_rgba(239,119,34,0.4)] transition-all duration-300 transform group-hover:scale-105 active:scale-95 group/btn border border-[#EF7722]/40 cursor-pointer">
-            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#FFFFFF]/30 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]"></span>
-            <span class="relative tracking-wider flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
-              Open Scanner
-            </span>
-          </button>
-        </div>
-      </div>
     </div>
     
 
