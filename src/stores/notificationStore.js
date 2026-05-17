@@ -27,8 +27,8 @@ export const useNotificationStore = defineStore('notification', () => {
     if (!userId) return
     currentUserId.value = userId
 
-    // Check localStorage first (persisted state)
-    const localData = localStorage.getItem(getStorageKey(userId))
+    // Check sessionStorage first (persisted state)
+    const localData = sessionStorage.getItem(getStorageKey(userId))
     if (localData) {
       notifications.value = JSON.parse(localData)
     } else {
@@ -43,7 +43,7 @@ export const useNotificationStore = defineStore('notification', () => {
 
   function saveToLocalStorage() {
     if (currentUserId.value) {
-      localStorage.setItem(
+      sessionStorage.setItem(
         getStorageKey(currentUserId.value),
         JSON.stringify(notifications.value)
       )

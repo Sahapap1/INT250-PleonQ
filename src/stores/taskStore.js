@@ -24,7 +24,7 @@ export const useTaskStore = defineStore('taskStore', {
     // Internal helper to save to local storage per user
     saveToLocalStorage() {
       if (this.currentUserId) {
-        localStorage.setItem(this.getStorageKey(), JSON.stringify(this.tasks));
+        sessionStorage.setItem(this.getStorageKey(), JSON.stringify(this.tasks));
       }
     },
 
@@ -38,7 +38,7 @@ export const useTaskStore = defineStore('taskStore', {
         await new Promise(resolve => setTimeout(resolve, 800)); // Simulate API loading
         
         // Persistent Memory Check per user
-        const localData = localStorage.getItem(this.getStorageKey());
+        const localData = sessionStorage.getItem(this.getStorageKey());
         if (localData) {
           this.tasks = JSON.parse(localData);
         } else {

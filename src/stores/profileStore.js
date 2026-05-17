@@ -10,7 +10,7 @@ export const useProfileStore = defineStore('profileStore', {
 
   actions: {
     saveToLocalStorage() {
-      localStorage.setItem('profileAppData', JSON.stringify(this.profile));
+      sessionStorage.setItem('profileAppData', JSON.stringify(this.profile));
     },
 
     async fetchProfile() {
@@ -27,7 +27,7 @@ export const useProfileStore = defineStore('profileStore', {
           throw new Error('User not logged in')
         }
 
-        const localData = localStorage.getItem('profileAppData')
+        const localData = sessionStorage.getItem('profileAppData')
 
         if (localData) {
           const parsedLocal = JSON.parse(localData)
@@ -36,7 +36,7 @@ export const useProfileStore = defineStore('profileStore', {
             this.profile = parsedLocal
             return
           } else {
-            localStorage.removeItem('profileAppData')
+            sessionStorage.removeItem('profileAppData')
           }
         }
 
