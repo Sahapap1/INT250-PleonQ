@@ -94,6 +94,9 @@ function refresh() {
   setTimeout(() => {
     refreshing.value = false
     displayedCount.value = 5
+    searchQuery.value = ''       // เพิ่ม
+    currentSort.value = 'all'    // เพิ่ม
+    showUnreadOnly.value = false // เพิ่ม
   }, 600)
 }
 
@@ -109,11 +112,6 @@ function toggleFavorite(id) {
   favorites.value = next
 }
 
-function applyJob(id) {
-  const notif = notifications.value.find(n => n.id === id)
-  alert(`Applied to: ${notif?.subject}`)
-  showDetailId.value = null
-}
 
 function onClickOutside(e) {
   if (sortMenuRef.value && !sortMenuRef.value.contains(e.target)) {
@@ -353,14 +351,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
                </button>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-end gap-2.5 mt-auto pb-2">
-              <button @click="showDetailId = null" class="w-full sm:w-auto px-5 py-2 bg-white border border-gray-200 text-[#1F2937] text-[12px] font-bold rounded-full hover:bg-gray-50 hover:border-gray-300 transition-all active:scale-95 shadow-sm">
-                Cancel
-              </button>
-              <button @click="applyJob(currentNotif.id)" class="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white text-[12px] font-bold rounded-full shadow-[0_4px_12px_rgba(239,119,34,0.3)] hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-95">
-                Apply Action
-              </button>
-            </div>
+
           </div>
         </div>
 
