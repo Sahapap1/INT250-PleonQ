@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative w-full mx-auto z-10 transition-all px-2 sm:px-4 md:px-0 overflow-hidden"
+    class="relative w-full mx-auto z-10 transition-all px-2 sm:px-4 md:px-0 overflow-hidden rounded-[24px] md:rounded-[36px]"
   >
     <!-- Modal Teleport -->
     <Teleport to="body">
@@ -149,9 +149,9 @@
     <div
       class="absolute -bottom-[5%] -right-[10%] w-80 h-80 bg-[#FAA533] rounded-full mix-blend-multiply filter blur-[100px] opacity-15 animate-[pulse_4s_ease-in-out_infinite] pointer-events-none z-0"
     ></div>
-
+    
     <div
-      class="relative bg-[#FFF8F1]/90 backdrop-blur-xl rounded-[24px] md:rounded-[36px] shadow-[0_10px_50px_rgba(0,0,0,0.05)] border border-[#EBEBEB] p-2 sm:p-4 md:p-8 flex flex-col gap-4 md:gap-8 z-10 group/wrapper min-w-0"
+      class="relative bg-[#FFF8F1]/90  backdrop-blur-xl rounded-[24px] md:rounded-[36px] shadow-[0_10px_50px_rgba(0,0,0,0.05)] border border-[#EBEBEB] p-2 sm:p-4 md:p-8 flex flex-col gap-4 md:gap-8 z-10 group/wrapper min-w-0"
     >
       <!-- 1. Task Management List Card -->
       <div
@@ -169,7 +169,7 @@
           </h2>
           <button
             @click="toggleSortOrder"
-            class="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white border border-[#EBEBEB] shadow-sm hover:shadow-md hover:border-[#FAA533]/50 transition-all text-[#6B7280] hover:text-[#EF7722] text-[12px] font-bold"
+            class="cursor-pointer flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white border border-[#EBEBEB] shadow-sm hover:shadow-md hover:border-[#FAA533]/50 transition-all text-[#6B7280] hover:text-[#EF7722] text-[12px] font-bold"
           >
             <svg
               class="w-4 h-4 transition-transform duration-300"
@@ -200,7 +200,7 @@
             :class="
               activeTab === tab
                 ? 'font-bold text-[#1F2937]'
-                : 'font-semibold text-[#6B7280] hover:text-[#EF7722] group/tab'
+                : 'cursor-pointer font-semibold text-[#6B7280] hover:text-[#EF7722] group/tab'
             "
           >
             {{ tab }}
@@ -350,7 +350,7 @@
                 >No tasks found</span
               >
               <span
-                class="text-[12px] font-medium text-[#6B7280] block max-w-[200px] leading-relaxed"
+                class=" text-[12px] font-medium text-[#6B7280] block max-w-[200px] leading-relaxed"
                 >There are no
                 {{
                   activeTab === "All Task" ? "" : activeTab.toLowerCase()
@@ -361,7 +361,7 @@
             <button
               v-if="activeTab === 'All Task'"
               @click="$router.push('/')"
-              class="mt-2 text-[#EF7722] text-[12px] font-bold hover:underline"
+              class="cursor-pointer mt-2 text-[#EF7722] text-[12px] font-bold hover:underline"
             >
               Explore Jobs
             </button>
@@ -580,7 +580,7 @@
       </div>
 
       <!-- 2. Job Status Overview Card -->
-      <div
+      <!-- <div
         v-if="taskStore.tasks.length > 0 && !taskStore.isLoading"
         class="relative overflow-hidden bg-[#FFFFFF] rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-3 sm:p-6 md:p-8 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 items-center md:items-start group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.12)] border border-[#EBEBEB] hover:border-[#FAA533]/50 z-10"
       >
@@ -689,7 +689,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

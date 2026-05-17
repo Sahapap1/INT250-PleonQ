@@ -60,7 +60,7 @@ const goToFullPage = () => {
     <!-- Mini Tabs -->
     <div class="flex items-center gap-1.5 px-4 pt-3 pb-2 bg-gray-50/50 overflow-x-auto no-scrollbar">
       <button v-for="tab in tabs" :key="tab.key" @click="activeTab = tab.key"
-              class="px-3 py-1.5 rounded-full text-[11px] font-bold transition-all whitespace-nowrap"
+              class="cursor-pointer px-3 py-1.5 rounded-full text-[11px] font-bold transition-all whitespace-nowrap"
               :class="activeTab === tab.key ? 'bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white shadow-sm' : 'bg-white text-gray-500 border border-gray-200 hover:border-[#FAA533]/50 hover:text-[#EF7722]'">
          {{ tab.label }}
       </button>
@@ -102,7 +102,7 @@ const goToFullPage = () => {
     
     <!-- Footer -->
     <div class="p-3 border-t border-gray-100 bg-gray-50/50">
-      <button @click="goToFullPage" class="w-full justify-center flex items-center gap-2 py-2.5 rounded-xl bg-white text-[#1F2937] hover:bg-gradient-to-r hover:from-[#EF7722] hover:to-[#FAA533] hover:text-white border border-gray-200 hover:border-transparent font-bold text-[12px] transition-all active:scale-95 shadow-sm group">
+      <button @click="goToFullPage" class="cursor-pointer w-full justify-center flex items-center gap-2 py-2.5 rounded-xl bg-white text-[#1F2937] hover:bg-gradient-to-r hover:from-[#EF7722] hover:to-[#FAA533] hover:text-white border border-gray-200 hover:border-transparent font-bold text-[12px] transition-all active:scale-95 shadow-sm group">
         View All Notifications
         <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
       </button>

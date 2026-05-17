@@ -35,8 +35,8 @@ const getImageUrl = (imageName) => {
 
         <!-- Heart -->
         <button @click="toggleLike"
-            class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center text-[#FAA533] hover:bg-[#FAA533] hover:text-white transition-colors z-10 active:scale-95">
-            <svg class="w-3.5 h-3.5" :fill="data.liked ? 'currentColor' : 'none'" stroke="currentColor"
+            class="cursor-pointer absolute top-3 right-3 w-7 h-7 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center text-[#FAA533] hover:bg-[#FAA533] hover:text-white transition-colors z-10 active:scale-95">
+            <svg class="w-3.5 h-3.5 " :fill="data.liked ? 'currentColor' : 'none'" stroke="currentColor"
                 viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -89,7 +89,7 @@ const getImageUrl = (imageName) => {
                 </span>
 
                 <button
-                    class="bg-orange-gradient hover:bg-[#FAA533] text-white text-[11px] font-bold px-4 py-1 rounded-full">
+                    class="cursor-pointer bg-orange-gradient hover:bg-[#FAA533] text-white text-[11px] font-bold px-4 py-1 rounded-full">
                     {{ isAdmin ? 'Edit' : 'View' }}
                 </button>
 

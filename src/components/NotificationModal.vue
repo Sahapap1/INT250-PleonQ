@@ -154,7 +154,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
           </button>
         </h2>
         
-        <div class="flex items-center gap-3">
+        <!-- <div class="flex items-center gap-3">
           <div class="relative hidden sm:block">
             <input
               v-model="searchQuery"
@@ -164,7 +164,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
             />
             <svg class="w-3.5 h-3.5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- Main Layout Body -->
@@ -178,7 +178,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
               v-for="tab in tabs"
               :key="tab.key"
               @click="setTab(tab.key)"
-              class="flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-[12px] text-[12px] font-bold transition-all whitespace-nowrap"
+              class="cursor-pointer flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-[12px] text-[12px] font-bold transition-all whitespace-nowrap"
               :class="activeTab === tab.key ? 'bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white shadow-sm' : 'bg-transparent text-[#6B7280] hover:bg-white hover:text-[#1F2937] hover:shadow-sm'"
             >
               {{ tab.label }}
@@ -186,7 +186,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
             <div class="w-[1px] h-4 bg-orange-200 mx-1 hidden sm:block"></div>
             <button
               @click="showFavoriteView = true; showDetailId = null; displayedCount = 5"
-              class="flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-[12px] text-[12px] font-bold transition-all whitespace-nowrap"
+              class="cursor-pointer flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-[12px] text-[12px] font-bold transition-all whitespace-nowrap"
               :class="showFavoriteView && !showDetailId ? 'bg-yellow-50 text-yellow-600 border border-yellow-200 shadow-sm' : 'bg-transparent text-[#6B7280] hover:bg-white hover:text-[#1F2937] hover:shadow-sm'"
             >
               <svg class="w-3.5 h-3.5" :class="showFavoriteView ? 'fill-yellow-500' : 'fill-none stroke-current'" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
@@ -196,7 +196,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
 
           <div class="flex items-center gap-2 shrink-0">
              <div class="relative" ref="sortMenuRef">
-               <button @click.stop="sortMenuOpen = !sortMenuOpen" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[10px] text-[11px] font-bold text-gray-500 hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-200">
+               <button @click.stop="sortMenuOpen = !sortMenuOpen" class="cursor-pointer flex items-center gap-1.5 px-2.5 py-1.5 rounded-[10px] text-[11px] font-bold text-gray-500 hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-200">
                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M3 6h18M7 12h10M11 18h2"/></svg>
                  <span class="hidden sm:inline">{{ sortOptions.find(o => o.value === currentSort)?.label || 'Sort' }}</span>
                </button>
@@ -209,7 +209,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
                </transition>
              </div>
              
-             <button @click="refresh" class="p-1.5 rounded-[10px] text-gray-400 hover:text-[#EF7722] hover:bg-white hover:shadow-sm transition-all" :class="refreshing ? 'rotate-180 duration-500 text-[#FAA533]' : 'duration-500'">
+             <button @click="refresh" class="cursor-pointer p-1.5 rounded-[10px] text-gray-400 hover:text-[#EF7722] hover:bg-white hover:shadow-sm transition-all" :class="refreshing ? 'rotate-180 duration-500 text-[#FAA533]' : 'duration-500'">
                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
              </button>
           </div>

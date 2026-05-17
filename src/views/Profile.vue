@@ -164,7 +164,7 @@
         
         <div class="flex items-center justify-between">
           <h2 class="text-[22px] font-extrabold text-[#1F2937] tracking-tight">Edit Profile</h2>
-          <button @click="isEditProfileOpen = false" class="text-[#6B7280] hover:text-[#EF7722] hover:bg-[#FFF8F1] p-2 rounded-full transition-colors">
+          <button @click="isEditProfileOpen = false" class="cursor-pointer text-[#6B7280] hover:text-[#EF7722] hover:bg-[#FFF8F1] p-2 rounded-full transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
@@ -200,8 +200,8 @@
           </div>
         </div>
         <div class="flex justify-end gap-3 mt-4 pt-2 border-t border-[#EBEBEB]">
-          <button @click="isEditProfileOpen = false" class="px-6 py-2.5 rounded-full text-sm font-bold text-[#6B7280] hover:text-[#1F2937] hover:bg-[#FFF8F1] transition-colors active:scale-95">Cancel</button>
-          <button @click="saveProfile" class="bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-[#FFFFFF] px-8 py-2.5 rounded-full text-sm font-bold shadow-[0_8px_15px_rgba(239,119,34,0.3)] hover:shadow-lg hover:shadow-[#EF7722]/40 transition-all active:scale-95 border border-[#EF7722]/40 tracking-wide">Save</button>
+          <button @click="isEditProfileOpen = false" class="cursor-pointer px-6 py-2.5 rounded-full text-sm font-bold text-[#6B7280] hover:text-[#1F2937] hover:bg-[#FFF8F1] transition-colors active:scale-95">Cancel</button>
+          <button @click="saveProfile" class="cursor-pointer bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-[#FFFFFF] px-8 py-2.5 rounded-full text-sm font-bold shadow-[0_8px_15px_rgba(239,119,34,0.3)] hover:shadow-lg hover:shadow-[#EF7722]/40 transition-all active:scale-95 border border-[#EF7722]/40 tracking-wide">Save</button>
         </div>
       </div>
       </div>
@@ -215,7 +215,7 @@
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#FAA533]/20 rounded-full mix-blend-multiply filter blur-[60px] animate-pulse pointer-events-none z-0"></div>
         <div class="relative z-10 w-full flex justify-between items-center mb-2">
           <h2 class="text-xl font-bold text-[#1F2937] tracking-wide">Your Profile QR</h2>
-          <button @click="isQrModalOpen = false" class="text-[#6B7280] hover:text-[#EF7722] hover:bg-[#FFF8F1] p-2 rounded-full transition-colors">
+          <button @click="isQrModalOpen = false" class="cursor-pointer text-[#6B7280] hover:text-[#EF7722] hover:bg-[#FFF8F1] p-2 rounded-full transition-colors">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
@@ -232,7 +232,7 @@
         <p class="text-[#6B7280] text-sm text-center font-medium z-10 mt-2 px-4 leading-relaxed">
           Show this QR code at the event entrance to check in.
         </p>
-        <button @click="isQrModalOpen = false" class="relative z-10 bg-[#FFF8F1] hover:bg-[#FFFFFF] border border-[#EBEBEB] text-[#1F2937] hover:text-[#EF7722] font-bold text-sm py-3 px-10 rounded-full transition-all active:scale-95 shadow-sm w-full mt-2 tracking-wider">
+        <button @click="isQrModalOpen = false" class="cursor-pointer relative z-10 bg-[#FFF8F1] hover:bg-[#FFFFFF] border border-[#EBEBEB] text-[#1F2937] hover:text-[#EF7722] font-bold text-sm py-3 px-10 rounded-full transition-all active:scale-95 shadow-sm w-full mt-2 tracking-wider">
           Close Window
         </button>
       </div>

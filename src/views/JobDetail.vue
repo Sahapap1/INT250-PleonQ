@@ -126,7 +126,7 @@ const getImageUrl = (imageName) => {
 
             <div class="flex items-center gap-3">
                 <button @click="toggleLike"
-                    class="w-10 h-10 rounded-full bg-white border border-[#FAA533]/50 shadow-sm flex items-center justify-center text-[#EF7722] hover:bg-[#FFF8F1] active:scale-95 transition-all">
+                    class="cursor-pointer w-10 h-10 rounded-full bg-white border border-[#FAA533]/50 shadow-sm flex items-center justify-center text-[#EF7722] hover:bg-[#FFF8F1] active:scale-95 transition-all">
                     <svg class="w-5 h-5" :fill="job?.liked ? 'currentColor' : 'none'" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -224,7 +224,7 @@ const getImageUrl = (imageName) => {
                         Already Registered
                     </button>
                     <button v-else @click="applyForJob" :disabled="isApplying"
-                        class="bg-orange-gradient hover:shadow-lg transition-shadow text-white px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="cursor-pointer bg-orange-gradient hover:shadow-lg transition-shadow text-white px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
                         {{ isApplying ? 'Registering...' : 'Register' }}
                     </button>
                 </div>
