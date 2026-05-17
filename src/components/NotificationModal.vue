@@ -94,6 +94,9 @@ function refresh() {
   setTimeout(() => {
     refreshing.value = false
     displayedCount.value = 5
+    searchQuery.value = ''       // เพิ่ม
+    currentSort.value = 'all'    // เพิ่ม
+    showUnreadOnly.value = false // เพิ่ม
   }, 600)
 }
 
@@ -109,11 +112,6 @@ function toggleFavorite(id) {
   favorites.value = next
 }
 
-function applyJob(id) {
-  const notif = notifications.value.find(n => n.id === id)
-  alert(`Applied to: ${notif?.subject}`)
-  showDetailId.value = null
-}
 
 function onClickOutside(e) {
   if (sortMenuRef.value && !sortMenuRef.value.contains(e.target)) {
@@ -141,11 +139,11 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
           <div class="absolute -top-[5%] -left-[10%] w-80 h-80 bg-[#EF7722] rounded-full mix-blend-multiply filter blur-[100px] opacity-15 animate-pulse pointer-events-none z-0"></div>
           <div class="absolute -bottom-[5%] -right-[10%] w-80 h-80 bg-[#FAA533] rounded-full mix-blend-multiply filter blur-[100px] opacity-15 animate-[pulse_4s_ease-in-out_infinite] pointer-events-none z-0"></div>
 
-          <div class="relative bg-white/80 backdrop-blur-3xl rounded-[20px] md:rounded-[28px] shadow-[0_15px_60px_rgba(0,0,0,0.1)] border border-white/50 p-4 sm:p-5 flex flex-col gap-3 md:gap-4 z-10 min-h-[400px] overflow-hidden max-h-full">
+          <div class="relative bg-white/80 dark:bg-gray-800/90 backdrop-blur-3xl rounded-[20px] md:rounded-[28px] shadow-[0_15px_60px_rgba(0,0,0,0.1)] border border-white/50 dark:border-gray-700/50 p-4 sm:p-5 flex flex-col gap-3 md:gap-4 z-10 min-h-[400px] overflow-hidden max-h-full">
        
       <!-- Header -->
       <div class="flex justify-between items-center z-10 flex-wrap gap-4 px-2">
-        <h2 class="text-[18px] sm:text-[20px] font-extrabold text-[#1F2937] tracking-tight flex items-center gap-3">
+        <h2 class="text-[18px] sm:text-[20px] font-extrabold text-[#1F2937] dark:text-gray-100 tracking-tight flex items-center gap-3">
           Notifications
           <button @click="showUnreadOnly = !showUnreadOnly; showFavoriteView = false; showDetailId = null; displayedCount = 5"
                   class="px-2 py-0.5 rounded-md border text-[10px] font-bold drop-shadow-sm transition-all active:scale-95"
@@ -160,7 +158,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
               v-model="searchQuery"
               type="text"
               placeholder="Search..."
-              class="w-full sm:w-48 pl-9 pr-4 py-2 rounded-full border border-gray-200 bg-white/80 text-[12px] text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#FAA533]/30 focus:border-[#FAA533] shadow-sm transition-all"
+              class="w-full sm:w-48 pl-9 pr-4 py-2 rounded-full border border-gray-200 dark:border-gray-600 bg-white/80 dark:bg-gray-700 text-[12px] text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#FAA533]/30 focus:border-[#FAA533] shadow-sm transition-all"
             />
             <svg class="w-3.5 h-3.5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
@@ -178,16 +176,16 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
               v-for="tab in tabs"
               :key="tab.key"
               @click="setTab(tab.key)"
-              class="cursor-pointer flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-[12px] text-[12px] font-bold transition-all whitespace-nowrap"
-              :class="activeTab === tab.key ? 'bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white shadow-sm' : 'bg-transparent text-[#6B7280] hover:bg-white hover:text-[#1F2937] hover:shadow-sm'"
+              class="flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-[12px] text-[12px] font-bold transition-all whitespace-nowrap"
+              :class="activeTab === tab.key ? 'bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white shadow-sm' : 'bg-transparent text-[#6B7280] hover:bg-white dark:hover:bg-gray-700 hover:text-[#1F2937] dark:hover:text-gray-200 hover:shadow-sm'"
             >
               {{ tab.label }}
             </button>
             <div class="w-[1px] h-4 bg-orange-200 mx-1 hidden sm:block"></div>
             <button
               @click="showFavoriteView = true; showDetailId = null; displayedCount = 5"
-              class="cursor-pointer flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-[12px] text-[12px] font-bold transition-all whitespace-nowrap"
-              :class="showFavoriteView && !showDetailId ? 'bg-yellow-50 text-yellow-600 border border-yellow-200 shadow-sm' : 'bg-transparent text-[#6B7280] hover:bg-white hover:text-[#1F2937] hover:shadow-sm'"
+              class="flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-[12px] text-[12px] font-bold transition-all whitespace-nowrap"
+              :class="showFavoriteView && !showDetailId ? 'bg-yellow-50 text-yellow-600 border border-yellow-200 shadow-sm' : 'bg-transparent text-[#6B7280] hover:bg-white dark:hover:bg-gray-700 hover:text-[#1F2937] dark:hover:text-gray-200 hover:shadow-sm'"
             >
               <svg class="w-3.5 h-3.5" :class="showFavoriteView ? 'fill-yellow-500' : 'fill-none stroke-current'" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
               Favorites
@@ -229,13 +227,13 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
                </div>
                <div v-else class="flex flex-col gap-1.5 relative mt-1">
                  <div v-for="item in filteredNotifications.slice(0, displayedCount)" :key="item.id" @click="openDetail(item.id)"
-                      class="group relative flex items-start sm:items-center gap-3 p-3 rounded-[14px] cursor-pointer transition-all duration-300 border border-transparent hover:shadow-sm overflow-hidden bg-white/70 backdrop-blur-sm hover:-translate-y-[1px]"
-                      :class="item.unread ? 'bg-white shadow-[0_4px_20px_rgba(250,165,51,0.06)] border-[#FAA533]/20' : 'hover:border-gray-100 hover:bg-white'">
+                      class="group relative flex items-start sm:items-center gap-3 p-3 rounded-[14px] cursor-pointer transition-all duration-300 border border-transparent hover:shadow-sm overflow-hidden bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm hover:-translate-y-[1px]"
+                      :class="item.unread ? 'bg-white dark:bg-gray-800 shadow-[0_4px_20px_rgba(250,165,51,0.06)] border-[#FAA533]/20' : 'hover:border-gray-100 dark:hover:border-gray-700 hover:bg-white dark:hover:bg-gray-800'">
                    
                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-0 bg-gradient-to-b from-[#EF7722] to-[#FAA533] rounded-r-full group-hover:h-2/3 transition-all duration-300"></div>
 
                    <div class="relative w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0 group-hover:scale-105 transition-all duration-300"
-                        :class="item.unread ? 'bg-gradient-to-br from-[#EF7722] to-[#FAA533] text-white shadow-[#EF7722]/20' : 'bg-gray-50 border border-gray-100 text-gray-400 group-hover:text-[#EF7722] group-hover:border-[#FAA533]/30'">
+                        :class="item.unread ? 'bg-gradient-to-br from-[#EF7722] to-[#FAA533] text-white shadow-[#EF7722]/20' : 'bg-gray-50 dark:bg-gray-700 border border-gray-100 dark:border-gray-600 text-gray-400 group-hover:text-[#EF7722] group-hover:border-[#FAA533]/30'">
                      <span v-if="item.unread" class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse border-2 border-white"></span>
                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
@@ -244,7 +242,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
 
                    <div class="flex-1 min-w-0 pr-4">
                      <h4 class="text-[13px] font-bold tracking-tight mb-0.5 truncate transition-colors"
-                         :class="item.unread ? 'text-[#1F2937] group-hover:text-[#EF7722]' : 'text-gray-600 group-hover:text-[#1F2937]'">{{ item.subject }}</h4>
+                         :class="item.unread ? 'text-[#1F2937] dark:text-gray-100 group-hover:text-[#EF7722]' : 'text-gray-600 dark:text-gray-400 group-hover:text-[#1F2937] dark:group-hover:text-gray-200'">{{ item.subject }}</h4>
                      <p class="text-[11px] font-medium text-gray-500 flex items-center gap-1.5">
                        <span class="truncate max-w-[120px] sm:max-w-[200px]">{{ item.poster }}</span>
                        <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
@@ -353,14 +351,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
                </button>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-end gap-2.5 mt-auto pb-2">
-              <button @click="showDetailId = null" class="w-full sm:w-auto px-5 py-2 bg-white border border-gray-200 text-[#1F2937] text-[12px] font-bold rounded-full hover:bg-gray-50 hover:border-gray-300 transition-all active:scale-95 shadow-sm">
-                Cancel
-              </button>
-              <button @click="applyJob(currentNotif.id)" class="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white text-[12px] font-bold rounded-full shadow-[0_4px_12px_rgba(239,119,34,0.3)] hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-95">
-                Apply Action
-              </button>
-            </div>
+
           </div>
         </div>
 
