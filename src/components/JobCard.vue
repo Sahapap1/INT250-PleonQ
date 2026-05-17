@@ -89,7 +89,7 @@ const getImageUrl = (imageName) => {
                 </span>
 
                 <button
-                    class="bg-orange-gradient hover:bg-[#FAA533] text-white text-[11px] font-bold px-4 py-1 rounded-full">
+                    class="cursor-pointer bg-orange-gradient hover:bg-[#FAA533] text-white text-[11px] font-bold px-4 py-1 rounded-full">
                     {{ isAdmin ? 'Edit' : 'View' }}
                 </button>
 

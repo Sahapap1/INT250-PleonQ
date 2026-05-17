@@ -48,7 +48,7 @@ export const useCategoryStore = defineStore('categoryStore', {
       } else {
         this.selectedCategories.splice(index, 1);
       }
-      this.saveToLocalStorage();
+      
     },
 
     // Simulate an explicit save button click

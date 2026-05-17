@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative w-full mx-auto z-10 transition-all px-2 sm:px-4 md:px-0 overflow-hidden"
+    class="relative w-full mx-auto z-10 transition-all px-2 sm:px-4 md:px-0 overflow-hidden rounded-[24px] md:rounded-[36px]"
   >
     <!-- Modal Teleport -->
     <Teleport to="body">
@@ -149,7 +149,7 @@
     <div
       class="absolute -bottom-[5%] -right-[10%] w-80 h-80 bg-[#FAA533] rounded-full mix-blend-multiply filter blur-[100px] opacity-15 animate-[pulse_4s_ease-in-out_infinite] pointer-events-none z-0"
     ></div>
-
+    
     <div
       class="relative bg-orange-50/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-[24px] md:rounded-[36px] shadow-[0_10px_50px_rgba(0,0,0,0.05)] border border-gray-200 dark:border-gray-700 p-2 sm:p-4 md:p-8 flex flex-col gap-4 md:gap-8 z-10 group/wrapper min-w-0"
     >
@@ -361,7 +361,7 @@
             <button
               v-if="activeTab === 'All Task'"
               @click="$router.push('/')"
-              class="mt-2 text-[#EF7722] text-[12px] font-bold hover:underline"
+              class="cursor-pointer mt-2 text-[#EF7722] text-[12px] font-bold hover:underline"
             >
               Explore Jobs
             </button>
@@ -580,7 +580,7 @@
       </div>
 
       <!-- 2. Job Status Overview Card -->
-      <div
+      <!-- <div
         v-if="taskStore.tasks.length > 0 && !taskStore.isLoading"
         class="relative overflow-hidden bg-white dark:bg-gray-800 rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-3 sm:p-6 md:p-8 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 items-center md:items-start transition-all duration-500 border border-gray-200 dark:border-gray-700 z-10"
       >
@@ -666,7 +666,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

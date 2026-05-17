@@ -288,7 +288,7 @@ const getImageUrl = (imageName) => {
                         Already Registered
                     </button>
                     <button v-else @click="applyForJob" :disabled="isApplying"
-                        class="bg-orange-gradient hover:shadow-lg transition-shadow text-white px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="cursor-pointer bg-orange-gradient hover:shadow-lg transition-shadow text-white px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
                         {{ isApplying ? 'Registering...' : 'Register' }}
                     </button>
                 </div>

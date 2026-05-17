@@ -1,4 +1,5 @@
 <template>
+  
   <div class="relative w-full z-20 flex items-center justify-center py-4 sm:py-6 px-4 md:px-0">
     <!-- Pop-up Container -->
     <div class="relative w-full max-w-[650px] bg-[#FFFFFF] rounded-[24px] sm:rounded-[28px] shadow-[0_20px_60px_-15px_rgba(239,119,34,0.15)] overflow-hidden flex flex-col border border-[#EBEBEB] transform transition-all">
@@ -6,7 +7,7 @@
       <!-- Header -->
       <div class="bg-gradient-to-br from-[#FFF8F1] to-white px-5 sm:px-8 py-4 sm:py-[22px] border-b border-[#EBEBEB] relative overflow-hidden flex justify-between items-center">
         <h2 class="relative text-xl sm:text-2xl font-bold text-[#1F2937] tracking-tight drop-shadow-sm">Job Suggestion</h2>
-        <button @click="handleCancel" class="relative w-8 h-8 flex items-center justify-center rounded-full bg-white/80 hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-all z-10 hover:shadow-sm border border-transparent hover:border-gray-200" title="Close">
+        <button @click="handleCancel" class="cursor-pointer relative w-8 h-8 flex items-center justify-center rounded-full bg-white/80 hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-all z-10 hover:shadow-sm border border-transparent hover:border-gray-200" title="Close">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
       </div>
@@ -73,9 +74,9 @@
           </button>
 
           <!-- Clear Button -->
-          <button 
-            @click="handleCancel"
-            class="relative w-full sm:w-auto bg-white text-[#6B7280] hover:text-[#1F2937] font-bold text-[15px] py-[10px] px-8 rounded-full transition-all duration-300 active:scale-95 border border-[#EBEBEB] hover:border-[#D1D5DB] hover:bg-gray-50"
+          <button  
+            @click="handleClear"
+            class="cursor-pointer relative w-full sm:w-auto bg-white text-[#6B7280] hover:text-[#1F2937] font-bold text-[15px] py-[10px] px-8 rounded-full transition-all duration-300 active:scale-95 border border-[#EBEBEB] hover:border-[#D1D5DB] hover:bg-gray-50"
           >
             Clear
           </button>
@@ -102,6 +103,8 @@ const jobRoles = [
   { name: 'Photo', icon: 'fa-solid fa-camera' }
 ]
 
+const emit = defineEmits(['save', 'close'])
+
 onMounted(() => {
   categoryStore.fetchCategories();
 });
@@ -114,16 +117,23 @@ const saveCategories = async () => {
   if (categoryStore.selectedCategories.length === 0) return;
   await categoryStore.saveCategories();
   // Usually this would close the modal or notify success.
+  
+  emit('save') 
   emit('close');
 };
 
 const handleCancel = () => {
-  categoryStore.selectedCategories = [];
-  localStorage.setItem('selectedCategories', JSON.stringify([]));
   emit('close');
 };
 
-const emit = defineEmits(['close'])
+const handleClear = () => {
+  categoryStore.selectedCategories = [];
+  localStorage.setItem('selectedCategories', JSON.stringify([]));
+  emit('save') 
+  // emit('close');
+};
+
+
 </script>
 
 <style scoped>

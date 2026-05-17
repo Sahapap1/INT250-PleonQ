@@ -152,7 +152,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
           </button>
         </h2>
         
-        <div class="flex items-center gap-3">
+        <!-- <div class="flex items-center gap-3">
           <div class="relative hidden sm:block">
             <input
               v-model="searchQuery"
@@ -162,7 +162,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
             />
             <svg class="w-3.5 h-3.5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- Main Layout Body -->
@@ -194,7 +194,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
 
           <div class="flex items-center gap-2 shrink-0">
              <div class="relative" ref="sortMenuRef">
-               <button @click.stop="sortMenuOpen = !sortMenuOpen" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[10px] text-[11px] font-bold text-gray-500 hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-200">
+               <button @click.stop="sortMenuOpen = !sortMenuOpen" class="cursor-pointer flex items-center gap-1.5 px-2.5 py-1.5 rounded-[10px] text-[11px] font-bold text-gray-500 hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-200">
                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M3 6h18M7 12h10M11 18h2"/></svg>
                  <span class="hidden sm:inline">{{ sortOptions.find(o => o.value === currentSort)?.label || 'Sort' }}</span>
                </button>
@@ -207,7 +207,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
                </transition>
              </div>
              
-             <button @click="refresh" class="p-1.5 rounded-[10px] text-gray-400 hover:text-[#EF7722] hover:bg-white hover:shadow-sm transition-all" :class="refreshing ? 'rotate-180 duration-500 text-[#FAA533]' : 'duration-500'">
+             <button @click="refresh" class="cursor-pointer p-1.5 rounded-[10px] text-gray-400 hover:text-[#EF7722] hover:bg-white hover:shadow-sm transition-all" :class="refreshing ? 'rotate-180 duration-500 text-[#FAA533]' : 'duration-500'">
                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
              </button>
           </div>
