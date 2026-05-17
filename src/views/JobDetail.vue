@@ -5,6 +5,7 @@ import { useJobStore } from '@/stores/jobStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useTaskStore } from '@/stores/taskStore'
 import { useNotificationStore } from '@/stores/notificationStore'
+import tasksData from '@/data/tasks.json'
 
 const route = useRoute()
 const router = useRouter()
@@ -22,6 +23,8 @@ const job = computed(() =>
 const isSuccessModalOpen = ref(false)
 const isAlreadyAppliedModalOpen = ref(false)
 const isApplying = ref(false)
+const selectedRole = ref('')
+const roleError = ref(false)
 
 const isAlreadyApplied = computed(() => {
     return taskStore.tasks.some(t => t.jobId === job.value?.id)
@@ -43,6 +46,7 @@ const initializeForm = () => {
     }
 }
 
+// applicants logic moved to AdminApplicants.vue
 onMounted(() => {
     initializeForm()
     if (taskStore.tasks.length === 0 && !taskStore.isLoading) {
@@ -51,7 +55,9 @@ onMounted(() => {
 })
 
 watch(job, (newJob) => {
-    if (newJob) initializeForm()
+    if (newJob) {
+        initializeForm()
+    }
 })
 
 const saveChanges = () => {
@@ -65,6 +71,12 @@ const saveChanges = () => {
 const applyForJob = async () => {
     if (!job.value || isApplying.value) return;
     
+    if (job.value.roles && job.value.roles.length > 0 && !selectedRole.value) {
+        roleError.value = true;
+        return;
+    }
+    roleError.value = false;
+
     // Check duplication
     if (isAlreadyApplied.value) {
         isAlreadyAppliedModalOpen.value = true;
@@ -77,9 +89,43 @@ const applyForJob = async () => {
         jobId: job.value.id,
         title: job.value.title,
         date: job.value.date,
-        status: 'Pending'
+        status: 'Requested'
     });
     
+    // Record into job_applicants array
+    const applicantsKey = `job_applicants_${job.value.id}`;
+    let jobApplicants = JSON.parse(localStorage.getItem(applicantsKey));
+    if (!jobApplicants) {
+        jobApplicants = [];
+        const allUserIds = Object.keys(tasksData);
+        allUserIds.forEach(userId => {
+            const userTasks = tasksData[userId];
+            const task = userTasks.find(t => t.jobId == job.value.id);
+            if (task) {
+                const mockNames = { '1': 'Kanyarat C.', '2': 'Piyawat T.', '3': 'Somsak P.' };
+                jobApplicants.push({
+                    userId: userId,
+                    taskId: task.id,
+                    name: mockNames[userId] || `Student ${userId}`,
+                    status: task.status,
+                    date: task.date,
+                    role: 'N/A'
+                });
+            }
+        });
+    }
+
+    const newTask = taskStore.tasks[0]; // the newly added task
+    jobApplicants.push({
+        userId: authStore.user?.id || 'Unknown',
+        taskId: newTask?.id,
+        name: authStore.user?.name || `Student ${authStore.user?.id}`,
+        status: 'Requested',
+        date: new Date().toISOString().split('T')[0],
+        role: selectedRole.value || 'N/A'
+    });
+    localStorage.setItem(applicantsKey, JSON.stringify(jobApplicants));
+
     // Push live notification
     notificationStore.addNotification({
         type: 'jobs',
@@ -87,7 +133,7 @@ const applyForJob = async () => {
         subject: `Registration for "${job.value.title.substring(0, 40)}" Successful!`,
         poster: 'PleonQ System',
         icon: 'fa-briefcase',
-        body: `You have successfully registered for "${job.value.title}". Your application status is Pending, awaiting admin review.`
+        body: `You have successfully registered for "${job.value.title}". Your application status is Requested, awaiting admin review.`
     });
     
     isApplying.value = false;
@@ -126,7 +172,7 @@ const getImageUrl = (imageName) => {
 
             <div class="flex items-center gap-3">
                 <button @click="toggleLike"
-                    class="w-10 h-10 rounded-full bg-white border border-[#FAA533]/50 shadow-sm flex items-center justify-center text-[#EF7722] hover:bg-[#FFF8F1] active:scale-95 transition-all">
+                    class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-[#FAA533]/50 dark:border-gray-700 shadow-sm flex items-center justify-center text-[#EF7722] hover:bg-[#FFF8F1] dark:hover:bg-gray-700 active:scale-95 transition-all">
                     <svg class="w-5 h-5" :fill="job?.liked ? 'currentColor' : 'none'" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -146,42 +192,42 @@ const getImageUrl = (imageName) => {
 
             <!-- Title -->
             <div v-if="isAdmin" class="mb-3">
-                <input v-model="editForm.title" type="text" class="text-xl font-bold text-gray-800 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-orange-400" placeholder="Job Title" />
+                <input v-model="editForm.title" type="text" class="text-xl font-bold text-gray-800 dark:text-gray-100 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-orange-400" placeholder="Job Title" />
             </div>
-            <h1 v-else class="text-[20px] sm:text-[24px] font-extrabold text-[#1F2937] mb-3 tracking-tight leading-snug">
+            <h1 v-else class="text-[20px] sm:text-[24px] font-extrabold text-[#1F2937] dark:text-gray-100 mb-3 tracking-tight leading-snug">
                 {{ job?.title }}
             </h1>
 
             <!-- Info Labels -->
             <div class="flex flex-wrap gap-3 mb-6">
                 <!-- Location -->
-                <div class="flex items-center gap-2 bg-white text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 shadow-sm transition-all hover:shadow-md">
+                <div class="flex items-center gap-2 bg-white dark:bg-gray-800 text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 dark:border-gray-700 shadow-sm transition-all hover:shadow-md">
                     <i class="fa-solid fa-location-dot"></i>
-                    <input v-if="isAdmin" v-model="editForm.location" type="text" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722]" placeholder="Location" />
+                    <input v-if="isAdmin" v-model="editForm.location" type="text" class="bg-white dark:bg-gray-800 border border-[#FAA533]/50 dark:border-gray-600 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722]" placeholder="Location" />
                     <span v-else>{{ job?.location }}</span>
                 </div>
 
                 <!-- Date -->
-                <div class="flex items-center gap-2 bg-white text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 shadow-sm transition-all hover:shadow-md">
+                <div class="flex items-center gap-2 bg-white dark:bg-gray-800 text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 dark:border-gray-700 shadow-sm transition-all hover:shadow-md">
                     <i class="fa-solid fa-calendar-days"></i>
-                    <input v-if="isAdmin" v-model="editForm.date" type="date" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722] cursor-pointer" placeholder="Date" />
+                    <input v-if="isAdmin" v-model="editForm.date" type="date" class="bg-white dark:bg-gray-800 border border-[#FAA533]/50 dark:border-gray-600 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722] cursor-pointer" placeholder="Date" />
                     <span v-else>{{ job?.date }}</span>
                 </div>
 
                 <!-- Positions -->
-                <div class="flex items-center gap-2 bg-white text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 shadow-sm transition-all hover:shadow-md">
+                <div class="flex items-center gap-2 bg-white dark:bg-gray-800 text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 dark:border-gray-700 shadow-sm transition-all hover:shadow-md">
                     <i class="fa-solid fa-users"></i>
                     <div v-if="isAdmin" class="flex items-center gap-1">
-                       <input v-model="editForm.positions" type="number" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-16 focus:outline-none text-[#EF7722]" placeholder="Positions" />
+                       <input v-model="editForm.positions" type="number" class="bg-white dark:bg-gray-800 border border-[#FAA533]/50 dark:border-gray-600 rounded px-2 py-0.5 w-16 focus:outline-none text-[#EF7722]" placeholder="Positions" />
                        <span>คน</span>
                     </div>
                     <span v-else>{{ job?.positions }} คน</span>
                 </div>
 
                 <!-- Reward -->
-                <div class="flex items-center gap-2 bg-white text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 shadow-sm transition-all hover:shadow-md">
+                <div class="flex items-center gap-2 bg-white dark:bg-gray-800 text-[#EF7722] px-4 py-2 rounded-full text-[13px] font-bold border border-[#FAA533]/40 dark:border-gray-700 shadow-sm transition-all hover:shadow-md">
                     <i class="fa-solid fa-clock"></i>
-                    <select v-if="isAdmin" v-model="editForm.reward" class="bg-white border border-[#FAA533]/50 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722] cursor-pointer appearance-none">
+                    <select v-if="isAdmin" v-model="editForm.reward" class="bg-white dark:bg-gray-800 border border-[#FAA533]/50 dark:border-gray-600 rounded px-2 py-0.5 w-full focus:outline-none text-[#EF7722] cursor-pointer appearance-none">
                         <option value="ชั่วโมงกิจกรรม">ชั่วโมงกิจกรรม</option>
                     </select>
                     <span v-else>{{ job?.reward }}</span>
@@ -193,13 +239,13 @@ const getImageUrl = (imageName) => {
                 <label class="text-[14px] font-extrabold text-[#EF7722] uppercase tracking-widest flex items-center gap-2 px-1">
                    <i class="fa-solid fa-circle-info"></i> รายละเอียดงาน (About This Job)
                 </label>
-                <textarea v-model="editForm.description" class="w-full bg-[#F9FAFB] border border-gray-200 rounded-[28px] px-5 py-4 text-[14px] font-medium text-gray-600 leading-relaxed focus:outline-none focus:border-orange-400 focus:bg-white focus:shadow-sm transition-all shadow-inner resize-none h-32" placeholder="Job Description"></textarea>
+                <textarea v-model="editForm.description" class="w-full bg-[#F9FAFB] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[28px] px-5 py-4 text-[14px] font-medium text-gray-600 dark:text-gray-300 leading-relaxed focus:outline-none focus:border-orange-400 focus:bg-white dark:focus:bg-gray-700 focus:shadow-sm transition-all shadow-inner resize-none h-32" placeholder="Job Description"></textarea>
             </div>
             <div v-else class="flex flex-col gap-2 mb-4">
                 <label class="text-[14px] font-extrabold text-[#EF7722] uppercase tracking-widest flex items-center gap-2 px-1">
                    <i class="fa-solid fa-circle-info"></i> รายละเอียดงาน (About This Job)
                 </label>
-                <div class="w-full bg-[#F9FAFB] border border-gray-200 rounded-[28px] px-5 py-4 text-[13px] sm:text-[14px] leading-relaxed font-medium text-[#4B5563] shadow-inner min-h-[8rem] whitespace-pre-wrap">
+                <div class="w-full bg-[#F9FAFB] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[28px] px-5 py-4 text-[13px] sm:text-[14px] leading-relaxed font-medium text-[#4B5563] dark:text-gray-300 shadow-inner min-h-[8rem] whitespace-pre-wrap">
                     {{ job?.description }}
                     
                     <template v-if="job?.description_en">
@@ -208,6 +254,24 @@ const getImageUrl = (imageName) => {
                         {{ job?.description_en }}
                     </template>
                 </div>
+            </div>
+            <!-- Role Selection -->
+            <div v-if="!isAdmin && !isAlreadyApplied && job?.roles && job.roles.length > 0" class="mb-4">
+                <label class="text-[14px] font-extrabold text-[#EF7722] uppercase tracking-widest flex items-center gap-2 px-1 mb-3">
+                   <i class="fa-solid fa-user-tag"></i> เลือกตำแหน่ง (Select Role)
+                </label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <label v-for="role in job.roles" :key="role.name" class="cursor-pointer">
+                        <input type="radio" v-model="selectedRole" :value="role.name" class="peer sr-only" @change="roleError = false" />
+                        <div class="w-full bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl p-4 flex items-center justify-between peer-checked:border-[#EF7722] peer-checked:bg-orange-50 dark:peer-checked:bg-[#EF7722]/10 transition-all shadow-sm">
+                            <span class="font-bold text-[#1F2937] dark:text-gray-200 peer-checked:text-[#EF7722]">{{ role.name }}</span>
+                            <span class="text-[12px] font-medium bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded-md">{{ role.amount }} ตำแหน่ง</span>
+                        </div>
+                    </label>
+                </div>
+                <p v-if="roleError" class="text-red-500 text-xs font-bold mt-2 ml-1 flex items-center gap-1">
+                    <i class="fa-solid fa-circle-exclamation"></i> กรุณาเลือกตำแหน่งก่อนทำการสมัคร
+                </p>
             </div>
 
             <!-- Action Button -->
@@ -219,7 +283,7 @@ const getImageUrl = (imageName) => {
                 </button>
                 <div v-else>
                     <button v-if="isAlreadyApplied" @click="isAlreadyAppliedModalOpen = true"
-                        class="bg-gray-200 text-gray-400 px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 shadow-inner cursor-not-allowed border border-gray-300">
+                        class="bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 px-8 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 shadow-inner cursor-not-allowed border border-gray-300 dark:border-gray-600">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         Already Registered
                     </button>
@@ -238,12 +302,12 @@ const getImageUrl = (imageName) => {
             <div v-if="isSuccessModalOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
               <div class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" @click="proceedToTasks"></div>
               
-              <div class="relative bg-white rounded-3xl shadow-2xl w-full max-w-sm p-8 flex flex-col items-center gap-4 transform transition-all border border-[#EBEBEB] text-center">
-                <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center text-green-500 mb-2 shadow-inner border border-green-100">
+              <div class="relative bg-white dark:bg-gray-800 rounded-3xl shadow-2xl w-full max-w-sm p-8 flex flex-col items-center gap-4 transform transition-all border border-[#EBEBEB] dark:border-gray-700 text-center">
+                <div class="w-16 h-16 rounded-full bg-green-50 dark:bg-gray-700 flex items-center justify-center text-green-500 mb-2 shadow-inner border border-green-100 dark:border-gray-600">
                   <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                 </div>
-                <h3 class="text-[20px] font-extrabold text-[#1F2937] tracking-tight">Registration Successful!</h3>
-                <p class="text-[14px] text-[#6B7280] font-medium leading-relaxed">
+                <h3 class="text-[20px] font-extrabold text-[#1F2937] dark:text-gray-100 tracking-tight">Registration Successful!</h3>
+                <p class="text-[14px] text-[#6B7280] dark:text-gray-400 font-medium leading-relaxed">
                   You have successfully registered for this event. Admin will review your information shortly.
                 </p>
                 <button @click="proceedToTasks" class="mt-4 w-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg hover:shadow-[#EF7722]/30 transition-all active:scale-95 text-[15px]">
@@ -260,15 +324,15 @@ const getImageUrl = (imageName) => {
             <div v-if="isAlreadyAppliedModalOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
               <div class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" @click="isAlreadyAppliedModalOpen = false"></div>
               
-              <div class="relative bg-white rounded-3xl shadow-2xl w-full max-w-sm p-8 flex flex-col items-center gap-4 transform transition-all border border-[#EBEBEB] text-center">
-                <div class="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 mb-2 shadow-inner border border-orange-100">
+              <div class="relative bg-white dark:bg-gray-800 rounded-3xl shadow-2xl w-full max-w-sm p-8 flex flex-col items-center gap-4 transform transition-all border border-[#EBEBEB] dark:border-gray-700 text-center">
+                <div class="w-16 h-16 rounded-full bg-orange-50 dark:bg-gray-700 flex items-center justify-center text-orange-500 mb-2 shadow-inner border border-orange-100 dark:border-gray-600">
                   <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 </div>
-                <h3 class="text-[20px] font-extrabold text-[#1F2937] tracking-tight">Already Registered</h3>
-                <p class="text-[14px] text-[#6B7280] font-medium leading-relaxed">
+                <h3 class="text-[20px] font-extrabold text-[#1F2937] dark:text-gray-100 tracking-tight">Already Registered</h3>
+                <p class="text-[14px] text-[#6B7280] dark:text-gray-400 font-medium leading-relaxed">
                   You have already registered for this event. You cannot register again.
                 </p>
-                <button @click="isAlreadyAppliedModalOpen = false" class="mt-4 w-full bg-[#FFF8F1] border border-gray-200 text-[#1F2937] hover:text-[#EF7722] hover:bg-[#FFFFFF] hover:border-[#FAA533] px-8 py-3 rounded-xl font-bold transition-all active:scale-95 text-[15px]">
+                <button @click="isAlreadyAppliedModalOpen = false" class="mt-4 w-full bg-[#FFF8F1] dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-[#1F2937] dark:text-gray-200 hover:text-[#EF7722] hover:bg-[#FFFFFF] dark:hover:bg-gray-600 hover:border-[#FAA533] px-8 py-3 rounded-xl font-bold transition-all active:scale-95 text-[15px]">
                   Close
                 </button>
               </div>

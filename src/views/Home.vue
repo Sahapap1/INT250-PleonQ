@@ -101,9 +101,9 @@ const prevPage = () => {
         <!-- 🔍 Search -->
         <div class="flex items-center gap-2 sm:gap-3 w-full max-w-2xl mx-auto">
             <div
-                class="flex items-center bg-[#F9FAFB] rounded-full px-3 sm:px-5 py-2.5 shadow-sm border border-[#F3F4F6] transition-all focus-within:bg-white focus-within:border-gray-200 focus-within:shadow-md flex-1 min-w-0">
+                class="flex items-center bg-[#F9FAFB] dark:bg-gray-800 rounded-full px-3 sm:px-5 py-2.5 shadow-sm border border-[#F3F4F6] dark:border-gray-700 transition-all focus-within:bg-white dark:focus-within:bg-gray-700 focus-within:border-gray-200 dark:focus-within:border-gray-600 focus-within:shadow-md flex-1 min-w-0">
                 <input type="text" placeholder="Search..."
-                    class="flex-1 bg-transparent outline-none text-[13px] font-medium text-gray-700 placeholder-gray-400" />
+                    class="flex-1 bg-transparent outline-none text-[13px] font-medium text-gray-700 dark:text-gray-200 placeholder-gray-400" />
                 <svg class="w-4 h-4 text-gray-400 ml-2 cursor-pointer hover:text-gray-600 transition-colors" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -127,15 +127,15 @@ const prevPage = () => {
 
                     <!-- Header with Toggle -->
                     <div class="flex items-center justify-between mb-3 px-1">
-                        <h2 class="text-[16px] font-extrabold text-[#1F2937] flex items-center gap-2">
+                        <h2 class="text-[16px] font-extrabold text-[#1F2937] dark:text-gray-100 flex items-center gap-2">
                             <i class="fa-solid fa-briefcase text-[#EF7722]"></i> Available Jobs
                         </h2>
                         
                         <label class="flex items-center gap-2 cursor-pointer group select-none">
-                            <span class="text-[13px] font-bold transition-colors" :class="showFavoritesOnly ? 'text-[#EF7722]' : 'text-gray-400 group-hover:text-gray-600'">Favorites</span>
-                            <div class="relative w-10 h-[22px] rounded-full p-0.5 transition-colors duration-300 border" :class="showFavoritesOnly ? 'bg-orange-50 border-orange-200' : 'bg-gray-100 border-gray-200'">
+                            <span class="text-[13px] font-bold transition-colors" :class="showFavoritesOnly ? 'text-[#EF7722]' : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300'">Favorites</span>
+                            <div class="relative w-10 h-[22px] rounded-full p-0.5 transition-colors duration-300 border" :class="showFavoritesOnly ? 'bg-orange-50 dark:bg-gray-700 border-orange-200 dark:border-gray-600' : 'bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700'">
                                 <input type="checkbox" v-model="showFavoritesOnly" class="hidden">
-                                <div class="w-[16px] h-[16px] rounded-full shadow-sm transition-transform duration-300 flex items-center justify-center transform" :class="showFavoritesOnly ? 'translate-x-[18px] bg-[#EF7722]' : 'translate-x-0 bg-white border border-gray-300'">
+                                <div class="w-[16px] h-[16px] rounded-full shadow-sm transition-transform duration-300 flex items-center justify-center transform" :class="showFavoritesOnly ? 'translate-x-[18px] bg-[#EF7722]' : 'translate-x-0 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600'">
                                     <svg v-if="showFavoritesOnly" class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                                 </div>
                             </div>
@@ -146,23 +146,23 @@ const prevPage = () => {
                     <div class="flex flex-col gap-2">
                         <JobCard v-for="job in paginatedJobs" :key="job.id" :data="job" />
                         
-                        <div v-if="paginatedJobs.length === 0" class="flex flex-col items-center justify-center py-12 px-4 bg-[#F9FAFB]/80 rounded-2xl border border-gray-100 text-center">
-                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                        <div v-if="paginatedJobs.length === 0" class="flex flex-col items-center justify-center py-12 px-4 bg-[#F9FAFB]/80 dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 text-center">
+                            <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
                                 <i class="fa-solid fa-heart-crack text-gray-400 text-xl"></i>
                             </div>
-                            <h3 class="text-gray-600 font-bold mb-1">No Jobs Found</h3>
+                            <h3 class="text-gray-600 dark:text-gray-300 font-bold mb-1">No Jobs Found</h3>
                             <p class="text-gray-400 text-sm">You haven't added any jobs to your favorites yet.</p>
                         </div>
                     </div>
 
                     <!-- 📄 Pagination -->
                     <!-- Pagination -->
-                    <div class="mt-4 bg-white/80 backdrop-blur-sm px-4 py-3 rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-[#EBEBEB] flex justify-between items-center transition-all">
+                    <div class="mt-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-3 rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-[#EBEBEB] dark:border-gray-700 flex justify-between items-center transition-all">
                       <button
                         @click="prevPage"
                         :disabled="currentPage === 1"
                         class="flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-[13px] transition-all duration-300"
-                        :class="currentPage === 1 ? 'bg-gray-50 text-gray-400 cursor-not-allowed' : 'bg-[#FFF8F1] text-[#EF7722] hover:bg-[#EF7722] hover:text-white hover:shadow-md cursor-pointer active:scale-95 border border-[#EF7722]/20 hover:border-transparent'"
+                        :class="currentPage === 1 ? 'bg-gray-50 dark:bg-gray-700 text-gray-400 cursor-not-allowed' : 'bg-[#FFF8F1] dark:bg-gray-700 text-[#EF7722] hover:bg-[#EF7722] hover:text-white hover:shadow-md cursor-pointer active:scale-95 border border-[#EF7722]/20 hover:border-transparent'"
                       >
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
                         Prev
@@ -170,16 +170,16 @@ const prevPage = () => {
             
                       <div class="flex items-center gap-1.5 px-2 sm:px-4">
                          <span class="hidden sm:inline text-[13px] font-bold text-gray-400">Page</span>
-                         <span class="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-[13px] font-black text-[#1F2937]">{{ currentPage }}</span>
+                         <span class="w-7 h-7 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-[13px] font-black text-[#1F2937] dark:text-gray-100">{{ currentPage }}</span>
                          <span class="text-[13px] font-bold text-gray-400">/</span>
-                         <span class="text-[13px] font-black text-gray-500">{{ totalPages }}</span>
+                         <span class="text-[13px] font-black text-gray-500 dark:text-gray-400">{{ totalPages }}</span>
                       </div>
             
                       <button
                         @click="nextPage"
                         :disabled="currentPage === totalPages"
                         class="flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-[13px] transition-all duration-300"
-                        :class="currentPage === totalPages ? 'bg-gray-50 text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white hover:shadow-[0_8px_15px_rgba(239,119,34,0.3)] hover:-translate-y-0.5 cursor-pointer active:scale-95 border border-transparent'"
+                        :class="currentPage === totalPages ? 'bg-gray-50 dark:bg-gray-700 text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#EF7722] to-[#FAA533] text-white hover:shadow-[0_8px_15px_rgba(239,119,34,0.3)] hover:-translate-y-0.5 cursor-pointer active:scale-95 border border-transparent'"
                       >
                         Next
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
@@ -190,17 +190,17 @@ const prevPage = () => {
 
                 <!-- 📅 Right Sidebar -->
                 <div
-                    class="w-full lg:w-[320px] bg-[#FFF8F1] rounded-3xl p-5 flex flex-col gap-6 border border-[#EBEBEB]/60 overflow-y-auto mb-13">
+                    class="w-full lg:w-[320px] bg-[#FFF8F1] dark:bg-gray-900 rounded-3xl p-5 flex flex-col gap-6 border border-[#EBEBEB]/60 dark:border-gray-800 overflow-y-auto mb-13">
 
                     <!-- Events -->
                     <div class="flex flex-col gap-3">
-                        <h3 class="text-[15px] font-bold text-[#1F2937] leading-snug">
+                        <h3 class="text-[15px] font-bold text-[#1F2937] dark:text-gray-100 leading-snug">
                             My Upcoming Events <span class="text-[12px] font-medium text-gray-400 whitespace-nowrap ml-0.5">(7 days)</span>
                         </h3>
 
                         <div class="flex flex-col gap-2.5">
                             <UpcommingJobCard v-for="task in upcomingTasks" :key="task.id" :task="task" />
-                            <div v-if="upcomingTasks.length === 0" class="text-[13px] text-[#6B7280] bg-white p-4 rounded-[14px] border border-[#EBEBEB]/60 text-center shadow-sm">
+                            <div v-if="upcomingTasks.length === 0" class="text-[13px] text-[#6B7280] dark:text-gray-300 bg-white dark:bg-gray-800 p-4 rounded-[14px] border border-[#EBEBEB]/60 dark:border-gray-700 text-center shadow-sm">
                                 No upcoming events in the next 7 days.
                             </div>
                         </div>

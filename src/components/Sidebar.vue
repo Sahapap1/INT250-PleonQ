@@ -18,7 +18,7 @@ const activeTab = ref('home')
             <button @click="activeTab = 'home'; router.push(isAdmin ? '/admin' : '/')"
                 class="flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer" :class="activeTab === 'home'
                     ? 'bg-orange-gradient text-white shadow-md'
-                    : 'text-gray-700 hover:bg-white/30'">
+                    : 'text-gray-700 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800'">
                 <i :class="isAdmin ? 'fa-solid fa-briefcase' : 'fa-regular fa-house'"></i>
                 <span class="text-sm font-medium">{{ isAdmin ? 'Manage Jobs' : 'Home' }}</span>
             </button>
@@ -27,19 +27,27 @@ const activeTab = ref('home')
                 class="flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer group" 
                 :class="activeTab === 'create' || $route.path === '/admin/create-job'
                     ? 'bg-orange-gradient text-white shadow-md shadow-orange-100'
-                    : 'text-gray-700 hover:bg-white/50 hover:text-[#F27F21]'">
+                    : 'text-gray-700 dark:text-gray-200 hover:bg-white/50 dark:hover:bg-gray-800 hover:text-[#F27F21]'">
                 
                 <div class="w-5 h-5 border-2 rounded-full flex items-center justify-center transition-colors"
-                    :class="activeTab === 'create' || $route.path === '/admin/create-job' ? 'border-white' : 'border-gray-400 group-hover:border-[#F27F21]'">
+                    :class="activeTab === 'create' || $route.path === '/admin/create-job' ? 'border-white' : 'border-gray-400 dark:border-gray-500 group-hover:border-[#F27F21]'">
                     <i class="fa-solid fa-plus text-[10px]"></i>
                 </div>
                 <span class="text-[14px] font-bold">Create New Job</span>
             </button>
 
+            <button v-if="isAdmin" @click="activeTab = 'applicants'; router.push('/admin/manage-jobs')"
+                class="flex items-center flex-nowrap gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer group" :class="activeTab === 'applicants' || $route.path.includes('/admin/manage-jobs') || $route.path.includes('/admin/job/') && $route.path.includes('applicants')
+                    ? 'bg-orange-gradient text-white shadow-md'
+                    : 'text-gray-700 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800'">
+                <i class="fa-solid fa-users shrink-0" :class="activeTab === 'applicants' || $route.path.includes('/admin/manage-jobs') || $route.path.includes('/admin/job/') && $route.path.includes('applicants') ? '' : 'group-hover:text-[#F27F21] transition-colors'"></i>
+                <span class="text-[14px] font-bold whitespace-nowrap" :class="activeTab === 'applicants' || $route.path.includes('/admin/manage-jobs') || $route.path.includes('/admin/job/') && $route.path.includes('applicants') ? '' : 'group-hover:text-[#F27F21] transition-colors'">Manage Applicants</span>
+            </button>
+
             <button v-if="!isAdmin" @click="activeTab = 'task'; router.push('/taskManagement')"
                 class="flex items-center flex-nowrap gap-3 px-5 py-3 rounded-full transition-all duration-300 w-full cursor-pointer" :class="activeTab === 'task'
                     ? 'bg-orange-gradient text-white shadow-md'
-                    : 'text-gray-700 hover:bg-white/30'">
+                    : 'text-gray-700 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800'">
                 <i class="fa-solid fa-list shrink-0"></i>
                 <span class="text-sm font-medium whitespace-nowrap">Task Management</span>
             </button>

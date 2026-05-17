@@ -1,6 +1,6 @@
 <template>
     <div
-        class="bg-white rounded-[14px] p-2 pl-3 flex items-center gap-3 border border-gray-100 hover:shadow-sm hover:-translate-y-0.5 transition-all cursor-pointer">
+        class="bg-white dark:bg-gray-800 rounded-[14px] p-2 pl-3 flex items-center gap-3 border border-gray-100 dark:border-gray-700 hover:shadow-sm hover:-translate-y-0.5 transition-all cursor-pointer">
 
         <div
             class="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-[#FFD1A9] to-[#FFECD2] flex items-center justify-center shrink-0 border border-[#EBEBEB]">
@@ -9,7 +9,7 @@
         </div>
 
         <div class="min-w-0 flex-1">
-            <h4 class="text-[12px] font-bold text-[#1F2937] truncate">
+            <h4 class="text-[12px] font-bold text-[#1F2937] dark:text-gray-100 truncate">
                 {{ task?.title || 'Unknown Event' }}
             </h4>
             <span class="text-[10px] text-gray-400">

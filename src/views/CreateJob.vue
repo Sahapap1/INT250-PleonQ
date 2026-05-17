@@ -55,12 +55,12 @@ const createJob = () => {
         
         <!-- Header -->
         <div class="flex items-center gap-4 mb-4 md:mb-8 px-4">
-            <button @click="goBack" class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 hover:opacity-90 hover:bg-[#EF7722] hover:text-white transition-all active:scale-95 z-10 shrink-0 cursor-pointer">
+            <button @click="goBack" class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/50 flex items-center justify-center text-orange-600 hover:opacity-90 hover:bg-[#EF7722] hover:text-white transition-all active:scale-95 z-10 shrink-0 cursor-pointer">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
             </button>
             <div class="flex flex-col">
-                <h1 class="text-[22px] md:text-[26px] font-extrabold text-[#1F2937] tracking-tight leading-tight">Create New Job</h1>
-                <h2 class="text-[14px] font-semibold text-gray-400 tracking-wide">(Announce Job)</h2>
+                <h1 class="text-[22px] md:text-[26px] font-extrabold text-[#1F2937] dark:text-gray-100 tracking-tight leading-tight">Create New Job</h1>
+                <h2 class="text-[14px] font-semibold text-gray-400 dark:text-gray-500 tracking-wide">(Announce Job)</h2>
             </div>
         </div>
 
@@ -71,36 +71,36 @@ const createJob = () => {
                 
                 <!-- Title -->
                 <div class="flex flex-col gap-2">
-                    <label class="text-[14px] font-bold text-gray-700">Job Title</label>
-                    <input v-model="formData.title" type="text" class="w-full bg-[#F9FAFB] border border-gray-200 rounded-full px-5 py-3 text-[14px] font-medium focus:outline-none focus:border-orange-400 focus:bg-white focus:shadow-sm transition-all shadow-inner" />
+                    <label class="text-[14px] font-bold text-gray-700 dark:text-gray-300">Job Title</label>
+                    <input v-model="formData.title" type="text" class="w-full bg-[#F9FAFB] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-[#1F2937] dark:text-gray-100 rounded-full px-5 py-3 text-[14px] font-medium focus:outline-none focus:border-orange-400 focus:bg-white dark:focus:bg-gray-700 focus:shadow-sm transition-all shadow-inner" />
                 </div>
 
                 <!-- Description -->
                 <div class="flex flex-col gap-2">
-                    <label class="text-[14px] font-bold text-gray-700">Description</label>
-                    <textarea v-model="formData.description" rows="5" class="w-full bg-[#F9FAFB] border border-gray-200 rounded-[28px] px-5 py-4 text-[14px] font-medium focus:outline-none focus:border-orange-400 focus:bg-white focus:shadow-sm transition-all shadow-inner resize-none"></textarea>
+                    <label class="text-[14px] font-bold text-gray-700 dark:text-gray-300">Description</label>
+                    <textarea v-model="formData.description" rows="5" class="w-full bg-[#F9FAFB] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-[#1F2937] dark:text-gray-100 rounded-[28px] px-5 py-4 text-[14px] font-medium focus:outline-none focus:border-orange-400 focus:bg-white dark:focus:bg-gray-700 focus:shadow-sm transition-all shadow-inner resize-none"></textarea>
                 </div>
 
                 <!-- Row: Date -->
                 <div class="flex flex-col gap-6 mt-2">
                     
                     <div class="flex flex-col gap-2">
-                        <label class="text-[14px] font-bold text-gray-700">Date</label>
+                        <label class="text-[14px] font-bold text-gray-700 dark:text-gray-300">Date</label>
                         <div class="flex flex-col sm:flex-row gap-3">
-                            <input v-model="formData.date" type="date" class="w-full sm:w-44 bg-[#F9FAFB] border border-gray-200 rounded-full px-5 py-3 text-[14px] font-medium text-gray-600 focus:outline-none focus:border-orange-400 focus:bg-white focus:shadow-sm transition-all shadow-inner" />
+                            <input v-model="formData.date" type="date" class="w-full sm:w-44 bg-[#F9FAFB] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full px-5 py-3 text-[14px] font-medium text-gray-600 dark:text-gray-300 focus:outline-none focus:border-orange-400 focus:bg-white dark:focus:bg-gray-700 focus:shadow-sm transition-all shadow-inner" />
                         </div>
                     </div>
                 </div>
 
                 <!-- Job Suggestion (Roles needed) -->
                 <div class="flex flex-col gap-3 mt-2">
-                    <label class="text-[14px] font-bold text-gray-700">Job Suggestion (ต้องการสายไหนมาช่วยงาน)</label>
+                    <label class="text-[14px] font-bold text-gray-700 dark:text-gray-300">Job Suggestion (ต้องการสายไหนมาช่วยงาน)</label>
                     <div class="flex flex-wrap gap-3 mt-1">
                         <label 
                             v-for="role in jobRoles" 
                             :key="role.name"
                             class="flex items-center gap-2.5 cursor-pointer group px-4 py-2 rounded-full border transition-all text-[13px] font-bold"
-                            :class="formData.suggestions.includes(role.name) ? 'bg-orange-50 border-orange-300 text-[#EF7722] shadow-sm' : 'bg-gray-50 border-gray-200 text-gray-600 hover:border-orange-200 hover:bg-white'"
+                            :class="formData.suggestions.includes(role.name) ? 'bg-orange-50 dark:bg-orange-900/30 border-orange-300 dark:border-orange-500/50 text-[#EF7722] shadow-sm' : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-orange-200 dark:hover:border-orange-500/50 hover:bg-white dark:hover:bg-gray-700'"
                         >
                             <input 
                                 type="checkbox" 
@@ -109,14 +109,14 @@ const createJob = () => {
                                 class="hidden"
                             />
                             <div class="w-4 h-4 rounded-[4px] border flex items-center justify-center transition-colors shrink-0"
-                                :class="formData.suggestions.includes(role.name) ? 'bg-[#EF7722] border-[#EF7722]' : 'bg-white border-gray-300 group-hover:border-orange-300'"
+                                :class="formData.suggestions.includes(role.name) ? 'bg-[#EF7722] border-[#EF7722]' : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 group-hover:border-orange-300 dark:group-hover:border-orange-500/50'"
                             >
                                 <svg v-if="formData.suggestions.includes(role.name)" class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                                 </svg>
                             </div>
                             <i class="text-[14px] transition-colors shrink-0"
-                               :class="[role.icon, formData.suggestions.includes(role.name) ? 'text-[#EF7722]' : 'text-gray-400 group-hover:text-orange-400']"></i>
+                               :class="[role.icon, formData.suggestions.includes(role.name) ? 'text-[#EF7722]' : 'text-gray-400 dark:text-gray-500 group-hover:text-orange-400']"></i>
                             <span>{{ role.name }}</span>
                         </label>
                     </div>
@@ -124,14 +124,14 @@ const createJob = () => {
 
                 <!-- Reward -->
                 <div class="flex flex-col gap-3 mt-2">
-                    <label class="text-[14px] font-bold text-gray-700">Reward</label>
+                    <label class="text-[14px] font-bold text-gray-700 dark:text-gray-300">Reward</label>
                     <div class="flex items-center gap-6 mt-1">
-                        <label class="flex items-center gap-3 cursor-pointer group bg-gray-50 border border-gray-100 hover:border-orange-200 px-5 py-2.5 rounded-full transition-all" :class="formData.reward === 'Activity' ? 'shadow-sm bg-orange-50/50 border-orange-200' : ''">
-                            <div class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center transition-colors" :class="formData.reward === 'Activity' ? 'bg-[#EF7722] border-[#EF7722]' : 'bg-white group-hover:border-orange-300'">
+                        <label class="flex items-center gap-3 cursor-pointer group bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-orange-200 dark:hover:border-orange-500/50 px-5 py-2.5 rounded-full transition-all" :class="formData.reward === 'Activity' ? 'shadow-sm bg-orange-50/50 dark:bg-orange-900/30 border-orange-200 dark:border-orange-500/50' : ''">
+                            <div class="w-5 h-5 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center transition-colors" :class="formData.reward === 'Activity' ? 'bg-[#EF7722] border-[#EF7722]' : 'bg-white dark:bg-gray-800 group-hover:border-orange-300 dark:group-hover:border-orange-500/50'">
                                 <div v-if="formData.reward === 'Activity'" class="w-2 h-2 bg-white rounded-full shadow-sm"></div>
                             </div>
                             <input type="radio" v-model="formData.reward" value="Activity" class="hidden" />
-                            <span class="text-[14px] font-semibold text-gray-700">Activity</span>
+                            <span class="text-[14px] font-semibold text-gray-700 dark:text-gray-300">Activity</span>
                         </label>
                     </div>
                 </div>
@@ -139,8 +139,8 @@ const createJob = () => {
             </div>
 
             <!-- Footer Action -->
-            <div class="mt-12 pt-6 border-t border-gray-100 flex justify-end gap-3 w-full">
-                <button @click="goBack" class="w-32 py-3 rounded-xl font-bold text-[14px] text-gray-500 bg-gray-50 hover:bg-gray-100 transition-colors">
+            <div class="mt-12 pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-3 w-full">
+                <button @click="goBack" class="w-32 py-3 rounded-xl font-bold text-[14px] text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                     Cancel
                 </button>
                 <button @click="createJob" class="w-36 py-3 rounded-xl font-bold text-[15px] text-white bg-gradient-to-r from-[#EF7722] to-[#FAA533] hover:shadow-lg hover:shadow-[#EF7722]/30 transition-all active:scale-95 flex items-center justify-center gap-2">

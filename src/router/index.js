@@ -12,6 +12,8 @@ import AdminDashboard from '@/views/AdminDashboard.vue'
 import CreateJob from '@/views/CreateJob.vue'
 import Login from '@/views/Login.vue'
 import AdminProfile from '@/views/AdminProfile.vue'
+import AdminApplicants from '@/views/AdminApplicants.vue'
+import AdminManageJobs from '@/views/AdminManageJobs.vue'
 
 
 const routes = [
@@ -54,7 +56,16 @@ const routes = [
         name: 'CreateJob',
         component: CreateJob
       },
-
+      {
+        path: 'admin/manage-jobs',
+        name: 'AdminManageJobs',
+        component: AdminManageJobs
+      },
+      {
+        path: 'admin/job/:id/applicants',
+        name: 'AdminApplicants',
+        component: AdminApplicants
+      },
       {
         path: 'job/:id',
         name: 'JobDetail',
