@@ -11,9 +11,9 @@ export const useTaskStore = defineStore('taskStore', {
   
   getters: {
     allTasks: (state) => state.tasks,
-    pendingTasks: (state) => state.tasks.filter(t => t.status === 'Pending'),
-    inProgressTasks: (state) => state.tasks.filter(t => t.status === 'In Progress'),
-    completedTasks: (state) => state.tasks.filter(t => t.status === 'Completed'),
+    pendingTasks: (state) => state.tasks.filter(t => t.status === 'Requested'),
+    inProgressTasks: (state) => state.tasks.filter(t => t.status === 'Active'),
+    completedTasks: (state) => state.tasks.filter(t => t.status === 'Finished'),
   },
 
   actions: {

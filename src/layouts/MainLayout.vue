@@ -11,13 +11,13 @@ import Footer from "@/components/Footer.vue";
 
 <template>
   <div
-    class="min-h-screen flex flex-col bg-cover bg-center items-center bg-[url('@/assets/img/desktop/abstract-waves.svg')] overflow-x-hidden"
+    class="min-h-screen flex flex-col bg-cover bg-center items-center bg-[url('@/assets/img/desktop/abstract-waves.svg')] dark:bg-none dark:bg-gray-900 dark:text-gray-100 overflow-x-hidden"
   >
     <Nav class="animate-fade-in-down" />
     <div class="flex flex-1 w-full max-w-7xl mx-auto gap-8 xl:gap-0">
       <Sidebar class="animate-fade-in-left" />
       <div
-        class="flex flex-col flex-1 min-w-0 bg-white rounded-4xl shadow-[0_10px_40px_rgba(0,0,0,0.05)] border border-[#EBEBEB] xl:px-4 py-4 mx-2 xl:mx-4 xl:mx-0 xl:p-2 xl:mr-4 mt-11 mb-6"
+        class="flex flex-col flex-1 min-w-0 bg-white dark:bg-gray-800 rounded-4xl shadow-[0_10px_40px_rgba(0,0,0,0.05)] border border-[#EBEBEB] dark:border-gray-700 xl:px-4 py-4 mx-2 xl:mx-4 xl:mx-0 xl:p-2 xl:mr-4 mt-11 mb-6"
       >
         <router-view class="flex-1 flex flex-col min-w-0" />
       </div>
