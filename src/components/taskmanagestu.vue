@@ -151,25 +151,25 @@
     ></div>
 
     <div
-      class="relative bg-[#FFF8F1]/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-[24px] md:rounded-[36px] shadow-[0_10px_50px_rgba(0,0,0,0.05)] border border-[#EBEBEB] dark:border-gray-700 p-2 sm:p-4 md:p-8 flex flex-col gap-4 md:gap-8 z-10 group/wrapper min-w-0"
+      class="relative bg-orange-50/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-[24px] md:rounded-[36px] shadow-[0_10px_50px_rgba(0,0,0,0.05)] border border-gray-200 dark:border-gray-700 p-2 sm:p-4 md:p-8 flex flex-col gap-4 md:gap-8 z-10 group/wrapper min-w-0"
     >
       <!-- 1. Task Management List Card -->
       <div
-        class="relative overflow-hidden bg-[#FFFFFF] dark:bg-gray-800 rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-3 sm:p-5 md:p-8 flex flex-col gap-4 sm:gap-6 group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.08)] hover:bg-white/95 dark:bg-gray-800/95 border border-[#EBEBEB] dark:border-gray-700 z-10 min-h-[400px] min-w-0"
+        class="relative overflow-hidden bg-white dark:bg-gray-800 rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-3 sm:p-5 md:p-8 flex flex-col gap-4 sm:gap-6 group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.08)] hover:bg-gray-50 dark:hover:bg-gray-800/95 border border-gray-200 dark:border-gray-700 z-10 min-h-[400px] min-w-0"
       >
         <div class="flex justify-between items-center z-10 flex-wrap gap-4">
           <h2
-            class="text-[17px] sm:text-[19px] font-extrabold text-[#1F2937] dark:text-gray-100 tracking-tight flex items-center gap-2 sm:gap-3"
+            class="text-[17px] sm:text-[19px] font-extrabold text-gray-800 dark:text-gray-100 tracking-tight flex items-center gap-2 sm:gap-3"
           >
             Task Management
             <span
-              class="px-2 py-1 sm:px-2.5 rounded-md bg-[#FFF8F1] dark:bg-gray-900/50 text-[#EF7722] text-[9px] sm:text-[10px] uppercase font-bold tracking-widest border border-[#FAA533]/50 shadow-sm"
+              class="px-2 py-1 sm:px-2.5 rounded-md bg-orange-50 dark:bg-gray-900/50 text-[#EF7722] text-[9px] sm:text-[10px] uppercase font-bold tracking-widest border border-[#FAA533]/50 shadow-sm"
               >Student</span
             >
           </h2>
           <button
             @click="toggleSortOrder"
-            class="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white dark:bg-gray-800 border border-[#EBEBEB] dark:border-gray-700 shadow-sm hover:shadow-md hover:border-[#FAA533]/50 transition-all text-[#6B7280] dark:text-gray-400 hover:text-[#EF7722] text-[12px] font-bold"
+            class="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-[#FAA533]/50 transition-all text-gray-500 dark:text-gray-400 hover:text-[#EF7722] text-[12px] font-bold"
           >
             <svg
               class="w-4 h-4 transition-transform duration-300"
@@ -190,7 +190,7 @@
         </div>
 
         <div
-          class="flex gap-3 sm:gap-6 md:gap-8 border-b border-[#EBEBEB] dark:border-gray-700 mt-1 relative z-10 overflow-x-auto whitespace-nowrap no-scrollbar pt-1"
+          class="flex gap-3 sm:gap-6 md:gap-8 border-b border-gray-200 dark:border-gray-700 mt-1 relative z-10 overflow-x-auto whitespace-nowrap no-scrollbar pt-1"
         >
           <button
             v-for="tab in tabs"
@@ -377,7 +377,7 @@
             <div
               v-for="task in filteredTasks"
               :key="task.id"
-              class="flex flex-col sm:grid sm:grid-cols-12 gap-3 sm:gap-4 sm:items-center bg-transparent hover:bg-gray-50/80 dark:hover:bg-gray-800/80 p-3 sm:p-2 rounded-2xl transition-all duration-300 border border-transparent hover:border-gray-100 hover:shadow-sm group/item relative overflow-hidden cursor-pointer"
+              class="flex flex-col sm:grid sm:grid-cols-12 gap-3 sm:gap-4 sm:items-center bg-transparent hover:bg-gray-50/80 dark:hover:bg-gray-800/80 p-3 sm:p-2 rounded-2xl transition-all duration-300 border border-transparent hover:border-gray-100 dark:hover:border-gray-700 hover:shadow-sm group/item relative overflow-hidden cursor-pointer"
               @click="goToJob(task)"
             >
               <!-- Highlight line on hover -->
@@ -399,7 +399,7 @@
                 class="sm:col-span-8 flex items-center gap-3 sm:gap-4 pl-1 sm:pl-2"
               >
                 <div
-                  class="w-10 h-10 sm:w-11 sm:h-11 rounded-[12px] flex items-center justify-center shrink-0 shadow-inner border border-[#EBEBEB] dark:border-gray-700 group-hover/item:scale-105 transition-all duration-300"
+                  class="w-10 h-10 sm:w-11 sm:h-11 rounded-[12px] flex items-center justify-center shrink-0 shadow-inner border border-gray-200 dark:border-gray-700 group-hover/item:scale-105 transition-all duration-300"
                   :class="[
                     task.status === 'Finished'
                       ? 'bg-green-500 text-white group-hover/item:border-green-300'
@@ -478,7 +478,7 @@
                   class="flex flex-col gap-0.5 justify-center overflow-hidden w-full"
                 >
                   <span
-                    class="text-[13px] sm:text-[14px] font-bold text-[#1F2937] dark:text-gray-100 tracking-tight transition-colors truncate w-full pr-2"
+                    class="text-[13px] sm:text-[14px] font-bold text-gray-800 dark:text-gray-100 tracking-tight transition-colors truncate w-full pr-2"
                     :class="
                       task.status === 'Finished'
                         ? 'group-hover/item:text-green-600'
@@ -534,7 +534,7 @@
                   <button
                     v-if="task.status === 'Requested'"
                     @click.stop="deleteTask(task.id)"
-                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-all active:scale-95"
+                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800 hover:bg-red-50 dark:hover:bg-red-900/30 transition-all active:scale-95"
                     title="Cancel Application"
                   >
                     <svg
@@ -555,7 +555,7 @@
                   <button
                     v-if="task.status === 'Active'"
                     @click.stop="markAsFinished(task.id)"
-                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-white hover:border-green-400 hover:bg-green-500 transition-all active:scale-95"
+                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-white hover:border-green-400 dark:hover:border-green-500 hover:bg-green-500 dark:hover:bg-green-600 transition-all active:scale-95"
                     title="Mark as Finished"
                   >
                     <svg
@@ -582,57 +582,34 @@
       <!-- 2. Job Status Overview Card -->
       <div
         v-if="taskStore.tasks.length > 0 && !taskStore.isLoading"
-        class="relative overflow-hidden bg-[#FFFFFF] dark:bg-gray-800 rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-3 sm:p-6 md:p-8 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 items-center md:items-start group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.12)] border border-[#EBEBEB] dark:border-gray-700 hover:border-[#FAA533]/50 z-10"
+        class="relative overflow-hidden bg-white dark:bg-gray-800 rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-3 sm:p-6 md:p-8 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 items-center md:items-start transition-all duration-500 border border-gray-200 dark:border-gray-700 z-10"
       >
         <div
-          class="absolute -bottom-10 -right-10 w-40 h-40 bg-[#FFF8F1] dark:bg-gray-900/50 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-700"
+          class="absolute -bottom-10 -right-10 w-40 h-40 bg-orange-50 dark:bg-gray-900/50 rounded-full blur-3xl opacity-50"
         ></div>
 
         <div
-          class="w-32 h-32 md:w-36 md:h-36 bg-[#FFF8F1] dark:bg-gray-900/50 rounded-[20px] shrink-0 shadow-inner border border-[#EBEBEB] dark:border-gray-700 relative overflow-hidden group-hover:border-[#FAA533] group-hover:shadow-[0_8px_30px_rgba(239,119,34,0.15)] transition-all duration-500"
+          class="w-32 h-32 md:w-36 md:h-36 bg-orange-50 dark:bg-gray-900/50 rounded-[20px] shrink-0 shadow-inner border border-gray-200 dark:border-gray-700 relative overflow-hidden transition-all duration-500"
         >
-          <div
-            class="absolute inset-0 bg-[#1F2937]/0 group-hover:bg-[#1F2937]/30 transition-colors duration-500 z-10 flex items-center justify-center pointer-events-none"
-          >
-            <div
-              class="w-10 h-10 rounded-full bg-[#FFFFFF] dark:bg-gray-800/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center justify-center text-[#EF7722] shadow-lg pointer-events-auto cursor-pointer"
-              @click="taskStore.fetchTasks"
-            >
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                ></path>
-              </svg>
-            </div>
-          </div>
-
           <img
-            src="https://images.unsplash.com/photo-1561070791-36c11767b26a?q=80&w=300&auto=format&fit=crop"
+            :src="getJobImage(recentActiveTask?.jobId)"
             alt="Task Preview"
-            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
+            class="w-full h-full object-cover"
           />
         </div>
 
         <div class="flex flex-col w-full mt-2 text-center md:text-left z-10">
           <h3
-            class="text-[17px] font-extrabold text-[#1F2937] dark:text-gray-100 mb-6 tracking-tight"
+            class="text-[17px] font-extrabold text-gray-800 dark:text-gray-100 mb-6 tracking-tight"
           >
             Job Status Overview
           </h3>
 
           <div
-            class="flex items-center justify-between gap-3 sm:gap-4 p-3 sm:p-4 bg-[#FFF8F1] dark:bg-gray-900/50 rounded-2xl border border-[#EBEBEB] dark:border-gray-700 shadow-inner group-hover:bg-[#FFFFFF] dark:bg-gray-800 transition-colors duration-300 w-full"
+            class="flex items-center justify-between gap-3 sm:gap-4 p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300 w-full"
           >
             <span
-              class="text-[14px] font-bold text-[#1F2937] dark:text-gray-100 truncate flex-1"
+              class="text-[14px] font-bold text-gray-800 dark:text-gray-100 truncate flex-1"
               :title="recentActiveTask?.title"
             >
               {{ recentActiveTask?.title || "No active tasks" }}
@@ -643,7 +620,7 @@
               class="relative flex items-center justify-center shrink-0"
             >
               <span
-                class="absolute inset-0 blur-md opacity-20 group-hover:opacity-40 rounded-full transition-opacity duration-300"
+                class="absolute inset-0 blur-md opacity-20 rounded-full transition-opacity duration-300"
                 :class="
                   recentActiveTask.status === 'Finished'
                     ? 'bg-green-500'
@@ -699,10 +676,12 @@ import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useTaskStore } from "../stores/taskStore";
 import { useAuthStore } from "../stores/authStore";
+import { useJobStore } from "../stores/jobStore";
 
 const router = useRouter();
 const taskStore = useTaskStore();
 const authStore = useAuthStore();
+const jobStore = useJobStore();
 
 // Tabs State
 const activeTab = ref("All Task");
@@ -768,6 +747,13 @@ const formatDate = (dateStr) => {
   if (isNaN(dateObj)) return dateStr;
   const options = { day: "numeric", month: "short", year: "numeric" };
   return dateObj.toLocaleDateString("en-GB", options);
+};
+
+const getJobImage = (jobId) => {
+    if (!jobId) return new URL('../assets/img/card_img.jpg', import.meta.url).href;
+    const job = jobStore.jobs.find(j => j.id == jobId);
+    if (!job || !job.image) return new URL('../assets/img/card_img.jpg', import.meta.url).href;
+    return new URL(`../assets/img-jobs/${job.image}`, import.meta.url).href;
 };
 
 // CRUD - Modal Form State
@@ -848,10 +834,10 @@ const markAsFinished = async (taskId) => {
 
 // Map status to semantic brand styles
 const statusStyles = {
-  "Active": "bg-blue-50 text-blue-600 border border-blue-200",
-  Requested: "bg-orange-50 text-orange-600 border border-orange-300",
-  Finished: "bg-green-50 text-green-600 border border-green-300",
-  End: "bg-red-50 text-red-600 border border-red-300",
+  "Active": "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800",
+  Requested: "bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 border border-orange-300 dark:border-orange-800",
+  Finished: "bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 border border-green-300 dark:border-green-800",
+  End: "bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 border border-red-300 dark:border-red-800",
 };
 </script>
 
