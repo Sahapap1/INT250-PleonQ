@@ -24,7 +24,7 @@ const fetchApplicants = () => {
     if (!isAdmin.value || !job.value) return;
 
     const applicantsKey = `job_applicants_${job.value.id}`;
-    let jobApplicants = JSON.parse(localStorage.getItem(applicantsKey));
+    let jobApplicants = JSON.parse(sessionStorage.getItem(applicantsKey));
 
     if (!jobApplicants) {
         jobApplicants = [];
@@ -45,7 +45,7 @@ const fetchApplicants = () => {
                 });
             }
         });
-        localStorage.setItem(applicantsKey, JSON.stringify(jobApplicants));
+        sessionStorage.setItem(applicantsKey, JSON.stringify(jobApplicants));
     } else {
         // Update existing mock data that might have missing roles or wrong names
         let updated = false;
@@ -70,7 +70,7 @@ const fetchApplicants = () => {
             }
         });
         if (updated) {
-            localStorage.setItem(applicantsKey, JSON.stringify(jobApplicants));
+            sessionStorage.setItem(applicantsKey, JSON.stringify(jobApplicants));
         }
     }
 
@@ -79,19 +79,19 @@ const fetchApplicants = () => {
 
 const updateApplicantStatus = (app, newStatus) => {
     const applicantsKey = `job_applicants_${job.value.id}`;
-    let jobApplicants = JSON.parse(localStorage.getItem(applicantsKey)) || [];
+    let jobApplicants = JSON.parse(sessionStorage.getItem(applicantsKey)) || [];
     const appIndex = jobApplicants.findIndex(a => a.userId == app.userId);
     if (appIndex !== -1) {
         jobApplicants[appIndex].status = newStatus;
-        localStorage.setItem(applicantsKey, JSON.stringify(jobApplicants));
+        sessionStorage.setItem(applicantsKey, JSON.stringify(jobApplicants));
     }
 
     app.status = newStatus;
 
     const userTasksKey = `pleonq_tasks_${app.userId}`;
     let userTasks = [];
-    if (localStorage.getItem(userTasksKey)) {
-        userTasks = JSON.parse(localStorage.getItem(userTasksKey));
+    if (sessionStorage.getItem(userTasksKey)) {
+        userTasks = JSON.parse(sessionStorage.getItem(userTasksKey));
     } else if (tasksData[app.userId]) {
         userTasks = tasksData[app.userId];
     }
@@ -100,7 +100,7 @@ const updateApplicantStatus = (app, newStatus) => {
         const taskIndex = userTasks.findIndex(t => t.jobId == job.value.id);
         if (taskIndex !== -1) {
             userTasks[taskIndex].status = newStatus;
-            localStorage.setItem(userTasksKey, JSON.stringify(userTasks));
+            sessionStorage.setItem(userTasksKey, JSON.stringify(userTasks));
         }
     }
 }

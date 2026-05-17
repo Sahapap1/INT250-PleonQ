@@ -11,7 +11,7 @@ export const useCategoryStore = defineStore('categoryStore', {
 
   actions: {
     saveToLocalStorage() {
-      localStorage.setItem('selectedCategories', JSON.stringify(this.selectedCategories));
+      sessionStorage.setItem('selectedCategories', JSON.stringify(this.selectedCategories));
     },
 
     async fetchCategories() {
@@ -25,7 +25,7 @@ export const useCategoryStore = defineStore('categoryStore', {
         this.allCategories = JSON.parse(JSON.stringify(availableCategories));
 
         // Load selected from LocalStorage
-        const localData = localStorage.getItem('selectedCategories');
+        const localData = sessionStorage.getItem('selectedCategories');
         if (localData) {
           this.selectedCategories = JSON.parse(localData);
         } else {

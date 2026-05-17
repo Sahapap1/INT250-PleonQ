@@ -128,7 +128,7 @@ const handleCancel = () => {
 
 const handleClear = () => {
   categoryStore.selectedCategories = [];
-  localStorage.setItem('selectedCategories', JSON.stringify([]));
+  sessionStorage.setItem('selectedCategories', JSON.stringify([]));
   emit('save') 
   // emit('close');
 };

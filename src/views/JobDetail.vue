@@ -94,7 +94,7 @@ const applyForJob = async () => {
     
     // Record into job_applicants array
     const applicantsKey = `job_applicants_${job.value.id}`;
-    let jobApplicants = JSON.parse(localStorage.getItem(applicantsKey));
+    let jobApplicants = JSON.parse(sessionStorage.getItem(applicantsKey));
     if (!jobApplicants) {
         jobApplicants = [];
         const allUserIds = Object.keys(tasksData);
@@ -124,7 +124,7 @@ const applyForJob = async () => {
         date: new Date().toISOString().split('T')[0],
         role: selectedRole.value || 'N/A'
     });
-    localStorage.setItem(applicantsKey, JSON.stringify(jobApplicants));
+    sessionStorage.setItem(applicantsKey, JSON.stringify(jobApplicants));
 
     // Push live notification
     notificationStore.addNotification({

@@ -68,8 +68,8 @@ const isDarkMode = ref(false);
 
 onMounted(() => {
   if (
-    localStorage.getItem("theme") === "dark" ||
-    (!("theme" in localStorage) &&
+    sessionStorage.getItem("theme") === "dark" ||
+    (!("theme" in sessionStorage) &&
       window.matchMedia("(prefers-color-scheme: dark)").matches)
   ) {
     isDarkMode.value = true;
@@ -84,10 +84,10 @@ const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
   if (isDarkMode.value) {
     document.documentElement.classList.add("dark");
-    localStorage.setItem("theme", "dark");
+    sessionStorage.setItem("theme", "dark");
   } else {
     document.documentElement.classList.remove("dark");
-    localStorage.setItem("theme", "light");
+    sessionStorage.setItem("theme", "light");
   }
 };
 
