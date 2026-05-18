@@ -23,8 +23,40 @@ const formData = ref({
     date: '',
     location: '',
     suggestions: [],
-    reward: 'Activity'
+    roleQuantities: {},
+    reward: 'Activity',
+    image: null
 })
+
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+const minDateString = tomorrow.toISOString().split('T')[0];
+
+const fileInput = ref(null);
+const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            formData.value.image = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+const triggerFileInput = () => {
+    if (fileInput.value) fileInput.value.click();
+};
+
+const handleRoleToggle = (roleName) => {
+    if (formData.value.suggestions.includes(roleName)) {
+        if (!formData.value.roleQuantities[roleName]) {
+            formData.value.roleQuantities[roleName] = 1;
+        }
+    } else {
+        delete formData.value.roleQuantities[roleName];
+    }
+};
 
 const goBack = () => {
     router.back()
@@ -69,6 +101,23 @@ const createJob = () => {
             
             <div class="relative z-10 flex flex-col gap-6 w-full flex-1">
                 
+                <!-- Image Upload -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-[14px] font-bold text-gray-700 dark:text-gray-300">Cover Image</label>
+                    <div @click="triggerFileInput" class="w-full h-40 bg-[#F9FAFB] dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:border-orange-400 hover:bg-orange-50/50 transition-all overflow-hidden relative group">
+                        <img v-if="formData.image" :src="formData.image" class="absolute inset-0 w-full h-full object-cover" />
+                        <div v-else class="flex flex-col items-center gap-2 text-gray-400 group-hover:text-orange-500 transition-colors">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span class="text-sm font-medium">Click to upload image</span>
+                        </div>
+                        <!-- Hover overlay for existing image -->
+                        <div v-if="formData.image" class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                            <span class="font-semibold tracking-wide">Change Image</span>
+                        </div>
+                        <input type="file" ref="fileInput" @change="handleImageUpload" accept="image/*" class="hidden" />
+                    </div>
+                </div>
+
                 <!-- Title -->
                 <div class="flex flex-col gap-2">
                     <label class="text-[14px] font-bold text-gray-700 dark:text-gray-300">Job Title</label>
@@ -87,7 +136,7 @@ const createJob = () => {
                     <div class="flex flex-col gap-2">
                         <label class="text-[14px] font-bold text-gray-700 dark:text-gray-300">Date</label>
                         <div class="flex flex-col sm:flex-row gap-3">
-                            <input v-model="formData.date" type="date" class="w-full sm:w-44 bg-[#F9FAFB] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full px-5 py-3 text-[14px] font-medium text-gray-600 dark:text-gray-300 focus:outline-none focus:border-orange-400 focus:bg-white dark:focus:bg-gray-700 focus:shadow-sm transition-all shadow-inner" />
+                            <input v-model="formData.date" :min="minDateString" type="date" class="w-full sm:w-44 bg-[#F9FAFB] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full px-5 py-3 text-[14px] font-medium text-gray-600 dark:text-gray-300 focus:outline-none focus:border-orange-400 focus:bg-white dark:focus:bg-gray-700 focus:shadow-sm transition-all shadow-inner" />
                         </div>
                     </div>
                 </div>
@@ -96,29 +145,43 @@ const createJob = () => {
                 <div class="flex flex-col gap-3 mt-2">
                     <label class="text-[14px] font-bold text-gray-700 dark:text-gray-300">Job Suggestion (ต้องการสายไหนมาช่วยงาน)</label>
                     <div class="flex flex-wrap gap-3 mt-1">
-                        <label 
+                        <div 
                             v-for="role in jobRoles" 
                             :key="role.name"
-                            class="flex items-center gap-2.5 cursor-pointer group px-4 py-2 rounded-full border transition-all text-[13px] font-bold"
+                            class="flex items-center gap-2.5 group px-4 py-2 rounded-full border transition-all text-[13px] font-bold"
                             :class="formData.suggestions.includes(role.name) ? 'bg-orange-50 dark:bg-orange-900/30 border-orange-300 dark:border-orange-500/50 text-[#EF7722] shadow-sm' : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-orange-200 dark:hover:border-orange-500/50 hover:bg-white dark:hover:bg-gray-700'"
                         >
-                            <input 
-                                type="checkbox" 
-                                :value="role.name" 
-                                v-model="formData.suggestions" 
-                                class="hidden"
-                            />
-                            <div class="w-4 h-4 rounded-[4px] border flex items-center justify-center transition-colors shrink-0"
-                                :class="formData.suggestions.includes(role.name) ? 'bg-[#EF7722] border-[#EF7722]' : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 group-hover:border-orange-300 dark:group-hover:border-orange-500/50'"
-                            >
-                                <svg v-if="formData.suggestions.includes(role.name)" class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                                </svg>
+                            <label class="flex items-center gap-2.5 cursor-pointer">
+                                <input 
+                                    type="checkbox" 
+                                    :value="role.name" 
+                                    v-model="formData.suggestions" 
+                                    @change="handleRoleToggle(role.name)"
+                                    class="hidden"
+                                />
+                                <div class="w-4 h-4 rounded-[4px] border flex items-center justify-center transition-colors shrink-0"
+                                    :class="formData.suggestions.includes(role.name) ? 'bg-[#EF7722] border-[#EF7722]' : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 group-hover:border-orange-300 dark:group-hover:border-orange-500/50'"
+                                >
+                                    <svg v-if="formData.suggestions.includes(role.name)" class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <i class="text-[14px] transition-colors shrink-0"
+                                   :class="[role.icon, formData.suggestions.includes(role.name) ? 'text-[#EF7722]' : 'text-gray-400 dark:text-gray-500 group-hover:text-orange-400']"></i>
+                                <span>{{ role.name }}</span>
+                            </label>
+                            
+                            <!-- Quantity Input -->
+                            <div v-if="formData.suggestions.includes(role.name)" class="flex items-center ml-2 border-l border-orange-200 dark:border-orange-500/50 pl-3">
+                                <span class="text-[11px] text-orange-600/80 mr-1.5 font-semibold uppercase tracking-wider">Qty</span>
+                                <input 
+                                    type="number" 
+                                    v-model.number="formData.roleQuantities[role.name]" 
+                                    min="1" 
+                                    class="w-12 h-6 bg-white dark:bg-gray-800 border border-orange-200 dark:border-orange-500/30 rounded text-center text-[12px] font-bold text-[#1F2937] dark:text-gray-100 focus:outline-none focus:border-orange-400"
+                                />
                             </div>
-                            <i class="text-[14px] transition-colors shrink-0"
-                               :class="[role.icon, formData.suggestions.includes(role.name) ? 'text-[#EF7722]' : 'text-gray-400 dark:text-gray-500 group-hover:text-orange-400']"></i>
-                            <span>{{ role.name }}</span>
-                        </label>
+                        </div>
                     </div>
                 </div>
 

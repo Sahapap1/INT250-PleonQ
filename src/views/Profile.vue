@@ -57,10 +57,10 @@
                <circle cx="32" cy="32" r="26" fill="none" class="stroke-[#EBEBEB] dark:stroke-gray-600" stroke-width="6" />
                <!-- Foreground Progress (e.g. 65% filled) -->
                <circle cx="32" cy="32" r="26" fill="none" stroke="url(#orangeProgress)" stroke-width="6" stroke-linecap="round"
-                 stroke-dasharray="163.36" stroke-dashoffset="57.17" class="group-hover:stroke-dashoffset-[30] transition-all duration-1000 ease-out" />
+                 stroke-dasharray="163.36" :stroke-dashoffset="strokeDashoffset" class="transition-all duration-1000 ease-out group-hover:stroke-dashoffset-0" />
              </svg>
              <!-- Inner Percentage Label -->
-             <span class="text-[14px] font-black text-[#1F2937] dark:text-gray-100 group-hover:text-[#EF7722] transition-colors duration-500 tracking-tighter">65%</span>
+             <span class="text-[14px] font-black text-[#1F2937] dark:text-gray-100 group-hover:text-[#EF7722] transition-colors duration-500 tracking-tighter">{{ overallPercentage }}%</span>
            </div>
 
         </div>
@@ -87,31 +87,31 @@
             <div class="flex flex-col gap-1 group/stat min-w-[100px]">
               <span class="text-[11px] font-bold text-[#6B7280] uppercase tracking-widest group-hover/stat:text-[#EF7722] transition-colors">Today</span>
               <div class="flex items-baseline gap-1.5 mt-1">
-                <span class="text-[20px] font-black text-[#1F2937] dark:text-gray-100">05</span>
-                <span class="text-[12px] font-medium text-[#6B7280] dark:text-gray-400">/ 12 hrs.</span>
+                <span class="text-[20px] font-black text-[#1F2937] dark:text-gray-100">{{ formatHour(safeProfile.activityHours.today.current) }}</span>
+                <span class="text-[12px] font-medium text-[#6B7280] dark:text-gray-400">/ {{ safeProfile.activityHours.today.total }} hrs.</span>
               </div>
               <div class="w-full h-[5px] bg-[#EBEBEB]/60 dark:bg-gray-600 rounded-full mt-1 overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] w-[41%] rounded-full relative overflow-hidden group-hover/stat:animate-[shimmer_2s_infinite]"></div>
+                <div class="h-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] rounded-full relative overflow-hidden group-hover/stat:animate-[shimmer_2s_infinite]" :style="{ width: getPercentage(safeProfile.activityHours.today.current, safeProfile.activityHours.today.total) + '%' }"></div>
               </div>
             </div>
             <div class="flex flex-col gap-1 group/stat min-w-[100px]">
               <span class="text-[11px] font-bold text-[#6B7280] uppercase tracking-widest group-hover/stat:text-[#EF7722] transition-colors">This month</span>
               <div class="flex items-baseline gap-1.5 mt-1">
-                <span class="text-[20px] font-black text-[#1F2937] dark:text-gray-100">23</span>
-                <span class="text-[12px] font-medium text-[#6B7280] dark:text-gray-400">/ 48 hrs.</span>
+                <span class="text-[20px] font-black text-[#1F2937] dark:text-gray-100">{{ formatHour(safeProfile.activityHours.thisMonth.current) }}</span>
+                <span class="text-[12px] font-medium text-[#6B7280] dark:text-gray-400">/ {{ safeProfile.activityHours.thisMonth.total }} hrs.</span>
               </div>
               <div class="w-full h-[5px] bg-[#EBEBEB]/60 dark:bg-gray-600 rounded-full mt-1 overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] w-[47%] rounded-full relative overflow-hidden group-hover/stat:animate-[shimmer_2s_infinite]"></div>
+                <div class="h-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] rounded-full relative overflow-hidden group-hover/stat:animate-[shimmer_2s_infinite]" :style="{ width: getPercentage(safeProfile.activityHours.thisMonth.current, safeProfile.activityHours.thisMonth.total) + '%' }"></div>
               </div>
             </div>
             <div class="flex flex-col gap-1 group/stat min-w-[100px]">
               <span class="text-[11px] font-bold text-[#6B7280] uppercase tracking-widest group-hover/stat:text-[#EF7722] transition-colors">This semester</span>
               <div class="flex items-baseline gap-1.5 mt-1">
-                <span class="text-[20px] font-black text-[#1F2937] dark:text-gray-100">23</span>
-                <span class="text-[12px] font-medium text-[#6B7280] dark:text-gray-400">/ 25 hrs.</span>
+                <span class="text-[20px] font-black text-[#1F2937] dark:text-gray-100">{{ formatHour(safeProfile.activityHours.thisSemester.current) }}</span>
+                <span class="text-[12px] font-medium text-[#6B7280] dark:text-gray-400">/ {{ safeProfile.activityHours.thisSemester.total }} hrs.</span>
               </div>
               <div class="w-full h-[5px] bg-[#EBEBEB]/60 dark:bg-gray-600 rounded-full mt-1 overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] w-[92%] rounded-full relative overflow-hidden group-hover/stat:animate-[shimmer_2s_infinite]"></div>
+                <div class="h-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] rounded-full relative overflow-hidden group-hover/stat:animate-[shimmer_2s_infinite]" :style="{ width: getPercentage(safeProfile.activityHours.thisSemester.current, safeProfile.activityHours.thisSemester.total) + '%' }"></div>
               </div>
             </div>
           </div>
@@ -269,8 +269,34 @@ const safeProfile = computed(() => {
     avatar: '',
     name: 'Loading...',
     university: 'Loading...',
-    dob: ''
+    dob: '',
+    activityHours: {
+      today: { current: 0, total: 0 },
+      thisMonth: { current: 0, total: 0 },
+      thisSemester: { current: 0, total: 0 }
+    }
   };
+});
+
+const formatHour = (hour) => {
+  if (hour === undefined || hour === null) return '00';
+  return hour.toString().padStart(2, '0');
+};
+
+const getPercentage = (current, total) => {
+  if (!total) return 0;
+  return Math.min(100, Math.round((current / total) * 100));
+};
+
+const overallPercentage = computed(() => {
+  const semester = safeProfile.value.activityHours.thisSemester;
+  return getPercentage(semester.current, semester.total);
+});
+
+const strokeDashoffset = computed(() => {
+  const percentage = overallPercentage.value;
+  const dasharray = 163.36;
+  return dasharray - (dasharray * percentage) / 100;
 });
 
 const formattedDob = computed(() => {
