@@ -95,7 +95,7 @@ const handleLogin = () => {
                     <label class="text-sm text-gray-500">Username</label>
                     <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 mt-1 shadow-inner">
                         <i class="fa-solid fa-user text-gray-400 mr-2"></i>
-                        <input v-model="username" type="text" placeholder="Username" @keyup.enter="handleLogin"
+                        <input v-model="username" type="text" placeholder="Username" @keyup.enter="handleLogin" @input="errorMessage = ''"
                             class="bg-transparent outline-none w-full text-sm"
                             :class="errorMessage ? 'border border-red-400' : ''" />
                     </div>
@@ -106,7 +106,7 @@ const handleLogin = () => {
                     <label class="text-sm text-gray-500">Password</label>
                     <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 mt-1 shadow-inner">
                         <i class="fa-solid fa-lock text-gray-400 mr-2"></i>
-                        <input v-model="password" type="password" placeholder="Password" @keyup.enter="handleLogin"
+                        <input v-model="password" type="password" placeholder="Password" @keyup.enter="handleLogin" @input="errorMessage = ''"
                             class="bg-transparent outline-none w-full text-sm"
                             :class="errorMessage ? 'border border-red-400' : ''" />
                     </div>

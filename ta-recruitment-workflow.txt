@@ -1,0 +1,121 @@
+## University TA Recruitment System Workflow Blueprint
+
+**Scenario:** The university admin wants to recruit 5 Teacher Assistants (TA) to help manage university activities at Building Lx, Floor 12.
+
+---
+
+### [ Part 1: Admin Job Posting Phase ]
+
+**Screen 1: Admin Dashboard & Create Job**
+```text
+_______________________________________________________
+| [Admin Dashboard]                            [User] |
+|-----------------------------------------------------|
+|  + Create New Job                                   |
+|                                                     |
+|  [ Job Title:  ] [ Teacher Assistant ]              |
+|  [ Description:] [ Assist with floor 12 duties... ] |
+|  [ Location:   ] [ Building Lx, Floor 12 ]          |
+|  [ Positions:  ] [ 5 ] People                       |
+|                                                     |
+|               (( [ Cancel ] ))  (( [ Submit ] ))    |
+|_____________________________________________________|
+          |
+          v
+    [ System Execution ]
+    Annotation: "Save to Database"
+    - Validate input data completeness
+    - Save to database (jobs.json / Pinia Store)
+    - Job Status: Open
+```
+
+**Description:** Admin accesses the job creation dashboard, specifying the TA role, location, and required slots (5). Upon submission, the system immediately saves the posting to the central database.
+
+---
+
+### [ Part 2: Student Browsing and Application Phase ]
+
+**Screen 2: Job Browser & Detail**
+```text
+__________________________       __________________________
+| [Available Jobs]         |       | [Job Details]           |
+|------------------------|       |------------------------|
+| [ TA at Lx Bldg.   ] > | ----> | **Teacher Assistant**    |
+| [ Staff for Event  ] > |  (1)  | Building Lx, Floor 12    |
+| [ IT Support       ] > |       | Need 5 (Available 5)     |
+|                        |       |                        |
+|________________________|       |     (( [ Apply ] ))  (2) |
+                                 |________________________|
+                                           |
+                                           v
+                                     [ System Execution ]
+                                     Annotation: "Validate & Store"
+                                     - Check for duplicate applications
+                                     - Store applicant data
+                                     - Set status: "Pending Review" (Requested)
+```
+
+**Description:** (1) The student browses available jobs and selects the TA position. (2) Upon clicking "Apply", the system validates eligibility, records the application, and sets the initial status to "Pending Review".
+
+---
+
+### [ Part 3: Admin Review and Selection Phase ]
+
+**Screen 3: Applicant Management Panel**
+```text
+_______________________________________________________
+| [Manage Applicants: TA at Lx Bldg.]                 |
+|-----------------------------------------------------|
+| Applicant List (Chronological)                      |
+| 1. Somchai J.    [Pending]  (( [Accept] )) (( [Reject] ))|
+| 2. Somsri M.     [Pending]  (( [Accept] )) (( [Reject] ))|
+| 3. John Doe      [Pending]  (( [Accept] )) (( [Reject] ))|
+| ...                                                 |
+|_____________________________________________________|
+          |
+          v
+    [ System Execution ]
+    Annotation: "Fetch Applicant Data" -> "Update Status"
+    - Fetch applicant profiles dynamically
+    - Update application status to "Active" (Accepted) or "Rejected"
+```
+
+**Description:** The admin views the dynamically fetched list of applicants. They review each profile and click Accept or Reject. The system updates the applicant's status in real-time.
+
+---
+
+### [ Part 4: Automatic System Closure Phase ]
+
+**Screen 4: Capacity Reached (System Auto-Close)**
+```text
+_______________________________________________________
+| [System Notification]                               |
+|-----------------------------------------------------|
+|  Checking accepted applicant count...               |
+|  [ Accepted: 5 / Total: 5 ]                         |
+|                                                     |
+|  >> System marks job status as "Full" <<            |
+|  >> Application button disabled automatically <<    |
+|_____________________________________________________|
+          |
+          v
+    [ System Execution ]
+    Annotation: "Check Slot Availability"
+    - System counts users with "Active" status for this job
+    - If (Count == Positions) -> Update job status to Full
+```
+
+**Description:** Once the admin accepts the required number of applicants (5), the backend logic verifies the count and automatically marks the recruitment as "Full", preventing further applications.
+
+---
+
+### [ Data Flow Summary ]
+
+1. **Admin Action:** Submit form -> **Trigger:** `addJob()` -> **DB:** Insert new job record
+2. **Student Action:** View jobs -> **Trigger:** `fetchJobs()` -> **UI:** Render job list/cards
+3. **Student Action:** Click Apply -> **Trigger:** `addTask()` -> **DB:** Insert record with `Requested` status
+4. **Admin Action:** Select applicant -> **Trigger:** `updateStatus()` -> **DB:** Update status to `Active`
+5. **System Logic:** Check slots -> **Condition:** `if accepted >= 5` -> **Result:** `jobStatus = Full`
+
+---
+*Created for use as a software engineering system flow presentation draft.*

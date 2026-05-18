@@ -146,10 +146,10 @@ const handleCategorySave = () => {
         <!-- 📦 Main Layout -->
         <div class="flex flex-col flex-1 h-full pt-5">
 
-            <div class="flex flex-col lg:flex-row gap-6 lg:gap-3 flex-1">
+            <div class="flex flex-col lg:flex-row gap-6 lg:gap-3 flex-1 min-w-0">
 
                 <!-- 🧾 Left Content -->
-                <div class="flex-1 flex flex-col min-h-[73vh]">
+                <div class="flex-1 flex flex-col min-h-[73vh] min-w-0">
 
                     <!-- Header with Toggle -->
                     <div class="flex items-center justify-between mb-3 px-1">
@@ -218,7 +218,6 @@ const handleCategorySave = () => {
                 <div
                     class="w-full lg:w-[320px] bg-[#FFF8F1] dark:bg-gray-900 rounded-3xl p-5 flex flex-col gap-6 border border-[#EBEBEB]/60 dark:border-gray-800 overflow-y-auto mb-13">
 
-                    <!-- Events -->
                     <div class="flex flex-col gap-3">
                         <h3 class="text-[15px] font-bold text-[#1F2937] dark:text-gray-100 leading-snug">
                             My Upcoming Events <span class="text-[12px] font-medium text-gray-400 whitespace-nowrap ml-0.5">(7 days)</span>

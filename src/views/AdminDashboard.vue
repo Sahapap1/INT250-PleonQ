@@ -31,35 +31,38 @@ const stats = computed(() => {
 });
 
 // Management Filters
-const searchQuery = ref('');
-const filterStatus = ref('All');
-const sortBy = ref('Newest');
+const searchQuery = ref("");
+const filterStatus = ref("All");
+const sortBy = ref("Newest");
 
 const filteredJobs = computed(() => {
   let result = [...jobStore.jobs];
-  
+
   if (searchQuery.value) {
     const q = searchQuery.value.toLowerCase();
-    result = result.filter(job => 
-      job.title.toLowerCase().includes(q) || 
-      (job.description && job.description.toLowerCase().includes(q))
+    result = result.filter(
+      (job) =>
+        job.title.toLowerCase().includes(q) ||
+        (job.description && job.description.toLowerCase().includes(q)),
     );
   }
-  
-  if (filterStatus.value !== 'All') {
-    if (filterStatus.value === 'Active') {
-       result = result.filter(job => job.status !== 'Closed' && job.status !== 'Inactive');
+
+  if (filterStatus.value !== "All") {
+    if (filterStatus.value === "Active") {
+      result = result.filter(
+        (job) => job.status !== "Closed" && job.status !== "Inactive",
+      );
     } else {
-       result = result.filter(job => job.status === filterStatus.value);
+      result = result.filter((job) => job.status === filterStatus.value);
     }
   }
-  
-  if (sortBy.value === 'Newest') {
+
+  if (sortBy.value === "Newest") {
     result.sort((a, b) => b.id - a.id);
-  } else if (sortBy.value === 'Oldest') {
+  } else if (sortBy.value === "Oldest") {
     result.sort((a, b) => a.id - b.id);
   }
-  
+
   return result;
 });
 
@@ -67,7 +70,9 @@ const filteredJobs = computed(() => {
 const currentPage = ref(1);
 const itemsPerPage = 4;
 
-const totalPages = computed(() => Math.ceil(filteredJobs.value.length / itemsPerPage) || 1);
+const totalPages = computed(
+  () => Math.ceil(filteredJobs.value.length / itemsPerPage) || 1,
+);
 const paginatedJobs = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
   return filteredJobs.value.slice(start, start + itemsPerPage);
@@ -107,11 +112,17 @@ const upcomingJobs = computed(() => {
     <div
       class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 w-full mb-2"
     >
-      <h1 class="text-[24px] font-bold text-[#1F2937] dark:text-gray-100">Manage Jobs</h1>
-      
-      <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+      <h1 class="text-[24px] font-bold text-[#1F2937] dark:text-gray-100">
+        Manage Jobs
+      </h1>
+
+      <div
+        class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto"
+      >
         <!-- Search -->
-        <div class="flex items-center bg-[#F9FAFB] dark:bg-gray-800 rounded-full px-5 py-2 shadow-sm border border-[#F3F4F6] dark:border-gray-700 w-full sm:w-[220px] focus-within:bg-white dark:focus-within:bg-gray-700 focus-within:border-gray-200 dark:focus-within:border-gray-600 transition-all">
+        <div
+          class="flex items-center bg-[#F9FAFB] dark:bg-gray-800 rounded-full px-5 py-2 shadow-sm border border-[#F3F4F6] dark:border-gray-700 w-full sm:w-[220px] focus-within:bg-white dark:focus-within:bg-gray-700 focus-within:border-gray-200 dark:focus-within:border-gray-600 transition-all"
+        >
           <input
             v-model="searchQuery"
             type="text"
@@ -120,16 +131,22 @@ const upcomingJobs = computed(() => {
           />
           <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
         </div>
-        
+
         <!-- Filter & Sort -->
         <div class="flex items-center gap-2 w-full sm:w-auto">
-          <select v-model="filterStatus" class="bg-[#F9FAFB] dark:bg-gray-800 border border-[#F3F4F6] dark:border-gray-700 text-gray-700 dark:text-gray-200 text-[13px] font-medium rounded-full px-4 py-2.5 shadow-sm outline-none focus:border-gray-300 dark:focus:border-gray-600 w-1/2 sm:w-auto cursor-pointer transition-all">
+          <select
+            v-model="filterStatus"
+            class="bg-[#F9FAFB] dark:bg-gray-800 border border-[#F3F4F6] dark:border-gray-700 text-gray-700 dark:text-gray-200 text-[13px] font-medium rounded-full px-4 py-2.5 shadow-sm outline-none focus:border-gray-300 dark:focus:border-gray-600 w-1/2 sm:w-auto cursor-pointer transition-all"
+          >
             <option value="All">All Status</option>
             <option value="Active">Active</option>
             <option value="Closed">Closed</option>
           </select>
-          
-          <select v-model="sortBy" class="bg-[#F9FAFB] dark:bg-gray-800 border border-[#F3F4F6] dark:border-gray-700 text-gray-700 dark:text-gray-200 text-[13px] font-medium rounded-full px-4 py-2.5 shadow-sm outline-none focus:border-gray-300 dark:focus:border-gray-600 w-1/2 sm:w-auto cursor-pointer transition-all">
+
+          <select
+            v-model="sortBy"
+            class="bg-[#F9FAFB] dark:bg-gray-800 border border-[#F3F4F6] dark:border-gray-700 text-gray-700 dark:text-gray-200 text-[13px] font-medium rounded-full px-4 py-2.5 shadow-sm outline-none focus:border-gray-300 dark:focus:border-gray-600 w-1/2 sm:w-auto cursor-pointer transition-all"
+          >
             <option value="Newest">Newest First</option>
             <option value="Oldest">Oldest First</option>
           </select>
@@ -146,8 +163,8 @@ const upcomingJobs = computed(() => {
       </div>
     </div>
 
-    <div class="flex flex-col lg:flex-row gap-6 lg:gap-4 flex-1 pt-4">
-      <div class="flex-1 flex flex-col min-h-[73vh]">
+    <div class="flex flex-col lg:flex-row gap-6 lg:gap-4 pt-4 mb-13 min-w-0">
+      <div class="flex-1 flex flex-col min-w-0">
         <div class="grid grid-cols-2 gap-4 mb-8">
           <div
             v-for="stat in stats"
@@ -165,7 +182,9 @@ const upcomingJobs = computed(() => {
               >
                 {{ stat.label }}
               </p>
-              <h3 class="text-2xl sm:text-3xl font-black text-[#1F2937] dark:text-gray-100">
+              <h3
+                class="text-2xl sm:text-3xl font-black text-[#1F2937] dark:text-gray-100"
+              >
                 {{ stat.count }}
               </h3>
             </div>
@@ -173,9 +192,14 @@ const upcomingJobs = computed(() => {
         </div>
 
         <div class="flex flex-col gap-3">
-          <div v-if="paginatedJobs.length === 0" class="flex flex-col items-center justify-center py-10 bg-white dark:bg-gray-800 rounded-2xl border border-[#EBEBEB] dark:border-gray-700 shadow-sm">
-             <i class="fa-solid fa-inbox text-4xl text-gray-300 mb-3"></i>
-             <p class="text-gray-500 font-medium">No jobs found matching your criteria</p>
+          <div
+            v-if="paginatedJobs.length === 0"
+            class="flex flex-col items-center justify-center py-10 bg-white dark:bg-gray-800 rounded-2xl border border-[#EBEBEB] dark:border-gray-700 shadow-sm"
+          >
+            <i class="fa-solid fa-inbox text-4xl text-gray-300 mb-3"></i>
+            <p class="text-gray-500 font-medium">
+              No jobs found matching your criteria
+            </p>
           </div>
           <JobCard
             v-for="job in paginatedJobs"
@@ -222,9 +246,10 @@ const upcomingJobs = computed(() => {
               >{{ currentPage }}</span
             >
             <span class="text-[13px] font-bold text-gray-400">of</span>
-            <span class="text-[13px] font-black text-gray-500 dark:text-gray-400">{{
-              totalPages
-            }}</span>
+            <span
+              class="text-[13px] font-black text-gray-500 dark:text-gray-400"
+              >{{ totalPages }}</span
+            >
           </div>
 
           <button
@@ -255,11 +280,13 @@ const upcomingJobs = computed(() => {
         </div>
       </div>
 
-      <div
+      <!-- <div
         class="w-full lg:w-[320px] bg-[#FFF8F1] dark:bg-gray-900 rounded-3xl p-5 flex flex-col gap-6 border border-[#EBEBEB]/60 dark:border-gray-800 overflow-y-auto mb-13"
       >
         <div class="flex flex-col gap-4">
-          <h3 class="text-[16px] font-bold text-[#1F2937] dark:text-gray-100 leading-snug">
+          <h3
+            class="text-[16px] font-bold text-[#1F2937] dark:text-gray-100 leading-snug"
+          >
             Upcoming Events
             <span
               class="text-[12px] font-medium text-gray-400 whitespace-nowrap ml-0.5"
@@ -280,7 +307,7 @@ const upcomingJobs = computed(() => {
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
