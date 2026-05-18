@@ -36,9 +36,9 @@ const handleClick = () => {
 
     showSidebar.value = true
 
-    if (!previousRoute.value || 
-        previousRoute.value === '/profile' || 
-        previousRoute.value === '/admin/profile') {
+    if (!previousRoute.value ||
+      previousRoute.value === '/profile' ||
+      previousRoute.value === '/admin/profile') {
       router.push(isAdmin.value ? '/admin' : '/')
     } else {
       router.push(previousRoute.value);
@@ -105,89 +105,62 @@ onBeforeUnmount(() => document.removeEventListener('click', closeDropdowns))
   <div class="flex flex-col items-center gap-4 w-full relative z-[19]">
     <div class="w-full max-w-7xl h-20 py-4 px-4 flex justify-between items-center relative z-[100]">
       <div>
-        <button
-          class="cursor-pointer"
-          @click="isAdmin ? router.push('/admin') : router.push('/')"
-        >
-          <img class="w-12 md:w-16" src="@/assets/logo.png" alt="" />
+        <button class="cursor-pointer" @click="isAdmin ? router.push('/admin') : router.push('/')">
+          <img class="w-12 md:w-16 dark:hidden" src=" @/assets/logo.png" alt="" />
+          <img class="hidden w-12 md:w-16 dark:block" src="@/assets/logo-dark.png" alt="" />
         </button>
       </div>
       <div class="flex justify-between gap-4 md:gap-6">
         <!-- Dark Mode Toggle -->
-        <button
-          @click="toggleDarkMode"
+        <button @click="toggleDarkMode"
           class="bg-orange-gradient rounded-full size-10 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm"
-          title="Toggle Theme"
-        >
-          <i
-            :class="isDarkMode ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"
-            class="text-white text-[16px] transition-transform"
-          ></i>
+          title="Toggle Theme">
+          <i :class="isDarkMode ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"
+            class="text-white text-[16px] transition-transform"></i>
         </button>
 
         <div class="relative z-50" id="nav-bell-container">
-          <button
-            @click="showNotifDropdown = !showNotifDropdown"
-            class="bg-orange-gradient rounded-full size-10 flex items-center justify-center cursor-pointer transition-all duration-300 relative shadow-sm hover:scale-105 active:scale-95 group"
-          >
-            <span
-              v-if="notificationStore.unreadCount > 0"
-              class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold rounded-full w-[18px] h-[18px] flex items-center justify-center border-2 border-white shadow-sm z-10 animate-bounce"
-            >
+          <button @click="showNotifDropdown = !showNotifDropdown"
+            class="bg-orange-gradient rounded-full size-10 flex items-center justify-center cursor-pointer transition-all duration-300 relative shadow-sm hover:scale-105 active:scale-95 group">
+            <span v-if="notificationStore.unreadCount > 0"
+              class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold rounded-full w-[18px] h-[18px] flex items-center justify-center border-2 border-white shadow-sm z-10 animate-bounce">
               {{ notificationStore.unreadCount }}
             </span>
-            <i
-              class="text-white text-lg transition-all duration-300"
-              :class="
-                showNotifDropdown
-                  ? 'fa-solid fa-bell'
-                  : 'fa-regular fa-bell group-hover:fa-solid'
-              "
-            ></i>
+            <i class="text-white text-lg transition-all duration-300" :class="showNotifDropdown
+                ? 'fa-solid fa-bell'
+                : 'fa-regular fa-bell group-hover:fa-solid'
+              "></i>
           </button>
 
           <transition name="fade">
-            <NotificationDropdown
-              v-if="showNotifDropdown"
-              @close="showNotifDropdown = false"
-              @openFullModal="showFullNotificationModal = true"
-            />
+            <NotificationDropdown v-if="showNotifDropdown" @close="showNotifDropdown = false"
+              @openFullModal="showFullNotificationModal = true" />
           </transition>
         </div>
-        <button
-          @click="handleClick"
-          class="bg-orange-gradient rounded-full size-10 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95"
-        >
-          <i
-            :class="[
-              'text-white text-lg transition-all duration-300',
-              isProfile 
-                ? 'fa-solid fa-xmark rotate-180 scale-110'
-                : 'fa-regular fa-user rotate-0 scale-100',
-            ]"
-            style="color: rgb(255, 255, 255)"
-          ></i>
+        <button @click="handleClick"
+          class="bg-orange-gradient rounded-full size-10 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95">
+          <i :class="[
+            'text-white text-lg transition-all duration-300',
+            isProfile
+              ? 'fa-solid fa-xmark rotate-180 scale-110'
+              : 'fa-regular fa-user rotate-0 scale-100',
+          ]" style="color: rgb(255, 255, 255)"></i>
         </button>
 
-        <button
-          @click="handleLogout"
+        <button @click="handleLogout"
           class="bg-red-500 hover:bg-red-600 rounded-full size-10 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 group shadow-sm"
-          title="Logout"
-        >
+          title="Logout">
           <i
-            class="fa-solid fa-arrow-right-from-bracket text-white text-[16px] transition-transform group-hover:translate-x-0.5"
-          ></i>
+            class="fa-solid fa-arrow-right-from-bracket text-white text-[16px] transition-transform group-hover:translate-x-0.5"></i>
         </button>
       </div>
     </div>
 
-    <div
-      v-if="showSidebar"
-      class="bg-gray-200 dark:bg-gray-800 p-1 rounded-full flex w-fit mx-auto gap-1 xl:hidden"
-    >
+    <div v-if="showSidebar" class="bg-gray-200 dark:bg-gray-800 p-1 rounded-full flex w-fit mx-auto gap-1 xl:hidden">
       <!-- Home -->
       <button @click="activeTab = 'home'; router.push(isAdmin ? '/admin' : '/')"
-        class="cursor-pointer flex items-center justify-center flex-nowrap shrink-0 whitespace-nowrap gap-1.5 sm:gap-2 px-6 sm:px-12 py-2 rounded-full transition-all duration-300" :class="activeTab === 'home'
+        class="cursor-pointer flex items-center justify-center flex-nowrap shrink-0 whitespace-nowrap gap-1.5 sm:gap-2 px-6 sm:px-12 py-2 rounded-full transition-all duration-300"
+        :class="activeTab === 'home'
           ? 'bg-orange-gradient text-white shadow-md scale-105'
           : 'text-gray-700 hover:bg-gray-300'">
         <i class="transition-all duration-300" :class="isAdmin ? 'fa-solid fa-briefcase' : 'fa-regular fa-house'"
@@ -197,7 +170,8 @@ onBeforeUnmount(() => document.removeEventListener('click', closeDropdowns))
 
       <!-- Task -->
       <button v-if="!isAdmin" @click="activeTab = 'task'; router.push('/taskManagement')"
-        class="cursor-pointer flex items-center justify-center flex-nowrap shrink-0 whitespace-nowrap gap-1.5 sm:gap-2 px-4 sm:px-8 py-2 rounded-full transition-all duration-300" :class="activeTab === 'task'
+        class="cursor-pointer flex items-center justify-center flex-nowrap shrink-0 whitespace-nowrap gap-1.5 sm:gap-2 px-4 sm:px-8 py-2 rounded-full transition-all duration-300"
+        :class="activeTab === 'task'
           ? 'bg-orange-gradient text-white shadow-md scale-105'
           : 'text-primary hover:bg-gray-300'">
         <i class="fa-solid fa-list-check transition-all duration-300"
@@ -207,10 +181,7 @@ onBeforeUnmount(() => document.removeEventListener('click', closeDropdowns))
     </div>
 
     <!-- Full Screen Notification Modal -->
-    <NotificationModal
-      :isOpen="showFullNotificationModal"
-      @close="showFullNotificationModal = false"
-    />
+    <NotificationModal :isOpen="showFullNotificationModal" @close="showFullNotificationModal = false" />
   </div>
 </template>
 

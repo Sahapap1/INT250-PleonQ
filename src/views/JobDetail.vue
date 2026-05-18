@@ -37,8 +37,26 @@ const editForm = ref({
     location: '',
     date: '',
     positions: 0,
-    reward: ''
+    reward: '',
+    image: null
 })
+
+const fileInput = ref(null)
+
+const triggerFileInput = () => {
+    if (fileInput.value) fileInput.value.click()
+}
+
+const handleImageUpload = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            editForm.value.image = e.target.result
+        }
+        reader.readAsDataURL(file)
+    }
+}
 
 const initializeForm = () => {
     if (job.value) {
@@ -64,6 +82,7 @@ const saveChanges = () => {
     // Modify job in store or handle API. For mock:
     if (job.value) {
         Object.assign(job.value, editForm.value)
+        jobStore.saveToSession()
     }
     router.back()
 }
@@ -153,9 +172,10 @@ const toggleLike = () => {
     jobStore.toggleLike(job.value.id)
 }
 
-const getImageUrl = (imageName) => {
-    if (!imageName) return new URL('../assets/img/card_img.jpg', import.meta.url).href;
-    return new URL(`../assets/img-jobs/${imageName}`, import.meta.url).href;
+const getImageUrl = (image) => {
+    if (!image) return new URL('../assets/img/card_img.jpg', import.meta.url).href;
+    if (image.startsWith('data:')) return image;
+    return new URL(`../assets/img-jobs/${image}`, import.meta.url).href;
 }
 </script>
 
@@ -183,8 +203,16 @@ const getImageUrl = (imageName) => {
         </div>
 
         <!--  Image -->
-        <div class="px-4 mt-6 mb-8 flex justify-center">
-            <img :src="getImageUrl(job?.image)" class="max-w-[85%] max-h-[380px] md:max-h-[460px] rounded-[28px] shadow-sm object-contain" />
+        <div class="px-4 mt-6 mb-8 flex justify-center relative group w-max mx-auto">
+            <img :src="getImageUrl(isAdmin ? (editForm.image || job?.image) : job?.image)" class="max-w-[85%] max-h-[380px] md:max-h-[460px] rounded-[28px] shadow-sm object-contain" />
+            
+            <div v-if="isAdmin" @click="triggerFileInput" class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white rounded-[28px] cursor-pointer backdrop-blur-sm m-auto max-w-[85%] max-h-[380px] md:max-h-[460px]">
+                <div class="flex flex-col items-center gap-2">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span class="font-semibold tracking-wide">Change Cover Image</span>
+                </div>
+            </div>
+            <input v-if="isAdmin" type="file" ref="fileInput" @change="handleImageUpload" accept="image/*" class="hidden" />
         </div>
 
         <!--  Content -->

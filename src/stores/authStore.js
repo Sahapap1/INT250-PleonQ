@@ -17,6 +17,7 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = null
     sessionStorage.removeItem('isAuth')
     sessionStorage.removeItem('user')
+    sessionStorage.removeItem('profileAppData')
   }
 
   return { isAuth, user, login, logout }

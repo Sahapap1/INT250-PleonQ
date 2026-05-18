@@ -32,66 +32,6 @@
         </div>
       </div>
 
-      <!-- 2. Summary Activity Hours Card (คงเดิม) -->
-      <div class="relative overflow-hidden bg-[#FFFFFF] dark:bg-gray-800 rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.08)] border border-[#EBEBEB] dark:border-gray-700 z-10">
-        <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#FFF8F1] dark:bg-gray-700 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
-        <div class="w-24 h-24 bg-[#FFF8F1] dark:bg-gray-700 rounded-[28px] shrink-0 shadow-[inset_0_2px_10px_rgba(0,0,0,0.03)] border border-[#EBEBEB]/60 dark:border-gray-600 relative overflow-hidden group-hover:shadow-[0_4px_15px_rgba(239,119,34,0.1)] group-hover:border-[#FAA533]/30 transition-all duration-500 flex items-center justify-center">
-           <div class="relative w-[3.5rem] h-[3.5rem] flex items-center justify-center">
-             <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 64 64">
-               <defs>
-                 <linearGradient id="orangeProgress" x1="0%" y1="0%" x2="100%" y2="100%">
-                   <stop offset="0%" stop-color="#EF7722" />
-                   <stop offset="100%" stop-color="#FAA533" />
-                 </linearGradient>
-               </defs>
-               <circle cx="32" cy="32" r="26" fill="none" class="stroke-[#EBEBEB] dark:stroke-gray-600" stroke-width="6" />
-               <circle cx="32" cy="32" r="26" fill="none" stroke="url(#orangeProgress)" stroke-width="6" stroke-linecap="round"
-                 stroke-dasharray="163.36" stroke-dashoffset="57.17" class="group-hover:stroke-dashoffset-[30] transition-all duration-1000 ease-out" />
-             </svg>
-             <span class="text-[14px] font-black text-[#1F2937] dark:text-gray-100 group-hover:text-[#EF7722] transition-colors duration-500 tracking-tighter">65%</span>
-           </div>
-        </div>
-
-        <div class="flex flex-col w-full mt-1.5 text-center md:text-left z-10">
-          <h3 class="text-[#1F2937] dark:text-gray-100 text-[16px] font-extrabold mb-6 tracking-tight flex items-center gap-2 justify-center md:justify-start">
-            Summary Activity Hours
-            <span class="w-1.5 h-1.5 rounded-full bg-[#EF7722] shadow-[0_0_5px_rgba(239,119,34,0.8)] animate-pulse"></span>
-          </h3>
-          <div class="flex flex-wrap justify-center md:justify-start gap-y-6 gap-x-8 md:gap-x-12">
-            <!-- (Stat items คงเดิม...) -->
-            <div class="flex flex-col gap-1 group/stat min-w-[100px]">
-              <span class="text-[11px] font-bold text-[#6B7280] uppercase tracking-widest group-hover/stat:text-[#EF7722] transition-colors">Today</span>
-              <div class="flex items-baseline gap-1.5 mt-1">
-                <span class="text-[20px] font-black text-[#1F2937] dark:text-gray-100">05</span>
-                <span class="text-[12px] font-medium text-[#6B7280] dark:text-gray-400">/ 12 hrs.</span>
-              </div>
-              <div class="w-full h-[5px] bg-[#EBEBEB]/60 dark:bg-gray-600 rounded-full mt-1 overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] w-[41%] rounded-full relative overflow-hidden group-hover/stat:animate-[shimmer_2s_infinite]"></div>
-              </div>
-            </div>
-            <div class="flex flex-col gap-1 group/stat min-w-[100px]">
-              <span class="text-[11px] font-bold text-[#6B7280] uppercase tracking-widest group-hover/stat:text-[#EF7722] transition-colors">This month</span>
-              <div class="flex items-baseline gap-1.5 mt-1">
-                <span class="text-[20px] font-black text-[#1F2937] dark:text-gray-100">23</span>
-                <span class="text-[12px] font-medium text-[#6B7280] dark:text-gray-400">/ 48 hrs.</span>
-              </div>
-              <div class="w-full h-[5px] bg-[#EBEBEB]/60 dark:bg-gray-600 rounded-full mt-1 overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] w-[47%] rounded-full relative overflow-hidden group-hover/stat:animate-[shimmer_2s_infinite]"></div>
-              </div>
-            </div>
-            <div class="flex flex-col gap-1 group/stat min-w-[100px]">
-              <span class="text-[11px] font-bold text-[#6B7280] uppercase tracking-widest group-hover/stat:text-[#EF7722] transition-colors">This semester</span>
-              <div class="flex items-baseline gap-1.5 mt-1">
-                <span class="text-[20px] font-black text-[#1F2937] dark:text-gray-100">23</span>
-                <span class="text-[12px] font-medium text-[#6B7280] dark:text-gray-400">/ 25 hrs.</span>
-              </div>
-              <div class="w-full h-[5px] bg-[#EBEBEB]/60 dark:bg-gray-600 rounded-full mt-1 overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-[#EF7722] to-[#FAA533] w-[92%] rounded-full relative overflow-hidden group-hover/stat:animate-[shimmer_2s_infinite]"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- 3. Camera Scanner Card (อัปเดตใหม่) -->
       <div class="relative overflow-hidden bg-[#FFFFFF] dark:bg-gray-800 rounded-[22px] shadow-[0_4px_25px_rgba(0,0,0,0.02)] p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start group transition-all duration-500 hover:shadow-[0_15px_50px_rgba(239,119,34,0.08)] border border-[#EBEBEB] dark:border-gray-700 z-10">

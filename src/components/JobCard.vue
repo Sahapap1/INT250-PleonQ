@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useJobStore } from '../stores/jobStore'
 
@@ -22,10 +23,29 @@ const toggleLike = (e) => {
     jobStore.toggleLike(props.data.id)
 }
 
-const getImageUrl = (imageName) => {
-    if (!imageName) return new URL('../assets/img/card_img.jpg', import.meta.url).href;
-    return new URL(`../assets/img-jobs/${imageName}`, import.meta.url).href;
+const getImageUrl = (image) => {
+    if (!image) return new URL('../assets/img/card_img.jpg', import.meta.url).href;
+    if (image.startsWith('data:')) return image;
+    return new URL(`../assets/img-jobs/${image}`, import.meta.url).href;
 }
+
+const displayRoles = computed(() => {
+    if (props.data.roles && props.data.roles.length > 0) {
+        return props.data.roles.map(r => r.name);
+    }
+    if (props.data.suggestions && props.data.suggestions.length > 0) {
+        return props.data.suggestions;
+    }
+    return [];
+});
+
+const totalPositions = computed(() => {
+    if (props.data.positions) return props.data.positions;
+    if (props.data.roleQuantities) {
+        return Object.values(props.data.roleQuantities).reduce((acc, val) => acc + val, 0);
+    }
+    return 0;
+});
 </script>
 
 <template>
@@ -70,12 +90,12 @@ const getImageUrl = (imageName) => {
 
                 <!--  roles / category -->
                 <div class="flex items-center gap-1 overflow-hidden flex-wrap max-w-[60%]">
-                    <template v-if="data.roles && data.roles.length > 0">
-                        <span v-for="role in data.roles.slice(0, 3)" :key="role.name" class="bg-orange-50 dark:bg-gray-700 text-[#EF7722] dark:text-[#FAA533] border border-[#FAA533]/30 text-[9px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
-                            {{ role.name }}
+                    <template v-if="displayRoles.length > 0">
+                        <span v-for="role in displayRoles.slice(0, 3)" :key="role" class="bg-orange-50 dark:bg-gray-700 text-[#EF7722] dark:text-[#FAA533] border border-[#FAA533]/30 text-[9px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
+                            {{ role }}
                         </span>
-                        <span v-if="data.roles.length > 3" class="bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-[9px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap border border-gray-200 dark:border-gray-600">
-                            +{{ data.roles.length - 3 }}
+                        <span v-if="displayRoles.length > 3" class="bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-[9px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap border border-gray-200 dark:border-gray-600">
+                            +{{ displayRoles.length - 3 }}
                         </span>
                     </template>
                     <span v-else-if="data.category" class="bg-[#3B82F6] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
@@ -85,7 +105,7 @@ const getImageUrl = (imageName) => {
 
                 <!--  positions -->
                 <span class="text-[10px] text-gray-500 dark:text-gray-300 ml-auto mr-2 sm:mr-4">
-                    {{ data.positions }} คน
+                    {{ totalPositions }} คน
                 </span>
 
                 <button
