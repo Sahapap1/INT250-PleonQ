@@ -1,0 +1,168 @@
+Group Assignment#1: Tailwind CSS Term Project (7%)
+INT250 CSS Framework (Semester 2/2025)
+Task#6: Final Submission and Presentation
+
+=========================================
+1. Cover Page
+=========================================
+Project Title: PleonQ - Student Activity & Job Recruitment Platform
+Course: INT250 CSS Framework (Semester 2/2025)
+Group Name: [Please Fill Your Group Name]
+Group Members: 
+1. [Name] - [Student ID]
+2. [Name] - [Student ID]
+3. [Name] - [Student ID]
+
+=========================================
+2. Project Overview
+=========================================
+a. Short Problem Statement: 
+University students often miss out on valuable extracurricular activities, part-time jobs, and staff recruitment opportunities because announcements are scattered across different platforms and social media groups. There is a lack of a centralized, user-friendly hub.
+
+b. Target Users: 
+- Students: Looking for part-time jobs, tutoring roles, and event staff opportunities.
+- Administrators/Organizers: Need a platform to post, manage, and recruit students for their events.
+
+c. Project Goals: 
+To build a highly responsive, aesthetically pleasing, and centralized web application where students can easily discover and apply for campus jobs, while providing organizers with an efficient management dashboard.
+
+d. Selected Theme: 
+Job Portal / Recruitment Platform with a modern, glassmorphism-inspired UI and comprehensive Dark Mode support.
+
+=========================================
+3. Features and Scope
+=========================================
+a. Must-have Features:
+- User Authentication: Secure login system separating Admin and Student roles.
+- Job Listings & Pagination: Displaying available jobs efficiently without overwhelming the user.
+- Search, Filter, & Sort: Allowing users to search by keywords and filter by categories/roles.
+- Admin Dashboard: A dedicated panel for admins to Manage (Create, Edit, Delete) jobs.
+- Responsive Design: Full support for Mobile, Tablet, and Desktop using Tailwind CSS.
+- Dark/Light Mode: Site-wide theme toggling for accessibility and user preference.
+
+b. Optional Features:
+- Favorites System: Students can "like" jobs and filter to see only their favorites.
+- Task Management (Student View): Tracking applied/upcoming jobs.
+- Suggestion/Category Popup: Interactive modal for refining job searches.
+
+c. Not Included / Limitations:
+- Real-time chat functionality between organizers and applicants.
+- Payment gateway integrations (as this is an internal university platform).
+- Backend database (currently using mock data and Pinia state management for demonstration).
+
+=========================================
+4. User Flow & Navigation Design
+=========================================
+a. Sitemap:
+- /login (Authentication)
+- / (Home - Student Job Feed)
+- /job/:id (Job Detail & Application)
+- /tasks (Student Task/Application Management)
+- /admin (Admin Dashboard)
+- /admin/create-job (Job Creation Form)
+
+b. User Flow:
+1. User lands on Login page. Upon successful authentication, they are redirected based on their role.
+2. Student Flow: Browses Home -> Uses Search/Filter -> Clicks a JobCard -> Views details -> Applies for the job -> Checks application status in Task Management.
+3. Admin Flow: Enters Admin Dashboard -> Views statistics -> Manages existing jobs or clicks "Create Job" -> Fills out form -> Saves to update the global state.
+
+=========================================
+5. UX/UI Design
+=========================================
+a. Wireframes and UI Screenshots:
+(Please attach screenshots of Home, Admin Dashboard, and Mobile Views in your final PDF)
+
+b. Design Decisions:
+i. Layout Style, Responsive Strategy: 
+Mobile-first approach. Used CSS Grid for statistics and Flexbox for job lists and navigation. Containers are fluid up to a max-width to ensure readability on ultra-wide screens.
+ii. Component Styling Approach with Tailwind CSS: 
+Standardized design tokens using Tailwind's utility classes. Primary actions use a distinct orange gradient (from-[#EF7722] to-[#FAA533]). Extensive use of `dark:` variants for seamless Dark Mode. Rounded corners (rounded-2xl/3xl) and subtle shadows provide a modern, tactile feel.
+iii. Heuristic Evaluation: 
+- Visibility of System Status: Empty states ("No jobs found") and hover effects clearly indicate interactive elements.
+- User Control and Freedom: Easy navigation back from job details and clear pagination controls.
+- Consistency and Standards: Standardized button styles, input fields, and iconography (FontAwesome).
+
+=========================================
+6. System Architecture and Implementation
+=========================================
+a. Folder Structure:
+- src/assets: Static assets like images and global CSS.
+- src/components: Reusable UI elements (JobCard.vue, CategoryPopup.vue, etc.).
+- src/views: Page-level components (Home.vue, AdminDashboard.vue, Login.vue).
+- src/stores: Pinia state management files.
+- src/layouts: Main application wrappers (MainLayout.vue).
+
+b. Component Structure (Reusable Components):
+- `JobCard.vue`: Used in Home and Admin lists to display job summaries.
+- `UpcommingJobCard.vue`: A compact version used in sidebars for quick event tracking.
+- `CategoryPopup.vue`: A reusable modal for filtering.
+
+c. State Management (Pinia):
+- `authStore.js`: Handles user sessions, roles, and login states.
+- `jobStore.js`: Manages the global list of jobs, handling CRUD operations and "liked" states.
+- `taskStore.js`: Manages the application status for students (Pending, Active, Completed).
+
+d. Routing: 
+Vue Router handles navigation. Includes dynamic routes (`/job/:id`) for specific job details and a fallback 404 handling route for invalid URLs.
+
+=========================================
+7. Key Functionalities Demonstration
+=========================================
+a. CRUD flow for main entity:
+Admins can Create, Read, Update, and Delete jobs via the Admin Dashboard. Changes immediately reflect across the app due to reactive Pinia stores.
+b. Search/Filter/Sort Logic:
+Computed properties in Vue dynamically filter the `jobStore` based on the search query, selected status, and sorting preferences (Newest/Oldest) without mutating the original data.
+c. Validation Rules and Feedback UI:
+The Login form features real-time validation, displaying error messages for incorrect credentials, which dynamically clear (`@input`) when the user attempts to re-type.
+d. Loading/Empty/Error States:
+Implemented dedicated UI components for empty states (e.g., "No upcoming events in the next 7 days" or "No jobs found") featuring muted icons and clear instructions.
+
+=========================================
+8. Testing & Quality Checks
+=========================================
+a. Test Plan:
+- Core Flows: Successfully created a job as an Admin and verified its appearance on the Student Home page. Tested pagination logic by ensuring limits are respected.
+- Responsive Checks: Verified layout integrity on Mobile (stacked columns) and Desktop (side-by-side flex layouts).
+
+b. Bugs found and how you fixed them:
+- Bug: Long job titles caused `JobCard` containers to expand infinitely, breaking the responsive layout and pushing content off-screen.
+- Fix: Applied `min-w-0` to parent flex containers to enforce CSS flexbox shrink boundaries, allowing the `truncate` utility to properly display ellipses (...) on overflowing text.
+- Bug: Admin Dashboard sidebar height was inconsistent across pagination pages.
+- Fix: Refactored flexbox wrapper classes, removing rigid `min-h` constraints and relying on intrinsic content height for flawless alignment.
+
+=========================================
+9. Deployment & How to Run
+=========================================
+a. Deployed URL: [Insert Vercel/Netlify URL here]
+b. How to run locally:
+1. Clone the repository
+2. Run `npm install` to install dependencies
+3. Run `npm run dev` to start the Vite development server
+4. Open `http://localhost:5173` in the browser
+c. Environment notes: 
+The application relies on mock data initialized in Pinia stores. No external database connection string is required.
+
+=========================================
+10. Conclusion
+=========================================
+a. What you learned:
+- Technical: Deepened understanding of advanced Tailwind CSS layout techniques (handling flexbox quirks, dark mode implementation) and managing complex reactive states using Vue 3 Composition API and Pinia.
+- Teamwork: Improved Git version control workflows, component separation of concerns, and collaborative problem-solving.
+
+b. Future Improvements:
+- Integrating a real backend database (Node.js/Firebase).
+- Adding real-time email/push notifications for application status updates.
+- Implementing an in-app messaging system between admins and students.
+
+=========================================
+11. References
+=========================================
+- Vue.js 3 Documentation: https://vuejs.org/
+- Tailwind CSS Documentation: https://tailwindcss.com/
+- Pinia Documentation: https://pinia.vuejs.org/
+- FontAwesome Icons: https://fontawesome.com/
+
+=========================================
+12. Appendix
+=========================================
+- [Attach any additional charts, mockups, or code snippets here if required]
